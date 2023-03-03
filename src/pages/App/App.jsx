@@ -3,8 +3,9 @@ import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { getUser } from '../../utilities/users-service'
 import AuthPage from '../AuthPage/AuthPage';
-import NewOrderPage from '../NewOrderPage/NewOrderPage';
-import OrderHistoryPage from '../OrderHistoryPage/OrderHistoryPage';
+import BoardsPage from '../BoardsPage/BoardsPage';
+import NewBoardPage from '../NewBoardPage/NewBoardPage';
+import NewBigStepPage from '../NewBigStepPage/NewBigStepPage';
 import NavBar from '../../components/NavBar/NavBar'
 
 export default function App() {
@@ -17,8 +18,9 @@ export default function App() {
         <>
           <NavBar user={user} setUser={setUser} />
           <Routes>
-            <Route path="/orders/new" element={<NewOrderPage />} />
-            <Route path="/orders" element={<OrderHistoryPage />} />
+            <Route path="/boards" element={<BoardsPage />} />
+            <Route path="/boards/new" element={<NewBoardPage />} />
+            <Route path="/boards/:boardId/new-big-step" element={<NewBigStepPage />} />
           </Routes>
         </>
         :
