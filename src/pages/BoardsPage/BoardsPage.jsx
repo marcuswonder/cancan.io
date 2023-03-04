@@ -1,16 +1,30 @@
-import { checkToken } from '../../utilities/users-service'
+import { useState, useEffect } from 'react';
+import * as boardsAPI from '../../utilities/boards-api'
 
-export default function OrderHistoryPage() {
+export default function BoardsPage() {
+    const [boardGallery, setboardGallery] = useState([]);
 
-    async function handleCheckToken() {
-        const expDate = await checkToken()
-        console.log(expDate)
-    }
+    useEffect(function() {
+        async function getBoards() {
+          const boards = await boardsAPI.getUserBoards();
+          setboardGallery(boards)
+        }
+        getBoards()
+        console.log("BoardsPage line 13", boardGallery)
+    })
+
 
     return (
         <>
-            <h1>OrderHistoryPage</h1>
-            <button onClick={handleCheckToken}>Check When my Login Expires</button>
+        {boardGallery.length ?
+            <div>
+                <h1>Boards Page</h1>
+                {boardGallery}
+            </div>
+
+        :
+        <p>Create some new boards!</p>
+        }
         </>
     )
 }
