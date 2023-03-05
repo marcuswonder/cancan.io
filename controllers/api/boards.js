@@ -14,9 +14,7 @@ async function index(req, res) {
 }
 
 async function create(req, res) {
-    req.body.user = req.user
-    console.log(req.body)
-    const newBoard = new Board()
-    const board = await newBoard.addBoard(req.body)
+    req.body.board.author = req.user
+    const board = await Board.create(req.body.board)
     res.json(board)
   }

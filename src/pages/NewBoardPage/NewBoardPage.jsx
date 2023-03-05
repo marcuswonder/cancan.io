@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-export default function NewBoardPage(createBoard, user) {
-    console.log("New Board Page Line 4", createBoard)
+export default function NewBoardPage({createBoard, user}) {
+    // console.log("New Board Page Line 4", createBoard)
     const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
     
    function handleCreateBoard(evt) {

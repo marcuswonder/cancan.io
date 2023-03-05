@@ -7,5 +7,5 @@ export async function getUserBoards() {
 }
 
 export async function createBoard(board) {
-    return sendRequest(`${BASE_URL}`, 'POST', {board});
+    return sendRequest(`${BASE_URL}/new`, 'POST', {board});
 }
