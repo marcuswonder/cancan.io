@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import * as boardsAPI from '../../utilities/boards-api'
 
-export default function NewBoardPage({createBoard, user}) {
+export default function NewBoardPage({}) {
   // console.log("New Board Page Line 4", createBoard)
+  const [ boards, setBoards ] = useState([])
   const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
   const navigate = useNavigate()
+
+  async function createBoard(newBoard) {
+    await boardsAPI.createBoard(newBoard)
+    setBoards([...[boards], newBoard])
+  }
     
   function handleCreateBoard(evt) {
     evt.preventDefault()
