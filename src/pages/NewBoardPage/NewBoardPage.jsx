@@ -1,13 +1,16 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function NewBoardPage({createBoard, user}) {
   // console.log("New Board Page Line 4", createBoard)
   const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
+  const navigate = useNavigate()
     
   function handleCreateBoard(evt) {
     evt.preventDefault()
     createBoard(newBoard)
     setNewBoard({ title: '', description: '', users: [] })
+    navigate('/boards')
   }
     
   function handleChange(evt) {
@@ -20,7 +23,7 @@ export default function NewBoardPage({createBoard, user}) {
 
   return (
       <div>
-          <h1>Create Form</h1>
+          <h1>New Board</h1>
           <div className="form-container">
               <form autoComplete="off" onSubmit={handleCreateBoard}>
                   <label>Title</label>
