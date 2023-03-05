@@ -11,11 +11,11 @@ import NavBar from '../../components/NavBar/NavBar'
 
 export default function App() {
   const [ user, setUser ] = useState(getUser())
-  const [ boards, setBoards ] = useState()
+  const [ boards, setBoards ] = useState([])
 
   async function createBoard(newBoard) {
     await boardsAPI.createBoard(newBoard)
-    setBoards([...boards, newBoard])
+    setBoards([...[boards], newBoard])
   }
 
   return (
