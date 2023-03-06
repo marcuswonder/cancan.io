@@ -3,25 +3,24 @@ import { Link } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'
 
 export default function BoardsList() {
-    const [boardGallery, setboardGallery] = useState([])
+    const [userBoardGallery, setUserBoardGallery] = useState([])
 
     useEffect(function() {
         async function getBoards() {
           const boards = await boardsAPI.getUserBoards()
-          setboardGallery(boards)
+          setUserBoardGallery(boards)
         }
         getBoards()
-        // console.log("BoardsList line 14", boardGallery)
     }, [])
 
 
     return (
         <>
-        {boardGallery.length ?
+        {userBoardGallery.length ?
             <div>
                 <h2>Boards List</h2>
                     <div>
-                        {boardGallery.map(board => (
+                        {userBoardGallery.map(board => (
                             <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}>
                             <p>{board.title}</p>
                             </Link>

@@ -1,14 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
-import BoardsList from '../../components/BoardsList/BoardsList'
+import { Outlet } from 'react-router-dom'
 
 export default function BoardsPage() {
 
     return (
         <>
             <h1>Boards Page</h1>
-            <Routes>
-                    <Route path="/" element={<BoardsList />} />
-            </Routes>
+            <Outlet />
         </>
     )
 }

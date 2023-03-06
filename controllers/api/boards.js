@@ -2,6 +2,7 @@ const Board = require('../../models/board')
 
 module.exports = {
     index,
+    show,
     create,
 }
 
@@ -12,6 +13,17 @@ async function index(req, res) {
     }
     res.json(boards)  
 }
+
+async function show(req, res) {
+    console.log("controller line 18", req.params)
+    let board = {}
+    if (req.user) {
+        board = await Board.findOne({user: req.user._id, title: req.params.boardName})
+    }
+    console.log("controller line 23", board)
+    res.json(board)  
+}
+
 
 async function create(req, res) {
     req.body.board.author = req.user
