@@ -15,6 +15,13 @@ async function index(req, res) {
 
 async function create(req, res) {
     req.body.board.author = req.user
-    const board = await Board.create(req.body.board)
-    res.json(board)
-  }
+    newBoard = req.body.board
+    const existingBoard = await Board.findByTitle(newBoard.title)
+
+    if(existingBoard) {
+        return res.status(400).json({ error: 'Document with this title already exists' })
+    } else {
+        const board = await Board.create(newBoard)
+        res.json(board)
+    }
+}

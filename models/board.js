@@ -24,4 +24,9 @@ const boardSchema = new Schema({
     
 })
 
+boardSchema.statics.findByTitle = async function(title) {
+    const board = await this.findOne({ title });
+    return board;
+  };
+
 module.exports = mongoose.model('Board', boardSchema);

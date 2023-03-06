@@ -20,7 +20,8 @@ export default function App() {
           <Routes>
             <Route path="/boards" element={<BoardsPage />} />
             <Route path="/boards/new" element={<NewBoardPage />} />
-            <Route path="/boards/:boardId/big-steps/new" element={<NewBigStepPage />} />
+            <Route path="/boards/:boardName" element={<BoardsPage />} />
+            <Route path="/boards/:boardName/big-steps/new" element={<NewBigStepPage />} />
           </Routes>
         </>
         :

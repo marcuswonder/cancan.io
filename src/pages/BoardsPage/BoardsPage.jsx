@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function BoardsPage() {
     const [boardGallery, setboardGallery] = useState([])
+    const navigate = useNavigate()
 
     useEffect(function() {
         async function getBoards() {
@@ -19,9 +21,13 @@ export default function BoardsPage() {
         {boardGallery.length ?
             <div>
                 <h1>Boards Page</h1>
-                {boardGallery.map(board => (
-                        <p key={board._id}>{board.title}</p>
+                    <div>
+                        {boardGallery.map(board => (
+                            <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`}>
+                                <p key={board._id}>{board.title}</p>
+                            </Link>
                     ))}
+                    </div>
             </div>
 
         :
