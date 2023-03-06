@@ -1,23 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
+import * as usersAPI from '../../utilities/users-api'
+// import Select from 'react-select'; consider for user search bar later
 
-export default function NewBoardPage({}) {
-  // console.log("New Board Page Line 4", createBoard)
+export default function NewBoardPage({ userProp }) {
   const [ boards, setBoards ] = useState([])
   const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
+  const [usersGallery, setUsersGallery] = useState([])
+  const [selectedUsers, setSelectedUsers] = useState([])
+
   const navigate = useNavigate()
 
   async function createBoard(newBoard) {
-    await boardsAPI.createBoard(newBoard)
-    setBoards([...[boards], newBoard])
+    newBoard.users = selectedUsers;
+    const createdBoard = await boardsAPI.createBoard(newBoard);
+    setBoards([...boards, createdBoard]);
   }
     
-  function handleCreateBoard(evt) {
-    evt.preventDefault()
-    createBoard(newBoard)
-    setNewBoard({ title: '', description: '', users: [] })
-    navigate('/boards')
+  async function handleCreateBoard(evt) {
+    evt.preventDefault();
+    const boardData = { ...newBoard, users: selectedUsers };
+    await createBoard(boardData);
+    setNewBoard({ title: "", description: "", users: [] });
+    setSelectedUsers([]);
+    navigate("/boards");
   }
     
   function handleChange(evt) {
@@ -28,6 +35,27 @@ export default function NewBoardPage({}) {
     setNewBoard(newFormData);
   }
 
+  function handleUserSelect(evt) {
+    const options = evt.target.options;
+    const selectedUsers = []
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedUsers.push(options[i].value)
+      }
+    }
+    setSelectedUsers(selectedUsers);
+  }
+
+  useEffect(function() {
+    async function getUsers() {
+      const users = await usersAPI.getUsers()
+      const otherUsers = users.filter(user => user._id !== userProp._id)
+      console.log("other users", otherUsers)
+      setUsersGallery(otherUsers);
+    }
+    getUsers()
+}, [userProp._id])
+
   return (
       <div>
           <h1>New Board</h1>
@@ -37,7 +65,13 @@ export default function NewBoardPage({}) {
                   <input type="text" name="title" onChange={handleChange} value={newBoard.title} required />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
-                  {/* Need something for users */}
+                  <select name="users" multiple onChange={handleUserSelect}>
+                    {usersGallery.map((user) => (
+                      <option key={user._id} value={user._id}>
+                        {user.name}
+                      </option>
+                    ))}
+                  </select>
                   
                   <button type="submit">Create Board</button>
               </form>

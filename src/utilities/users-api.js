@@ -12,3 +12,8 @@ export function login(credentials) {
 export function checkToken() {
     return sendRequest(`${BASE_URL}/check-token`)
 }
+
+export async function getUsers() {
+    console.log("Utilities getUser function being  hit")
+    return sendRequest(`${BASE_URL}`)
+}

@@ -5,7 +5,8 @@ const User = require('../../models/user')
 module.exports = {
     create,
     login,
-    checkToken
+    checkToken,
+    index,
 }
 
 async function create(req, res) {
@@ -35,6 +36,21 @@ function checkToken(req, res) {
     console.log('req.user', req.user)
     res.json(req.exp)
 }
+
+async function index(req, res) {
+    console.log("User Index function being hit")
+    try {
+      let users = []
+      if (req.user) {
+        users = await User.find({})
+      }
+      res.json(users)
+    } catch (err) {
+      console.error(err)
+      res.status(500).send('Error retrieving users')
+    }
+  }
+
 
 /*-- Helper Functions --*/
 

@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 
@@ -22,6 +22,10 @@ export default function BoardDetail() {
         navigate('/boards');
     }
 
+    async function handleBigStepEditClick() {
+
+    }
+
     return (
         <>
             <h2>Board Detail</h2>
@@ -35,7 +39,6 @@ export default function BoardDetail() {
                     <p key={user._id}>{user.name}</p>
                 ))} */}
                 <p>{userBoard.createdAt}</p>
-                
                 <button onClick={handleDeleteClick}>Delete</button>
             </div>
         </>

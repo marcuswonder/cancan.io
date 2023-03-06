@@ -7,19 +7,9 @@ module.exports = {
     delete: deleteBoard,
 }
 
-// async function index(req, res) {
-//     console.log("User Request", req.user._id)
-//     let boards = []
-//     if (req.user) {
-//         boards = await Board.find({'author._id': req.user._id})
-//     }
-//     // add in some error handling here!
-//     res.json(boards)
-// }
 
 async function index(req, res) {
     try {
-      console.log("User Request", req.user._id)
       let boards = []
       if (req.user) {
         boards = await Board.find({author: req.user._id})
@@ -31,13 +21,21 @@ async function index(req, res) {
     }
   }
 
-async function show(req, res) {
-    let board = {}
-    if (req.user) {
+  async function show(req, res) {
+    try {
+      let board = {}
+      if (req.user) {
         board = await Board.findOne({user: req.user._id, title: req.params.boardName})
+      }
+      if (!board) {
+        return res.status(404).send('Board not found')
+      }
+      res.json(board)
+    } catch (err) {
+      console.error(err)
+      res.status(500).send('Error retrieving board')
     }
-    res.json(board)  
-}
+  }
 
 
 async function create(req, res) {
@@ -49,16 +47,14 @@ async function create(req, res) {
         return res.status(400).json({ error: 'Document with this title already exists' })
     } else {
         const board = await Board.create(newBoard)
-        res.json(board)
+        res.status(200).json(board)
     }
 }
 
 async function deleteBoard(req, res) {
-    console.log("Delete Board hit", req.params)
-    console.log("Delete 2", req.params.boardID)
     let board = {}
     if (req.user) {
         board = await Board.deleteOne({user: req.user._id, title: req.params.boardName})
     }
-    res.status(200).json({message: "Board deleted successfully."})  
+    res.status(200).json({message: 'Board deleted successfully.'})  
 }
