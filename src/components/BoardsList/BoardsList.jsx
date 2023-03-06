@@ -11,7 +11,7 @@ export default function BoardsList() {
           setboardGallery(boards)
         }
         getBoards()
-        console.log("BoardsList line 14", boardGallery)
+        // console.log("BoardsList line 14", boardGallery)
     }, [])
 
 
@@ -22,8 +22,8 @@ export default function BoardsList() {
                 <h2>Boards List</h2>
                     <div>
                         {boardGallery.map(board => (
-                            <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`}>
-                                <p key={board._id}>{board.title}</p>
+                            <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}>
+                            <p>{board.title}</p>
                             </Link>
                     ))}
                     </div>
