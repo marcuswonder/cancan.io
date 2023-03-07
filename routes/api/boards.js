@@ -6,6 +6,7 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn')
 router.get('/', ensureLoggedIn, boardsCtrl.index)
 router.post('/new', ensureLoggedIn, boardsCtrl.create)
 router.get('/:boardName', ensureLoggedIn, boardsCtrl.show)
+router.put('/:boardName', ensureLoggedIn, boardsCtrl.update)
 router.delete('/:boardName', ensureLoggedIn, boardsCtrl.delete)
 
 module.exports = router;

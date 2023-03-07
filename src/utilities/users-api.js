@@ -14,6 +14,5 @@ export function checkToken() {
 }
 
 export async function getUsers() {
-    console.log("Utilities getUser function being  hit")
     return sendRequest(`${BASE_URL}`)
 }

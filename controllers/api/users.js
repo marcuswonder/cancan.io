@@ -38,7 +38,6 @@ function checkToken(req, res) {
 }
 
 async function index(req, res) {
-    console.log("User Index function being hit")
     try {
       let users = []
       if (req.user) {

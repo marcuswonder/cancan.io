@@ -22,10 +22,6 @@ export default function BoardDetail() {
         navigate('/boards');
     }
 
-    async function handleBigStepEditClick() {
-
-    }
-
     return (
         <>
             <h2>Board Detail</h2>
@@ -39,7 +35,10 @@ export default function BoardDetail() {
                     <p key={user._id}>{user.name}</p>
                 ))} */}
                 <p>{userBoard.createdAt}</p>
-                <button onClick={handleDeleteClick}>Delete</button>
+                <Link to={`/boards/${boardName}/update`} >
+                    <button>Update Board</button>
+                </Link>
+                <button onClick={handleDeleteClick}>Delete Board</button>
             </div>
         </>
     )

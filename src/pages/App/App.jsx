@@ -7,6 +7,7 @@ import BoardsPage from '../BoardsPage/BoardsPage';
 import BoardsList from '../../components/BoardsList/BoardsList'
 import BoardDetail from '../../components/BoardDetail/BoardDetail'
 import NewBoardPage from '../NewBoardPage/NewBoardPage';
+import UpdateBoardPage from '../UpdateBoardPage/UpdateBoardPage';
 import AuthPage from '../AuthPage/AuthPage';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
               <Route path=":boardName" element={<BoardDetail />} />
             </Route>
             <Route path="/boards/new" element={<NewBoardPage  userProp={userProp} />} />
+            <Route path="/boards/:boardName/update" element={<UpdateBoardPage  userProp={userProp} />} />
           </Routes>
         </>
         :
@@ -34,5 +36,3 @@ export default function App() {
     </main>
   );
 }
-
-

@@ -1,38 +1,45 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 // import Select from 'react-select'; consider for user search bar later
 
 export default function NewBoardPage({ userProp }) {
-  const [ boards, setBoards ] = useState([])
-  const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
-  const [usersGallery, setUsersGallery] = useState([])
-  const [selectedUsers, setSelectedUsers] = useState([])
+  const { boardName } = useParams()
+    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    const [ boardUpdate, setBoardUpdate ] = useState({ title: '', description: '', users: [] })
+    const [usersGallery, setUsersGallery] = useState([])
+    const [selectedUsers, setSelectedUsers] = useState([])
+    const navigate = useNavigate()
 
-  const navigate = useNavigate()
+    useEffect(function() {
+        async function getBoard() {
+          const boards = await boardsAPI.getUserBoard(boardNameActual)
+          setBoardUpdate(boards)
+        }
+        getBoard()
+    }, [boardNameActual])
 
-  async function createBoard(newBoard) {
-    newBoard.users = selectedUsers;
-    const createdBoard = await boardsAPI.createBoard(newBoard);
-    setBoards([...boards, createdBoard]);
+  async function updateBoard(boardUpdate) {
+    boardUpdate.users = selectedUsers
+    return await boardsAPI.updateBoard(boardUpdate)
   }
     
-  async function handleCreateBoard(evt) {
+  async function handleUpdateBoard(evt) {
     evt.preventDefault();
-    const boardData = { ...newBoard, users: selectedUsers };
-    await createBoard(boardData);
-    setNewBoard({ title: "", description: "", users: [] });
+    const boardData = { ...boardUpdate, users: selectedUsers, _id: boardUpdate._id };
+    const updatedBoard = await updateBoard(boardData);
+    setBoardUpdate({ title: "", description: "", users: [] });
     setSelectedUsers([]);
-    navigate("/boards");
+    navigate(`/boards/${updatedBoard.title}`);
   }
     
   function handleChange(evt) {
     const newFormData = {
-      ...newBoard,
+      ...boardUpdate,
       [evt.target.name]: evt.target.value,
     }
-    setNewBoard(newFormData);
+    setBoardUpdate(newFormData);
   }
 
   function handleUserSelect(evt) {
@@ -59,11 +66,11 @@ export default function NewBoardPage({ userProp }) {
       <div>
           <h1>New Board</h1>
           <div className="form-container">
-              <form autoComplete="off" onSubmit={handleCreateBoard}>
+              <form autoComplete="off" onSubmit={handleUpdateBoard}>
                   <label>Title</label>
-                  <input type="text" name="title" onChange={handleChange} value={newBoard.title} required />
+                  <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />
                   <label>Description</label>
-                  <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
+                  <input type="text" name="description" onChange={handleChange} value={boardUpdate.description}  />
                   <label>Add Users</label>
                   <select name="users" multiple onChange={handleUserSelect}>
                     {usersGallery.map((user) => (
@@ -73,7 +80,7 @@ export default function NewBoardPage({ userProp }) {
                     ))}
                   </select>
                   
-                  <button type="submit">Create Board</button>
+                  <button type="submit">Update Board</button>
               </form>
           </div>
     </div>

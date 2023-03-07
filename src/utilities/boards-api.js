@@ -20,3 +20,6 @@ export async function deleteUserBoard(boardNameActual) {
     return sendRequest(`${BASE_URL}/${boardName}`, 'DELETE')
 }
 
+export async function updateBoard(boardUpdate) {
+    return sendRequest(`${BASE_URL}/update`, 'PUT', {boardUpdate})
+}
