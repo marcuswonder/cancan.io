@@ -21,7 +21,7 @@ export default function App() {
           <NavBar user={user} setUser={setUser} />
           <Routes>
             <Route path="/boards" element={<BoardsList />} />
-            <Route path="/boards/:boardName" element={<BoardDetail />} />
+            <Route path="/boards/:boardName" element={<BoardDetail userProp={userProp} />} />
             <Route path="/boards/new" element={<NewBoardPage  userProp={userProp} />} />
             <Route path="/boards/:boardName/update" element={<UpdateBoardPage  userProp={userProp} />} />
             {/* <Route path="/boards/:boardName/big-steps" element={<BigSteps />} /> */}

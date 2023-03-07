@@ -87,7 +87,7 @@ export default function NewBoardPage({ userProp }) {
                   <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={boardUpdate.description}  />
-                  <label>Add Users</label>
+                  <label>Confirm Users</label>
                   <select name="users" multiple onChange={handleUserSelect}>
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id}>

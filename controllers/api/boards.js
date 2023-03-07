@@ -67,10 +67,11 @@ async function create(req, res) {
 
 async function update(req, res) {
   const boardId = req.body.boardUpdate._id
+
+  const board = Board.findById(boardId)
   
   try {
     const boardUpdate = req.body.boardUpdate
-    boardUpdate.author = req.user._id
     
     Board.findOneAndUpdate(
       { _id: boardId },
@@ -78,15 +79,13 @@ async function update(req, res) {
       { new: true },
       (err, updatedBoard) => {
         if (err) {
-          console.log('Error updating board:', err);
+          console.log('Error updating Board:', err);
         } else {
           res.status(200).json(updatedBoard)
-          console.log("updatedBoard", updatedBoard)
         }
       }
     )
   } catch (error) {
-      console.log("try block failing")
       res.status(500).json({ error: "Server Error" })
   }
 }

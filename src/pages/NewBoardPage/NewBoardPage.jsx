@@ -26,15 +26,6 @@ export default function NewBoardPage({ userProp }) {
     setSelectedUsers([]);
     navigate("/boards");
   }
-    
-  // function handleChange(evt) {
-  //   const newFormData = {
-  //     ...newBoard,
-  //     [evt.target.name]: evt.target.value,
-  //   }
-  //   setNewBoard(newFormData);
-  // }
-
 
   function handleChange(evt) {
     const name = evt.target.name;
@@ -56,8 +47,6 @@ export default function NewBoardPage({ userProp }) {
       setNewBoard(newFormData);
     }
   }
-
-
 
   function handleUserSelect(evt) {
     const options = evt.target.options;
@@ -88,7 +77,7 @@ export default function NewBoardPage({ userProp }) {
                   <input type="text" name="title" onChange={handleChange} value={newBoard.title} required />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
-                  <label>Add Users</label>
+                  <label>Select Users</label>
                   <select name="users" multiple onChange={handleUserSelect}>
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id}>
