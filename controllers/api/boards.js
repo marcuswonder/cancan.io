@@ -95,7 +95,9 @@ async function update(req, res) {
 async function deleteBoard(req, res) {
     let board = {}
     if (req.user) {
-        board = await Board.deleteOne({user: req.user._id, title: req.params.boardName})
+        board = await Board.deleteOne({author: req.user._id, title: req.params.boardName})
+    } else {
+      res.status(400).json({ error: 'Only the author of a Board may delete it.' })
     }
     res.status(200).json({message: 'Board deleted successfully.'})  
 }
