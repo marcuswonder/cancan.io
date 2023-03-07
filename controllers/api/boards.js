@@ -74,7 +74,7 @@ async function update(req, res) {
     const boardUpdate = req.body.boardUpdate
     
     Board.findOneAndUpdate(
-      { _id: boardId },
+      { _id: boardId, author: req.user },
       boardUpdate,
       { new: true },
       (err, updatedBoard) => {

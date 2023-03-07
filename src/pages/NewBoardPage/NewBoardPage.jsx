@@ -65,7 +65,6 @@ export default function NewBoardPage({ user }) {
       users = await usersAPI.getUsers()
       const userIdx = users.findIndex(user => user._id === 'user._id')
       const otherUsers = users.splice(userIdx, 1)
-      console.log("otherUsers", otherUsers)
       setUsersGallery(otherUsers);
     }
     getUsers()

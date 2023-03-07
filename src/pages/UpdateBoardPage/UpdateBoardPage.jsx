@@ -13,16 +13,26 @@ export default function NewBoardPage({ user }) {
   const navigate = useNavigate()
 
   useEffect(function() {
+    async function checkUser() {
+      const board = await boardsAPI.getUserBoard(boardNameActual)
+      if (user._id !== board.author._id) {
+        navigate(`/boards/${boardName}`);
+      }
+    }
+    checkUser()
+  }, [boardNameActual, user, navigate, boardsAPI]);
+
+  useEffect(function() {
       async function getBoard() {
-        const boards = await boardsAPI.getUserBoard(boardNameActual)
-        setBoardUpdate(boards)
+        const board = await boardsAPI.getUserBoard(boardNameActual)
+        setBoardUpdate(board)
       }
       getBoard()
-  }, [boardNameActual])
-
-  async function updateBoard(boardUpdate) {
-    boardUpdate.users = selectedUsers
-    return await boardsAPI.updateBoard(boardUpdate)
+    }, [boardNameActual])
+    
+    async function updateBoard(boardUpdate) {
+      boardUpdate.users = selectedUsers
+      return await boardsAPI.updateBoard(boardUpdate)
   }
     
   async function handleUpdateBoard(evt) {
@@ -75,7 +85,6 @@ export default function NewBoardPage({ user }) {
       users = await usersAPI.getUsers()
       const userIdx = users.findIndex(user => user._id === 'user._id')
       const otherUsers = users.splice(userIdx, 1)
-      console.log("otherUsers", otherUsers)
       setUsersGallery(otherUsers);
     }
     getUsers()
