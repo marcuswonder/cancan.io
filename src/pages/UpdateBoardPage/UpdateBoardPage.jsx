@@ -31,7 +31,10 @@ export default function NewBoardPage({ userProp }) {
     const updatedBoard = await updateBoard(boardData);
     setBoardUpdate({ title: "", description: "", users: [] });
     setSelectedUsers([]);
-    navigate(`/boards/${updatedBoard.title}`);
+    
+    const newUrl = updatedBoard.title ? updatedBoard.title.replace(/\s+/g, '-') : ''
+
+    navigate(`/boards/${newUrl}`);
   }
     
   function handleChange(evt) {
