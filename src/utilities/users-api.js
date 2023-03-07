@@ -14,5 +14,5 @@ export function checkToken() {
 }
 
 export async function getUsers() {
-    return sendRequest(`${BASE_URL}`)
+    return sendRequest(`${BASE_URL}/index`)
 }

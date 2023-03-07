@@ -2,7 +2,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 
-export default function BoardDetail({userProp}) {
+export default function BoardDetail({user}) {
     const navigate = useNavigate();
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
@@ -19,7 +19,7 @@ export default function BoardDetail({userProp}) {
 
     
     async function handleDeleteClick() {
-        if (userProp._id === userBoard.author._id) {
+        if (user._id === userBoard.author._id) {
             await boardsAPI.deleteUserBoard(boardNameActual)
             navigate('/boards');
         } else {
@@ -51,7 +51,7 @@ export default function BoardDetail({userProp}) {
                 </div>
                 <p>{userBoard.createdAt}</p>
                 
-                {userProp._id === userBoard.author?._id ? (
+                {user._id === userBoard.author?._id ? (
                     <>
                         <Link to={`/boards/${boardName}/update`} >
                             <button>Update Board</button>

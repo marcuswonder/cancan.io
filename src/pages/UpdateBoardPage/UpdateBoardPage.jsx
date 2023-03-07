@@ -4,21 +4,21 @@ import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 // import Select from 'react-select'; consider for user search bar later
 
-export default function NewBoardPage({ userProp }) {
+export default function NewBoardPage({ user }) {
   const { boardName } = useParams()
-    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
-    const [ boardUpdate, setBoardUpdate ] = useState({ title: '', description: '', users: [] })
-    const [usersGallery, setUsersGallery] = useState([])
-    const [selectedUsers, setSelectedUsers] = useState([])
-    const navigate = useNavigate()
+  const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+  const [ boardUpdate, setBoardUpdate ] = useState({ title: '', description: '', users: [] })
+  const [usersGallery, setUsersGallery] = useState([])
+  const [selectedUsers, setSelectedUsers] = useState([])
+  const navigate = useNavigate()
 
-    useEffect(function() {
-        async function getBoard() {
-          const boards = await boardsAPI.getUserBoard(boardNameActual)
-          setBoardUpdate(boards)
-        }
-        getBoard()
-    }, [boardNameActual])
+  useEffect(function() {
+      async function getBoard() {
+        const boards = await boardsAPI.getUserBoard(boardNameActual)
+        setBoardUpdate(boards)
+      }
+      getBoard()
+  }, [boardNameActual])
 
   async function updateBoard(boardUpdate) {
     boardUpdate.users = selectedUsers
@@ -71,12 +71,15 @@ export default function NewBoardPage({ userProp }) {
 
   useEffect(function() {
     async function getUsers() {
-      const users = await usersAPI.getUsers()
-      const otherUsers = users.filter(user => user._id !== userProp._id)
+      let users = []
+      users = await usersAPI.getUsers()
+      const userIdx = users.findIndex(user => user._id === 'user._id')
+      const otherUsers = users.splice(userIdx, 1)
+      console.log("otherUsers", otherUsers)
       setUsersGallery(otherUsers);
     }
     getUsers()
-}, [userProp._id])
+}, [user._id])
 
   return (
       <div>
