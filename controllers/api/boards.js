@@ -1,7 +1,8 @@
 const Board = require('../../models/board')
 
 module.exports = {
-    index,
+    authorIndex,
+    userIndex,
     show,
     create,
     update,
@@ -9,11 +10,23 @@ module.exports = {
 }
 
 
-async function index(req, res) {
+async function authorIndex(req, res) {
     try {
       let boards = []
       if (req.user) {
         boards = await Board.find({author: req.user._id})
+      }
+      res.json(boards)
+    } catch (err) {
+      console.error(err)
+      res.status(500).send('Error retrieving Boards')
+    }
+  }
+async function userIndex(req, res) {
+    try {
+      let boards = []
+      if (req.user) {
+        boards = await Board.find({user: req.user._id})
       }
       res.json(boards)
     } catch (err) {

@@ -2,8 +2,12 @@ import sendRequest from './send-request'
 
 const BASE_URL = '/api/boards'
 
+export async function getAuthorBoards() {
+    return sendRequest(`${BASE_URL}/author`)
+}
+
 export async function getUserBoards() {
-    return sendRequest(`${BASE_URL}`)
+    return sendRequest(`${BASE_URL}/user`)
 }
 
 export async function getUserBoard(boardNameActual) {
