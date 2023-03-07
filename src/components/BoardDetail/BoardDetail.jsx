@@ -30,10 +30,20 @@ export default function BoardDetail() {
                 <p>MongoDB ID: {userBoard._id}</p>
                 <p>Description: {userBoard.description}</p>
                 <p>Status: {userBoard.status}</p>
-                <p>Author: {userBoard.author}</p>
-                {/* {userBoard.users.map((user) => (
-                    <p key={user._id}>{user.name}</p>
-                ))} */}
+                <div>
+                    {userBoard.author && <p>Author: {userBoard.author.name}</p>}
+                    
+                    {userBoard.users && userBoard.users.length > 0 && (
+                        <p>Users:</p>
+                    )}
+                    {userBoard.users && userBoard.users.length > 0 ? (
+                        userBoard.users.map((user) => (
+                            <p key={user._id}>{user.name}</p>
+                        ))
+                    ) : (
+                        <></>
+                    )}
+                </div>
                 <p>{userBoard.createdAt}</p>
                 <Link to={`/boards/${boardName}/update`} >
                     <button>Update Board</button>
