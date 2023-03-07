@@ -27,13 +27,37 @@ export default function NewBoardPage({ userProp }) {
     navigate("/boards");
   }
     
+  // function handleChange(evt) {
+  //   const newFormData = {
+  //     ...newBoard,
+  //     [evt.target.name]: evt.target.value,
+  //   }
+  //   setNewBoard(newFormData);
+  // }
+
+
   function handleChange(evt) {
-    const newFormData = {
-      ...newBoard,
-      [evt.target.name]: evt.target.value,
+    const name = evt.target.name;
+    const value = evt.target.value;
+    const regex = /^[a-zA-Z0-9\s]*$/; // regex to match only alphanumeric characters and spaces
+    if (name === 'title' || name === 'description') {
+      if (regex.test(value)) {
+        const newFormData = {
+          ...newBoard,
+          [name]: value,
+        };
+        setNewBoard(newFormData);
+      }
+    } else {
+      const newFormData = {
+        ...newBoard,
+        [name]: value,
+      };
+      setNewBoard(newFormData);
     }
-    setNewBoard(newFormData);
   }
+
+
 
   function handleUserSelect(evt) {
     const options = evt.target.options;

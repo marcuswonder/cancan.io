@@ -24,7 +24,7 @@ export default function BoardDetail() {
 
     return (
         <>
-            <h2>Board Detail</h2>
+            <h2>{userBoard.title}</h2>
             <div>
                 <h2>Title: {userBoard.title}</h2>
                 <p>MongoDB ID: {userBoard._id}</p>

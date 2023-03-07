@@ -38,11 +38,24 @@ export default function NewBoardPage({ userProp }) {
   }
     
   function handleChange(evt) {
-    const newFormData = {
-      ...boardUpdate,
-      [evt.target.name]: evt.target.value,
+    const name = evt.target.name;
+    const value = evt.target.value;
+    const regex = /^[a-zA-Z0-9\s]*$/; // regex to match only alphanumeric characters and spaces
+    if (name === 'title' || name === 'description') {
+      if (regex.test(value)) {
+        const newFormData = {
+          ...boardUpdate,
+          [name]: value,
+        };
+        setBoardUpdate(newFormData);
+      }
+    } else {
+      const newFormData = {
+        ...boardUpdate,
+        [name]: value,
+      };
+      setBoardUpdate(newFormData);
     }
-    setBoardUpdate(newFormData);
   }
 
   function handleUserSelect(evt) {
@@ -67,7 +80,7 @@ export default function NewBoardPage({ userProp }) {
 
   return (
       <div>
-          <h1>New Board</h1>
+          <h1>{boardUpdate.title}</h1>
           <div className="form-container">
               <form autoComplete="off" onSubmit={handleUpdateBoard}>
                   <label>Title</label>
