@@ -1,7 +1,7 @@
 import '../../pages/App/App.css';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'
-import * as bigStepsAPI from '../../utilities/big-steps-api'
+// import * as bigStepsAPI from '../../utilities/big-steps-api'
 
 export default function BigSteps({ user, board, bigSteps }) {
     const { boardName } = useParams()
@@ -9,10 +9,10 @@ export default function BigSteps({ user, board, bigSteps }) {
 
 
     async function handleDeleteClick(bigStep) {
-        console.log("bigStep", bigStep)
-        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
-            await bigStepsAPI.deleteBigStep(bigStep._id)
-        }
+        // console.log("bigStep", bigStep)
+        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        //     await bigStepsAPI.deleteBigStep(bigStep._id)
+        // }
     }
 
     return (

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import * as bigStepsAPI from '../../utilities/big-steps-api'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 
@@ -27,7 +26,7 @@ export default function AddBigStepPage({ user }) {
         newBigStep.author = user._id
         newBigStep.board = board._id
         newBigStep.responsible = responsibleUser
-        const createdBigStep = await bigStepsAPI.createBigStep(newBigStep);
+        const createdBigStep = await boardsAPI.createBigStep(newBigStep);
         setBigSteps([...bigSteps, createdBigStep]);
     }
     

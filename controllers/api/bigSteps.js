@@ -30,6 +30,6 @@ async function index(req, res) {
   if(board.bigSteps.length) {
     res.status(200).json(board.bigSteps)
   } else {
-    res.status(200).send("No Big Steps on this Board").json([])  
+    res.status(200).json([])  
   }
 }
