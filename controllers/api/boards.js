@@ -7,7 +7,6 @@ module.exports = {
     create,
     update,
     delete: deleteBoard,
-    bigStepIndex,
 }
 
 
@@ -29,7 +28,7 @@ async function userIndex(req, res) {
       if (req.user) {
         boards = await Board.find({users: req.user._id})
       }
-      res.json(boards)
+      res.status(200).json(boards)
     } catch (err) {
       console.error(err)
       res.status(500).send('Error retrieving Boards')
@@ -102,6 +101,3 @@ async function deleteBoard(req, res) {
 }
 
 
-async function bigStepIndex (req, res) {
-
-}

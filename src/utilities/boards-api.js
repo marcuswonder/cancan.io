@@ -28,6 +28,3 @@ export async function updateBoard(boardUpdate) {
     return sendRequest(`${BASE_URL}/update`, 'PUT', {boardUpdate})
 }
 
-export async function getBigSteps() {
-    return sendRequest(`${BASE_URL}/big-steps`)
-}

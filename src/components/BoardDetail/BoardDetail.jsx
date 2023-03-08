@@ -31,8 +31,6 @@ export default function BoardDetail({user}) {
         <>
             <h2>{board.title}</h2>
             <div>
-                <h2>Title: {board.title}</h2>
-                <p>MongoDB ID: {board._id}</p>
                 <p>Description: {board.description}</p>
                 <p>Status: {board.status}</p>
                 <div>
@@ -49,7 +47,6 @@ export default function BoardDetail({user}) {
                         <></>
                     )}
                 </div>
-                <p>{board.createdAt}</p>
                 
                 {user._id === board.author?._id ? (
                     <>
