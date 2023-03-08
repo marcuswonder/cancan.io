@@ -38,10 +38,8 @@ export async function getBoardBigSteps(boardNameActual) {
     return sendRequest(`${BASE_URL}/${boardName}/big-steps`)
 }
 
-export async function deleteBigStep(bigStep) {
-    // console.log("deleteBigStep in API hit")
-    // const bigStepId = bigStep
-    // console.log("bigStep._id", bigStep._id)
-    // console.log("bigStepId", bigStepId)
-    // return sendRequest(`${BASE_URL}/${bigStepId}`, 'DELETE')
+export async function deleteBigStep(boardName, bigStepName) {
+    console.log("bigStepName", bigStepName)
+    console.log("boardName", boardName)
+    return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/delete`, 'DELETE')
 }

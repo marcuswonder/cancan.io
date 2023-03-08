@@ -11,6 +11,13 @@ export default function BoardsList({user}) {
     const [board, setBoard] = useState({})
     const [bigSteps, setBigSteps] = useState([])
 
+    useEffect(function() {
+        async function getBoard() {
+            const boards = await boardsAPI.getUserBoard(boardNameActual)
+          setBoard(boards)
+        }
+        getBoard()
+    }, [boardNameActual])
     
     useEffect(function() {
         async function getBoardBigSteps() {

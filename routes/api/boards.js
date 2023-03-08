@@ -12,6 +12,6 @@ router.put('/:boardName', ensureLoggedIn, boardsCtrl.update)
 router.delete('/:boardName', ensureLoggedIn, boardsCtrl.delete)
 router.get('/:boardName/big-steps', ensureLoggedIn, bigStepsCtrl.index)
 router.post('/:boardName/big-steps/add', ensureLoggedIn, bigStepsCtrl.create)
-router.get('/:boardName/big-steps/delete', ensureLoggedIn, bigStepsCtrl.delete)
+router.delete('/:boardName/:bigStepName/delete', ensureLoggedIn, bigStepsCtrl.delete)
 
 module.exports = router;
