@@ -54,7 +54,6 @@ async function userIndex(req, res) {
 
 async function create(req, res) {
     newBoard = req.body.board
-    newBoard.author = req.user._id
     const existingBoard = await Board.findByTitle(newBoard.title)
 
     if(existingBoard) {

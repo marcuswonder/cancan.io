@@ -53,15 +53,13 @@ export default function BoardDetail({user}) {
                 
                 {user._id === userBoard.author?._id ? (
                     <>
-                        <Link to={`/boards/${boardName}/update`} >
-                            <button>Update Board</button>
-                        </Link>
+                        <Link to={`/boards/${boardName}/update`} ><button>Update Board</button></Link>
                         <button onClick={handleDeleteClick}>Delete Board</button>
                     </>
                 ) : (
                 <></>
                 )}
-
+                
             </div>
         </>
     )

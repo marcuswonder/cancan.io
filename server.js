@@ -20,7 +20,7 @@ app.use('/api/users', require('./routes/api/users'))
 
 const ensureLoggedIn = require('./config/ensureLoggedIn');
 app.use('/api/boards', ensureLoggedIn, require('./routes/api/boards'))
-// app.use('/api/boards/:boardId/big-steps', ensureLoggedIn, require('./routes/api/bigSteps'))
+app.use('/api/big-steps', ensureLoggedIn, require('./routes/api/big-steps'))
 
 
 // The following "catch all" route (note the *) is necessary

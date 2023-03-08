@@ -13,14 +13,15 @@ export default function NewBoardPage({ user }) {
   const navigate = useNavigate()
 
   async function createBoard(newBoard) {
-    newBoard.users = selectedUsers;
+    newBoard.author = user._id
+    newBoard.users = selectedUsers
     const createdBoard = await boardsAPI.createBoard(newBoard);
     setBoards([...boards, createdBoard]);
   }
     
   async function handleCreateBoard(evt) {
     evt.preventDefault();
-    const boardData = { ...newBoard, users: selectedUsers };
+    const boardData = { ...newBoard};
     await createBoard(boardData);
     setNewBoard({ title: "", description: "", users: [] });
     setSelectedUsers([]);
@@ -63,8 +64,10 @@ export default function NewBoardPage({ user }) {
     async function getUsers() {
       let users = []
       users = await usersAPI.getUsers()
+      console.log("users", users)
       const userIdx = users.findIndex(user => user._id === 'user._id')
       const otherUsers = users.splice(userIdx, 1)
+      console.log("otherUsers", otherUsers)
       setUsersGallery(otherUsers);
     }
     getUsers()

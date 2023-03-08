@@ -20,7 +20,7 @@ export default function NewBoardPage({ user }) {
       }
     }
     checkUser()
-  }, [boardNameActual, user, navigate, boardsAPI]);
+  }, [boardNameActual, boardName, user, navigate]);
 
   useEffect(function() {
       async function getBoard() {

@@ -10,6 +10,11 @@ const bigStepSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    board: {
+        type: Schema.Types.ObjectId,
+        ref: 'Board',
+        required: true,
+    },
     responsible: {
         type: Schema.Types.ObjectId,
         ref: 'User',
