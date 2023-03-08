@@ -41,7 +41,7 @@ async function index(req, res) {
     try {
       let users = []
       if (req.user) {
-        users = await User.find({})
+        users = await User.find()
       }
       res.json(users)
     } catch (err) {

@@ -7,19 +7,19 @@ export default function BoardDetail({user}) {
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
 
-    const [userBoard, setUserBoard] = useState({})
+    const [board, setBoard] = useState({})
 
     useEffect(function() {
         async function getBoard() {
             const boards = await boardsAPI.getUserBoard(boardNameActual)
-          setUserBoard(boards)
+          setBoard(boards)
         }
         getBoard()
     }, [boardNameActual])
 
     
     async function handleDeleteClick() {
-        if (user._id === userBoard.author._id) {
+        if (user._id === board.author._id) {
             await boardsAPI.deleteUserBoard(boardNameActual)
             navigate('/boards');
         } else {
@@ -29,29 +29,29 @@ export default function BoardDetail({user}) {
 
     return (
         <>
-            <h2>{userBoard.title}</h2>
+            <h2>{board.title}</h2>
             <div>
-                <h2>Title: {userBoard.title}</h2>
-                <p>MongoDB ID: {userBoard._id}</p>
-                <p>Description: {userBoard.description}</p>
-                <p>Status: {userBoard.status}</p>
+                <h2>Title: {board.title}</h2>
+                <p>MongoDB ID: {board._id}</p>
+                <p>Description: {board.description}</p>
+                <p>Status: {board.status}</p>
                 <div>
-                    {userBoard.author && <p>Author: {userBoard.author.name}</p>}
+                    {board.author && <p>Author: {board.author.name}</p>}
                     
-                    {userBoard.users && userBoard.users.length > 0 && (
+                    {board.users && board.users.length > 0 && (
                         <p>Users:</p>
                     )}
-                    {userBoard.users && userBoard.users.length > 0 ? (
-                        userBoard.users.map((user) => (
+                    {board.users && board.users.length > 0 ? (
+                        board.users.map((user) => (
                             <p key={user._id}>{user.name}</p>
                         ))
                     ) : (
                         <></>
                     )}
                 </div>
-                <p>{userBoard.createdAt}</p>
+                <p>{board.createdAt}</p>
                 
-                {user._id === userBoard.author?._id ? (
+                {user._id === board.author?._id ? (
                     <>
                         <Link to={`/boards/${boardName}/update`} ><button>Update Board</button></Link>
                         <button onClick={handleDeleteClick}>Delete Board</button>
