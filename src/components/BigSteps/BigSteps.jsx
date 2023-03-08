@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 
-export default function BigSteps({ user, board, bigSteps }) {
+export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
     const navigate = useNavigate()
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
@@ -12,8 +12,8 @@ export default function BigSteps({ user, board, bigSteps }) {
     async function handleDeleteClick(bigStep) {
         if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             await boardsAPI.deleteBigStep(board.title, bigStep.title)
-            navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);
-        }
+            setBigSteps(bigSteps.filter((bStep) => bStep._id != bigStep._id)
+        )}
     }
 
     return (
