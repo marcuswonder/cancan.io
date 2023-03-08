@@ -1,4 +1,4 @@
-const BigStep = require('../../models/bigStep')
+const Board = require('../../models/board')
 
 module.exports = {
     create,
@@ -7,9 +7,17 @@ module.exports = {
 
 async function create(req, res) {
     const newBigStep = req.body.bigStep
-    await BigStep.create(newBigStep)
-    res.status(200).json(newBigStep)
-}
+    console.log("newBigStep", newBigStep)
+
+    const updatedBoard = await Board.findByIdAndUpdate(newBigStep.board, {
+        $push: {
+          bigSteps: newBigStep
+        },
+      }, { new: true })
+    
+      res.status(200).json(updatedBoard)  
+    }
+
 
 function deleteBigStep() {
 

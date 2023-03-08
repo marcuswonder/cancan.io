@@ -1,5 +1,4 @@
 const Board = require('../../models/board')
-const BigStep = require('../../models/bigStep')
 
 module.exports = {
     authorIndex,
@@ -105,15 +104,16 @@ async function deleteBoard(req, res) {
 }
 
 async function bigStepIndex(req, res) {
-  try {
-    if (req.user) {
-      const board = await Board.findOne({ title: req.params.boardName });
-      const boardBigSteps = await BigStep.find({board: board._id})
-      console.log("boardBigSteps", boardBigSteps)
-      res.status(200).json(boardBigSteps)
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error retrieving Big Steps");
-  }
+  console.log("biStepIndex on controller hit")
+//   try {
+//     if (req.user) {
+//       const board = await Board.findOne({ title: req.params.boardName });
+//       const boardBigSteps = await BigStep.find({board: board._id})
+//       console.log("boardBigSteps", boardBigSteps)
+//       res.status(200).json(boardBigSteps)
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Error retrieving Big Steps");
+//   }
 }
