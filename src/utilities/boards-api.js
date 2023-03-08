@@ -28,3 +28,7 @@ export async function updateBoard(boardUpdate) {
     return sendRequest(`${BASE_URL}/update`, 'PUT', {boardUpdate})
 }
 
+export async function getBoardBigSteps(boardNameActual) {
+    const boardName = boardNameActual
+    return sendRequest(`${BASE_URL}/${boardName}/big-steps`)
+}

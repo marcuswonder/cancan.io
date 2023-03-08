@@ -1,4 +1,5 @@
 const Board = require('../../models/board')
+const BigStep = require('../../models/bigStep')
 
 module.exports = {
     authorIndex,
@@ -7,8 +8,8 @@ module.exports = {
     create,
     update,
     delete: deleteBoard,
+    bigStepIndex,
 }
-
 
 async function authorIndex(req, res) {
     try {
@@ -22,6 +23,7 @@ async function authorIndex(req, res) {
       res.status(500).send('Error retrieving Boards')
     }
   }
+
 async function userIndex(req, res) {
     try {
       let boards = []
@@ -50,7 +52,6 @@ async function userIndex(req, res) {
       res.status(500).send('Error retrieving Board')
     }
   }
-
 
 async function create(req, res) {
     newBoard = req.body.board
@@ -89,7 +90,6 @@ async function update(req, res) {
   }
 }
 
-
 async function deleteBoard(req, res) {
     let board = {}
     if (req.user) {
@@ -100,4 +100,22 @@ async function deleteBoard(req, res) {
     res.status(200).json({message: 'Board deleted successfully.'})  
 }
 
+async function bigStepIndex(req, res) {
+  try {
+    if (req.user) {
+      const board = await Board.findOne({ title: req.params.boardName });
+      const allBigSteps = await BigStep.find({}).populate({path: "board", model: "Board"}).populate({path: "author", model: "User"}).populate({path: "responsible", model: "User"})
+      const boardBigSteps = allBigSteps.filter(bigStep => {
+        return bigStep.board.equals(board)
+      })
+      res.status(200).json(boardBigSteps);
 
+    } else {
+      res.status(401).send("Unauthorized");
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error retrieving Big Steps");
+  }
+}

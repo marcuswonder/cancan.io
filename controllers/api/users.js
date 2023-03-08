@@ -42,7 +42,6 @@ async function index(req, res) {
       let users = []
       if (req.user) {
         users = await User.find({})
-        console.log("users in controller", users)
       }
       res.json(users)
     } catch (err) {
