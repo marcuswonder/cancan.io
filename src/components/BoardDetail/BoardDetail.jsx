@@ -1,3 +1,4 @@
+import '../../pages/App/App.css';
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
@@ -30,7 +31,7 @@ export default function BoardDetail({user}) {
     return (
         <>
             <h2>{board.title}</h2>
-            <div>
+            <div className="board-card">
                 <p>Description: {board.description}</p>
                 <p>Status: {board.status}</p>
                 <div>

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flexbox
 }
 
 .App-logo {
@@ -35,4 +36,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+.board-card {
+  border: solid black 1px;
+  width: 40%;
+  margin: 30px auto
+}
+
+.big-step-card {
+  border: solid black 1px;
+  width: 40%;
+  margin: 30px auto
 }

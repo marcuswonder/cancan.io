@@ -11,7 +11,7 @@ async function index(req, res) {
     try {
         let bigSteps = []
         if(req.user) {
-            bigSteps = await BigStep.find({})
+            bigSteps = await BigStep.find({}).populate({path: 'author', model: 'User'}).populate({ path: 'responsible', model: 'User' })
         }
         res.status(200).json(bigSteps)
     } catch (err) {
