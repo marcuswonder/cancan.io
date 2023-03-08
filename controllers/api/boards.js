@@ -7,6 +7,7 @@ module.exports = {
     create,
     update,
     delete: deleteBoard,
+    bigStepIndex,
 }
 
 
@@ -26,7 +27,7 @@ async function userIndex(req, res) {
     try {
       let boards = []
       if (req.user) {
-        boards = await Board.find({user: req.user._id})
+        boards = await Board.find({users: req.user._id})
       }
       res.json(boards)
     } catch (err) {
@@ -98,4 +99,9 @@ async function deleteBoard(req, res) {
       res.status(400).json({ error: 'Only the author of a Board may delete it.' })
     }
     res.status(200).json({message: 'Board deleted successfully.'})  
+}
+
+
+async function bigStepIndex (req, res) {
+
 }

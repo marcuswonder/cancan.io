@@ -41,14 +41,15 @@ async function index(req, res) {
     try {
       let users = []
       if (req.user) {
-        users = await User.find()
+        users = await User.find({})
+        console.log("users in controller", users)
       }
       res.json(users)
     } catch (err) {
       console.error(err)
       res.status(500).send('Error retrieving users')
     }
-  }
+}
 
 
 /*-- Helper Functions --*/

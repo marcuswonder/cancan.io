@@ -13,7 +13,6 @@ function index() {
 
 async function create(req, res) {
     newBigStep = req.body.bigStep
-    newBigStep.author = req.user._id
     
     const bigStep = await BigStep.create(newBigStep)
     res.status(200).json(newBigStep)

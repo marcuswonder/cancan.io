@@ -1,8 +1,19 @@
 import { useParams, Link } from 'react-router-dom'
+import { useEffect } from 'react';
+import * as boardsAPI from '../../utilities/boards-api'
 
 export default function BigSteps() {
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    
+    // useEffect(function() {
+    //     async function getBigSteps() {
+    //         let bigSteps = []
+    //         bigSteps = await boardsAPI.getBigSteps()
+    //         console.log("bigSteps", bigSteps)
+    //     }
+    //     getBigSteps()
+    // }, [])
 
     return (
         <>
