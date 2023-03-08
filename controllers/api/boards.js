@@ -94,6 +94,8 @@ async function deleteBoard(req, res) {
     let board = {}
     if (req.user) {
         board = await Board.deleteOne({author: req.user._id, title: req.params.boardName})
+        await BigStep.deleteMany({board: board._id})
+
     } else {
       res.status(400).json({ error: 'Only the author of a Board may delete it.' })
     }
@@ -104,16 +106,10 @@ async function bigStepIndex(req, res) {
   try {
     if (req.user) {
       const board = await Board.findOne({ title: req.params.boardName });
-      const allBigSteps = await BigStep.find({}).populate({path: "board", model: "Board"}).populate({path: "author", model: "User"}).populate({path: "responsible", model: "User"})
-      const boardBigSteps = allBigSteps.filter(bigStep => {
-        return bigStep.board.equals(board)
-      })
-      res.status(200).json(boardBigSteps);
-
-    } else {
-      res.status(401).send("Unauthorized");
+      const boardBigSteps = await BigStep.find({board: board._id})
+      console.log("boardBigSteps", boardBigSteps)
+      res.status(200).json(boardBigSteps)
     }
-
   } catch (err) {
     console.error(err);
     res.status(500).send("Error retrieving Big Steps");

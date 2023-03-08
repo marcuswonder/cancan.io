@@ -30,8 +30,8 @@ export default function BoardDetail({user}) {
 
     return (
         <>
-            <h2>{board.title}</h2>
             <div className="board-card">
+                <h2>{board.title}</h2>
                 <p>Description: {board.description}</p>
                 <p>Status: {board.status}</p>
                 <div>
