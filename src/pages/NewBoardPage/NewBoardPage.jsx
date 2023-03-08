@@ -25,7 +25,7 @@ export default function NewBoardPage({ user }) {
     await createBoard(boardData);
     setNewBoard({ title: "", description: "", users: [] });
     setSelectedUsers([]);
-    navigate("/boards");
+    navigate(`/boards/${boardData.title.replace(/\s+/g, '-')}`);
   }
 
   function handleChange(evt) {

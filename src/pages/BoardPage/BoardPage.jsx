@@ -33,7 +33,7 @@ export default function BoardsList({user}) {
         <>
             <h1>Boards List</h1>
             <BoardDetail user={user} board={board} />
-            <BigSteps user={user} board={board} bigSteps={bigSteps} />
+            <BigSteps user={user} board={board} bigSteps={bigSteps} setBigSteps={setBigSteps} />
         </>
     )
 }

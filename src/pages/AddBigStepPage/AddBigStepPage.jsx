@@ -35,9 +35,7 @@ export default function AddBigStepPage({ user }) {
         const bigStepData = { ...newBigStep};
         await createBigStep(bigStepData);
         setNewBigStep({ title: "", description: "", due: new Date() });
-        // setResponsibleUser();
-        // Navigation needs to be updated! Also in the NewBoardPage
-        navigate("/boards");
+        navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);
     }
 
     function handleChange(evt) {

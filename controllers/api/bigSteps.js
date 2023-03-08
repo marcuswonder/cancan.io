@@ -7,7 +7,9 @@ module.exports = {
 }
 
 async function create(req, res) {
-    const updatedBoard = await Board.findByIdAndUpdate(req.body.bigStep.board, {
+    const newBigStep = req.body.bigStep
+
+    const updatedBoard = await Board.findByIdAndUpdate(newBigStep.board, {
         $push: {
           bigSteps: newBigStep
         },
@@ -27,7 +29,8 @@ async function deleteBigStep(req, res) {
 }
 
 async function index(req, res) {
-  const board = await Board.findOne({title: req.params.boardName})
+  const boardName = req.params.boardName
+  const board = await Board.findOne({title: boardName})
   if(board.bigSteps.length) {
     res.status(200).json(board.bigSteps)
   } else {
