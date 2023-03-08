@@ -91,10 +91,12 @@ async function update(req, res) {
 }
 
 async function deleteBoard(req, res) {
-    let board = {}
+  console.log("deleteBoard on controller hit")
     if (req.user) {
-        board = await Board.deleteOne({author: req.user._id, title: req.params.boardName})
-        await BigStep.deleteMany({board: board._id})
+      const board = await Board.findOne({ title: req.params.boardName });
+      console.log("board", board)
+      await BigStep.deleteMany({board: board._id})
+      await Board.deleteOne({author: req.user._id, title: board.title})
 
     } else {
       res.status(400).json({ error: 'Only the author of a Board may delete it.' })

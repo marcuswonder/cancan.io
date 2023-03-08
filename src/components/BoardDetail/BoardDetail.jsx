@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 
 export default function BoardDetail({user}) {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
 
