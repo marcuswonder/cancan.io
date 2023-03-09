@@ -4,7 +4,7 @@ import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 // import Select from 'react-select'; consider for user search bar later
 
-export default function NewBoardPage({ user }) {
+export default function UpdateBoardPage({ user }) {
   const { boardName } = useParams()
   const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
   const [ boardUpdate, setBoardUpdate ] = useState({ title: '', description: '', users: [] })

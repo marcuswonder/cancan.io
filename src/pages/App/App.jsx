@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar/NavBar'
 import BoardsList from '../../components/BoardsList/BoardsList'
 import BoardPage from '../../pages/BoardPage/BoardPage'
 import AddBigStepPage from '../../pages/AddBigStepPage/AddBigStepPage'
+import UpdateBigStepPage from '../../pages/UpdateBigStepPage/UpdateBigStepPage'
 
 import NewBoardPage from '../NewBoardPage/NewBoardPage';
 import UpdateBoardPage from '../UpdateBoardPage/UpdateBoardPage';
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/boards/new" element={<NewBoardPage  user={user} />} />
             <Route path="/boards/:boardName/update" element={<UpdateBoardPage  user={user} />} />
             <Route path="/boards/:boardName/big-steps/add" element={<AddBigStepPage  user={user} />} />
+            <Route path="/boards/:boardName/big-steps/:bigStepName/update" element={<UpdateBigStepPage  user={user} />} />
           </Routes>
         </>
         :

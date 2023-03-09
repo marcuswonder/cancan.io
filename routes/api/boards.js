@@ -13,5 +13,7 @@ router.delete('/:boardName', ensureLoggedIn, boardsCtrl.delete)
 router.get('/:boardName/big-steps', ensureLoggedIn, bigStepsCtrl.index)
 router.post('/:boardName/big-steps/add', ensureLoggedIn, bigStepsCtrl.create)
 router.delete('/:boardName/:bigStepName/delete', ensureLoggedIn, bigStepsCtrl.delete)
+router.get('/:boardName/:bigStepName', ensureLoggedIn, bigStepsCtrl.show)
+router.put('/:boardId/:bigStepId/update', ensureLoggedIn, bigStepsCtrl.update)
 
 module.exports = router;

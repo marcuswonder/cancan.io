@@ -24,14 +24,14 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                     <div>
                         {bigSteps.map(bigStep => (
                             <div className="big-step-card" key={bigStep._id}>
-                                <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}`} >
                                     Title: {bigStep.title}
                                 </Link>
                                 <p>Description: {bigStep.description}</p>
                                 <p>Due: {bigStep.due}</p>
                                 <p>Author: {bigStep.author.name}</p>
                                 <p>Responsible: {bigStep.responsible.name}</p>
-                                <Link to={`/boards/${boardName}/update`} >
+                                <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                     <button>Update Big Step</button>
                                 </Link>
                                 <button onClick={(evt) => handleDeleteClick(bigStep)}>Delete Big Step</button>

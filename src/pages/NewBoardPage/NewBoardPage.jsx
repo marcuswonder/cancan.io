@@ -5,28 +5,27 @@ import * as usersAPI from '../../utilities/users-api'
 // import Select from 'react-select'; consider for user search bar later
 
 export default function NewBoardPage({ user }) {
+  const navigate = useNavigate()
   const [ boards, setBoards ] = useState([])
   const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
   const [usersGallery, setUsersGallery] = useState([])
   const [selectedUsers, setSelectedUsers] = useState([])
 
-  const navigate = useNavigate()
 
-  async function createBoard(newBoard) {
-    newBoard.author = user._id
-    newBoard.users = selectedUsers
-    const createdBoard = await boardsAPI.createBoard(newBoard);
-    setBoards([...boards, createdBoard]);
-  }
-    
   async function handleCreateBoard(evt) {
-    evt.preventDefault();
-    const boardData = { ...newBoard};
-    await createBoard(boardData);
-    setNewBoard({ title: "", description: "", users: [] });
+    evt.preventDefault()
+    const boardData = {
+      ...newBoard,
+      author: user._id,
+      users: selectedUsers
+    };
+    const createdBoard = await boardsAPI.createBoard(boardData)
+    setBoards([...boards, createdBoard])
+    setNewBoard({ title: "", description: "", users: [] })
     setSelectedUsers([]);
-    navigate(`/boards/${boardData.title.replace(/\s+/g, '-')}`);
+    navigate(`/boards/${boardData.title.replace(/\s+/g, '-')}`)
   }
+  
 
   function handleChange(evt) {
     const name = evt.target.name;

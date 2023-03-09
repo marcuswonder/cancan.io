@@ -38,8 +38,21 @@ export async function getBoardBigSteps(boardNameActual) {
     return sendRequest(`${BASE_URL}/${boardName}/big-steps`)
 }
 
+export async function getBigStep(boardNameActual, bigStepNameActual) {
+    const bigStepName = bigStepNameActual
+    const boardName = boardNameActual
+    return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}`)
+}
+
 export async function deleteBigStep(boardName, bigStepName) {
     console.log("bigStepName", bigStepName)
     console.log("boardName", boardName)
     return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/delete`, 'DELETE')
+}
+
+export async function updateBigStep(bigStepUpdate) {
+    console.log(bigStepUpdate)
+    const boardId = bigStepUpdate.board
+    const bigStepId = bigStepUpdate._id
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/update`, 'PUT', {bigStepUpdate})
 }
