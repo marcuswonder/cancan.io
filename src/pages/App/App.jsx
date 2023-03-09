@@ -10,10 +10,8 @@ import BoardsList from '../../components/BoardsList/BoardsList'
 import BoardPage from '../../pages/BoardPage/BoardPage'
 import AddBigStepPage from '../../pages/AddBigStepPage/AddBigStepPage'
 import UpdateBigStepPage from '../../pages/UpdateBigStepPage/UpdateBigStepPage'
-
 import NewBoardPage from '../NewBoardPage/NewBoardPage';
 import UpdateBoardPage from '../UpdateBoardPage/UpdateBoardPage';
-import AuthPage from '../AuthPage/AuthPage';
 
 export default function App() {
   const [ user, setUser ] = useState(getUser())

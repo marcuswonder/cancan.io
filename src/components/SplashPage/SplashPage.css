@@ -31,24 +31,26 @@
 }
 
 .splash-button {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   width: 5rem;
   font-size: .75rem;
   background-color: #74BDCB;
   border: solid white 1px;
   color: white;
   margin: 1rem;
-  font-weight: lighter;
   font-size: 1rem;
   text-align: center;
 }
 .splash-button:hover {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   width: 5rem;
   font-size: .75rem;
   background-color: white;
   border: solid white 1px;
   color: #74BDCB;
   margin: 1rem;
-  font-weight: lighter;
   font-size: 1rem;
   text-align: center;
 }

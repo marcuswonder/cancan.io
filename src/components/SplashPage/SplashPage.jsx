@@ -1,8 +1,6 @@
 import './SplashPage.css';
 import { Link, Routes, Route } from 'react-router-dom'
 import logo from '../../public/assets/idea.png'
-import SignUpForm from '../../components/SignUpForm/SignUpForm'
-import LoginForm from '../../components/LoginForm/LoginForm'
 import { useState, useEffect } from 'react'
 
 export default function SplashPage({user, setUser}) {
@@ -41,10 +39,6 @@ export default function SplashPage({user, setUser}) {
                         </>
                         :
                         <>
-                            {/* <Routes>
-                                <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
-                                <Route path="/login" element={<LoginForm setUser={setUser} />} />
-                            </Routes> */}
 
                             <div className="button-container">
                                 <Link to={`/login`}><button className="splash-button">Login</button></Link>

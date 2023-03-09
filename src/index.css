@@ -76,9 +76,14 @@ code {
 }
 
 .form-container {
+  width: 40%;
   padding: 3vmin;
-  background-color: var(--tan-1);
-  border: .1vmin solid var(--tan-3);
+  background-color: #FFA384;
+  border: #74BDCB 2px solid;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 1vmin;
 }
 
@@ -91,7 +96,9 @@ form {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1.25vmin;
-  color: var(--text-light);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 label {
@@ -101,24 +108,28 @@ label {
 }
 
 input {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   padding: 1vmin;
   font-size: 2vmin;
-  border: .1vmin solid var(--tan-3);
+  border: .1vmin solid #74BDCB;
   border-radius: .5vmin;
-  color: var(--text-dark);
+  color: black;
   background-image: none !important; /* prevent lastpass */
   outline: none;
 }
 
 input:focus {
-  border-color: var(--orange);
+  border-color: #E7F2F8;
 }
 
 button, a.button {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   margin: 1vmin;
   padding: 1vmin;
   color: var(--white);
-  background-color: var(--orange);
+  background-color: #74BDCB;
   font-size: 2vmin;
   font-weight: bold;
   text-decoration: none;
@@ -130,21 +141,29 @@ button, a.button {
 }
 
 button.btn-sm {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   font-size: 1.5vmin;
   padding: .6vmin .8vmin;
 }
 
 button.btn-xs {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   font-size: 1vmin;
   padding: .4vmin .5vmin;
 }
 
 button:disabled, form:invalid button[type="submit"] {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   cursor: not-allowed;
-  background-color: var(--tan-4);
+  background-color: #c8d9e3;
 }
 
 button[type="submit"] {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
   grid-column: span 2;
   margin: 1vmin 0 0;
 }

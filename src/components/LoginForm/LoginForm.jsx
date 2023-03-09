@@ -1,8 +1,11 @@
-import '../../pages/App/App.css';
+import './LoginForm.css';
 import { useState } from 'react';
-import * as usersService from '../../utilities/users-service';
+import * as usersService from '../../utilities/users-service'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginForm({ setUser }) {
+  const navigate = useNavigate()
+
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -26,17 +29,19 @@ export default function LoginForm({ setUser }) {
     } catch {
       setError('Log In Failed - Try Again');
     }
+    navigate('/')
   }
 
   return (
     <div>
       <div className="form-container">
+        <h1 className="login-h1">log in to cancan</h1>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Email</label>
           <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
           <label>Password</label>
           <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <button type="submit">LOG IN</button>
+          <button type="submit">log in</button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>

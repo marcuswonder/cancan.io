@@ -107,42 +107,46 @@
 }
 
 .update-button {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
     height: 35px;
     font-size: .75rem;
     background-color: #74BDCB;
     border: solid #74BDCB 1px;
     color: white;
     padding: 0 1rem;
-    font-weight: lighter;
 }
 .update-button:hover {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
     height: 35px;
     font-size: .75rem;
     background-color: white;
     border: solid #74BDCB 1px;
     color: #74BDCB;
     padding: 0 1rem;
-    font-weight: lighter;
 }
 
 .delete-button {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
     height: 35px;
     font-size: .75rem;
     border: solid #74BDCB 1px;
     background-color: #74BDCB;
     color: white;
     padding: 0 1rem;
-    font-weight: lighter;
 }
 
 .delete-button:hover {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
     height: 35px;
     font-size: .75rem;
     background-color: #E7F2F8;
     border: solid #74BDCB 1px;
     color: #74BDCB;
     padding: 0 1rem;
-    font-weight: lighter;
 
 }
 
