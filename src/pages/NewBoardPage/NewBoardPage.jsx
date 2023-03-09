@@ -1,4 +1,4 @@
-import '../../pages/App/App.css';
+import './NewBoardPage.css';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
@@ -74,17 +74,17 @@ export default function NewBoardPage({ user }) {
 
   return (
       <div>
-          <h1>New Board</h1>
           <div className="form-container">
+          <h1 className="new-board-h1">New Board</h1>
               <form autoComplete="off" onSubmit={handleCreateBoard}>
                   <label>Title</label>
                   <input type="text" name="title" onChange={handleChange} value={newBoard.title} required />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
                   <label>Select Users</label>
-                  <select name="users" multiple onChange={handleUserSelect}>
+                  <select  name="users" multiple onChange={handleUserSelect} className="form-select" >
                     {usersGallery.map((user) => (
-                      <option key={user._id} value={user._id}>
+                      <option key={user._id} value={user._id} className="form-select-input" >
                         {user.name}
                       </option>
                     ))}

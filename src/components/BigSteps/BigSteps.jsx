@@ -161,18 +161,28 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                     </div>
                 </div>
 
-            :
-            <>
-                <br></br>
-                <br></br>
-                <div className="no-big-steps">
-                    <p>Add some Big Steps to your project!</p>
-                    <div className="add-button-div">
-                        <Link to={`/boards/${boardName}/big-steps/add`}><button className="add-big-step-button">Add Big Step</button></Link>
-                    </div>
-                </div>
-            </>
-            }
+                :
+                    <>
+                        <div className="board-body">
+                            <div className="big-step-container">
+                                <div className="big-step-header">
+                                    <div className="big-step-header-blank"></div>
+                                    <h1 className="big-step-header-h1">Big Steps</h1>
+                                    <div className="big-step-header-add">
+                                        <Link to={`/boards/${boardName}/big-steps/add`}>
+                                            <img className="add-icon" src={addIcon} alt='go backwards' title="Add a big step to your project" />
+                                        </Link>
+                                    </div>
+                                    </div>
+                                    <div>
+                                    <p className="big-step-header-h1-no-big-steps">There aren't any big steps here.</p>
+                                    <p className="big-step-header-h1-no-big-steps">Add some big steps to your project!</p>
+                                    <Link to={`/boards/${boardName}/big-steps/add`}><button className="add-big-step-button">Add Big Step</button></Link>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                }
                 
             </div>
         </>

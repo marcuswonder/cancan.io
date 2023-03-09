@@ -3,6 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding-bottom: 1%;
 }
 
 .big-step-container {
@@ -22,7 +23,6 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    /* border: 1px black solid; */
     justify-content: space-around;
     align-items: center;
 }
@@ -236,31 +236,30 @@
     width: 100%;
 }
 
-.add-button-div {
-    display: flex;
-    width: 33%;
-    justify-content: center;
-    align-self: center;
-    
+.big-step-header-h1-no-big-steps {
+    color: white;
+    font-weight: 300;
 }
 
 .add-big-step-button {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
     height: 35px;
     font-size: .75rem;
-    background-color: #74BDCB;
     border: solid #74BDCB 1px;
+    background-color: #74BDCB;
     color: white;
-    padding: 1rem 1rem;
-    margin: 0 1rem;
-    font-weight: lighter;
+    padding: 0 1rem;
 }
 
 
 .add-big-step-button:hover {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
     height: 35px;
     font-size: .75rem;
     background-color: white;
     border: solid #74BDCB 1px;
     color: #74BDCB;
-    font-weight: lighter;
+    padding: 0 1rem;
 }
