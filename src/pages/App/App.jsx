@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom'
 import { getUser } from '../../utilities/users-service'
 import NavBar from '../../components/NavBar/NavBar'
 import SplashPage from '../../components/SplashPage/SplashPage'
+import SignUpForm from '../../components/SignUpForm/SignUpForm'
+import LoginForm from '../../components/LoginForm/LoginForm'
 import BoardsList from '../../components/BoardsList/BoardsList'
 import BoardPage from '../../pages/BoardPage/BoardPage'
 import AddBigStepPage from '../../pages/AddBigStepPage/AddBigStepPage'
@@ -33,7 +35,11 @@ export default function App() {
           </Routes>
         </>
         :
-        <SplashPage user={user} setUser={setUser} />
+        <Routes>
+          <Route path="/" element={<SplashPage user={user} setUser={setUser} />} />
+          <Route path="/login" element={<LoginForm setUser={setUser} />} />
+          <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
+        </Routes>
       }
     </main>
   );

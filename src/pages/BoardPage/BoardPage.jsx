@@ -31,7 +31,6 @@ export default function BoardsList({user}) {
 
     return (
         <>
-            <h1>Boards Page</h1>
             <BoardDetail user={user} board={board} />
             <BigSteps user={user} board={board} bigSteps={bigSteps} setBigSteps={setBigSteps} />
         </>

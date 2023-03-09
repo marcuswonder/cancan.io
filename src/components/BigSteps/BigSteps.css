@@ -1,0 +1,266 @@
+.board-body {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.big-step-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 98%;
+    border: solid #74BDCB 2px;
+    background-color: #FFA384;
+    border-radius: 50px 50px 50px 50px ;
+    padding: 2%;
+    margin-top: 1%;
+    justify-content: space-around;
+}
+
+.big-step-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* border: 1px black solid; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.big-step-header-blank {
+    width: 5%;
+    /* border: 1px black solid */
+}
+
+.big-step-header-h1 {
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+    color: white;
+    border-bottom: white solid 1px;
+    padding: 0 0 1% 0;
+    width: 80%;
+}
+
+.big-step-header-add {
+    width: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 30px;
+    margin: 0 0 1% 0;
+}
+
+.add-icon {
+    width: 30px;
+    height: auto;;
+}
+
+.big-step-section-header-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.planned-section {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 0 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.planned-section-header {
+    margin: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.in-progress-section {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 0 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.in-progress-section-header {
+    margin: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.completed-section {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 0 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.completed-section-header {
+    margin: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.big-step-card {
+    width: 100%;
+    border: solid white 1px;
+    margin: 2%;
+    border-radius: 25px 25px 25px 25px ;
+    background-color: #74BDCB;
+    
+}
+
+
+.big-step-card-top-navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.big-step-card-backwards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 3% 0 0 3%;
+}
+
+.backward-icon {
+    width: auto;
+    height: auto;
+}
+
+.big-step-card-forward {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: end;
+    height: 20px;
+    margin: 3% 3% 0 0;
+}
+
+.forward-icon {
+    width: auto;
+    height: auto;
+}
+.big-step-card-title {
+    margin: 1%;
+    padding: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.big-step-card-description {
+    margin: 0;
+    padding-bottom: 0;
+    font-weight: 300;
+    color: white;
+    margin-top: 3%;
+    padding: 1%;
+}
+
+.big-step-card-responsible-and-due {
+    background-color: #E7F2F8;
+    margin: 3% 0;
+    padding: 1% 1%;
+}
+
+.big-step-card-middle {
+    /* babySteps will go here */
+}
+
+.big-step-card-bottom-navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    
+}
+
+.big-step-card-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 0 0 4% 4%;
+}
+
+.details-icon {
+    width: 20px;
+    height: auto;
+}
+
+.big-step-card-update {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 0 0 4% 0;
+}
+
+.update-icon {
+    width: 20px;
+    height: auto;
+}
+
+
+.big-step-card-delete {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 0 4% 4% 0;
+}
+
+.delete-icon {
+    width: 20px;
+    height: auto;
+}
+
+.no-big-steps {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-button-div {
+    display: flex;
+    width: 33%;
+    justify-content: center;
+    align-self: center;
+    
+}
+
+.add-big-step-button {
+    height: 35px;
+    font-size: .75rem;
+    background-color: #74BDCB;
+    border: solid #74BDCB 1px;
+    color: white;
+    padding: 1rem 1rem;
+    margin: 0 1rem;
+    font-weight: lighter;
+}
+
+
+.add-big-step-button:hover {
+    height: 35px;
+    font-size: .75rem;
+    background-color: white;
+    border: solid #74BDCB 1px;
+    color: #74BDCB;
+    font-weight: lighter;
+}

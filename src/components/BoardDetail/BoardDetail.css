@@ -3,35 +3,29 @@
     flex-direction: column;
     flex-wrap: wrap;
     width:100%;
-    border: black 1px solid;
     align-content: space-around;
 
 }
 .board-card-header {
-    width: 98%;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    border: black 1px solid;
-    margin: 1%;
 }
 
 .board-card-info {
     flex-direction: column;
     width: 50%;
-    /* border: black 1px solid; */
     margin: 2% 1% 1% 1%;
 }
 
-
-
 .board-card-header-title {
     text-align: start;
-    margin: 1rem
+    margin: 2rem 1rem 1rem 1rem;
 }
 
 .board-card-title-text {
     font-size: 3rem;
-    font-weight: lighter;
+    font-weight: 300;
     color: #7dBDCB;
     padding: 0;
     margin: 0;
@@ -39,6 +33,7 @@
 }
 .board-card-header-description {
     text-align: start;
+    font-weight: 300;
     margin: 1rem
 }
 
@@ -55,42 +50,49 @@
     justify-content: flex-end;
     flex-direction: column;
     width: 50%;
-    /* border: black 1px solid; */
     text-align: right;
     margin: 2% 1% 1% 1%;
-    /* border-radius: 25px 25px 0 0 */
+
 }
 
 .board-card-author-text {
     font-size: 1.5rem;
     color: #7dBDCB;
-    margin: 1rem
+    margin: 1rem;
+    font-weight: 300;
+    text-align: right;
 }
 
 .board-card-users-text {
     font-size: 1.5rem;
     color: #7dBDCB;
-    margin: 1rem
+    margin: 1rem;
+    font-weight: 300;
+    text-align: right;
 }
 
 .status-and-buttons {
     display: flex;
     flex-direction: row;
     width: 98%;
-    border: solid black 1px;
-    margin: -1% 1% 1% 1%;
+    margin: -1% 1% 0% 1%;
 }
 
 .board-card-status {
-    border: solid black 1px;
-    width: 33%
-    
+    width: 33%;
+}
+
+.board-card-status-text {
+    font-size: 1.5rem;
+    color: #7dBDCB;
+    margin: .5rem;
+    font-weight: 300;
 }
 
 .delete-button-div {
     display: flex;
     width: 33%;
-    justify-content: end;
+    justify-content: flex-end;
     align-self: center;
     margin: 0 1% 0 0
     
@@ -99,7 +101,7 @@
 .update-button-div {
     display: flex;
     width: 33%;
-    justify-content: start;
+    justify-content: flex-start;
     align-self: center;
     margin: 0 0 0 1%
 }
@@ -142,4 +144,8 @@
     padding: 0 1rem;
     font-weight: lighter;
 
+}
+
+.nav-bar {
+    display: '';
 }

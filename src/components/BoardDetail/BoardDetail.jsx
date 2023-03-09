@@ -56,14 +56,14 @@ export default function BoardDetail({user, board}) {
                         <>
                             <div className="update-button-div"><Link to={`/boards/${boardName}/update`}><button className="update-button">Update Board</button></Link></div>
                             <div className="board-card-status">
-                                <p>Status: {board.status}</p>
+                                <p className="board-card-status-text">Status - Needs to be calculated!</p>
                             </div>
                             <div className="button-div delete-button-div"><button onClick={handleDeleteClick} className="delete-button">Delete Board</button></div>
                         </>
                     ) : (
                         <div className="board-card-status">
-                        <p>Status: {board.status}</p>
-                    </div>
+                            <p className="board-card-status-text">Status - Needs to be calculated!</p>
+                        </div>
                     )}
                 </div>
             </div>

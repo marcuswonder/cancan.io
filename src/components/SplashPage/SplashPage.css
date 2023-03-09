@@ -11,13 +11,44 @@
   .splash-header {
     font-weight: lighter;
     font-size: 4rem;
-    color: #FFA384
+    color: #FFA384;
+    margin: 1%;
   }
   
   .nav-bar {
-    display: none;
+    /* display: none; */
   }
 
   .splash-button {
     width: 50px
   }
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.splash-button {
+  width: 5rem;
+  font-size: .75rem;
+  background-color: #74BDCB;
+  border: solid white 1px;
+  color: white;
+  margin: 1rem;
+  font-weight: lighter;
+  font-size: 1rem;
+  text-align: center;
+}
+.splash-button:hover {
+  width: 5rem;
+  font-size: .75rem;
+  background-color: white;
+  border: solid white 1px;
+  color: #74BDCB;
+  margin: 1rem;
+  font-weight: lighter;
+  font-size: 1rem;
+  text-align: center;
+}

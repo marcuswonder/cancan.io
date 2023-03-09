@@ -74,6 +74,12 @@ boardSchema.statics.findByTitle = async function(title) {
     return board;
   };
 
+boardSchema.methods.convertBigStepDueDate = function() {
+    console.log("this", this)
+
+    const BigStepdue = this.bigSteps.due
+}
+
 
 boardSchema.methods.addUsersToBoard = function() {
     const babyStepUsers = this.bigSteps.babySteps.find({}).populate({ path: 'responsible', model: 'User' })
