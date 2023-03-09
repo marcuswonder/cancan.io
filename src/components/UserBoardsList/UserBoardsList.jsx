@@ -1,3 +1,4 @@
+import '../../pages/App/App.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'

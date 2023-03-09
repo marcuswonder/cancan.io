@@ -1,3 +1,4 @@
+import '../../pages/App/App.css';
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
@@ -104,7 +105,7 @@ export default function AddBigStepPage({ user }) {
                             ))}
                         </select>
                     
-                        <button type="submit">Add Big Step</button>
+                        <button type="submit">Update Big Step</button>
                 </form>
             </div>
         </div>

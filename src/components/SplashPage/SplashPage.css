@@ -1,0 +1,23 @@
+.splash-container {
+    height: 100%;
+    display: flexbox;
+  }
+  
+  .splash-logo {
+    width: 25%;
+    margin-top: 5%
+  }
+  
+  .splash-header {
+    font-weight: lighter;
+    font-size: 4rem;
+    color: #FFA384
+  }
+  
+  .nav-bar {
+    display: none;
+  }
+
+  .splash-button {
+    width: 50px
+  }

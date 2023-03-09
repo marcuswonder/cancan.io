@@ -1,3 +1,4 @@
+import '../../pages/App/App.css';
 import AuthorBoardsList from '../AuthorBoardsList/AuthorBoardsList';
 import UserBoardsList from '../UserBoardsList/UserBoardsList';
 

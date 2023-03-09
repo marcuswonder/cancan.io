@@ -29,6 +29,10 @@
   color: #61dafb;
 }
 
+.App-background {
+  background-color: E7F2F8;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -37,14 +41,6 @@
     transform: rotate(360deg);
   }
 }
-.board-card {
-  border: solid black 1px;
-  width: 40%;
-  margin: 30px auto
-}
 
-.big-step-card {
-  border: solid black 1px;
-  width: 40%;
-  margin: 30px auto
-}
+
+

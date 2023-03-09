@@ -1,3 +1,4 @@
+import '../../pages/App/App.css';
 import { Link } from 'react-router-dom'
 import * as userService from '../../utilities/users-service' 
 
@@ -9,7 +10,7 @@ export default function NavBar({ user, setUser }) {
     }
 
     return (
-        <nav>
+        <nav className="nav-bar">
             <Link to="/boards">My Boards</Link>
             &nbsp; | &nbsp;
             <Link to="/boards/new">New Board</Link>

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { getUser } from '../../utilities/users-service'
 import NavBar from '../../components/NavBar/NavBar'
+import SplashPage from '../../components/SplashPage/SplashPage'
 import BoardsList from '../../components/BoardsList/BoardsList'
 import BoardPage from '../../pages/BoardPage/BoardPage'
 import AddBigStepPage from '../../pages/AddBigStepPage/AddBigStepPage'
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <main className="App">
+      
       {
         user ?
         <>
@@ -31,7 +33,7 @@ export default function App() {
           </Routes>
         </>
         :
-        <AuthPage setUser={setUser} />
+        <SplashPage user={user} setUser={setUser} />
       }
     </main>
   );

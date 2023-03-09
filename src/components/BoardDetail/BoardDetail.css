@@ -1,0 +1,145 @@
+.board-card-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width:100%;
+    border: black 1px solid;
+    align-content: space-around;
+
+}
+.board-card-header {
+    width: 98%;
+    display: flex;
+    flex-direction: row;
+    border: black 1px solid;
+    margin: 1%;
+}
+
+.board-card-info {
+    flex-direction: column;
+    width: 50%;
+    /* border: black 1px solid; */
+    margin: 2% 1% 1% 1%;
+}
+
+
+
+.board-card-header-title {
+    text-align: start;
+    margin: 1rem
+}
+
+.board-card-title-text {
+    font-size: 3rem;
+    font-weight: lighter;
+    color: #7dBDCB;
+    padding: 0;
+    margin: 0;
+
+}
+.board-card-header-description {
+    text-align: start;
+    margin: 1rem
+}
+
+.board-card-description-text {
+    font-size: 1.5rem;
+    color: #7dBDCB;
+    padding: 0;
+    margin: 0;
+
+}
+
+.board-card-people {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 50%;
+    /* border: black 1px solid; */
+    text-align: right;
+    margin: 2% 1% 1% 1%;
+    /* border-radius: 25px 25px 0 0 */
+}
+
+.board-card-author-text {
+    font-size: 1.5rem;
+    color: #7dBDCB;
+    margin: 1rem
+}
+
+.board-card-users-text {
+    font-size: 1.5rem;
+    color: #7dBDCB;
+    margin: 1rem
+}
+
+.status-and-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    border: solid black 1px;
+    margin: -1% 1% 1% 1%;
+}
+
+.board-card-status {
+    border: solid black 1px;
+    width: 33%
+    
+}
+
+.delete-button-div {
+    display: flex;
+    width: 33%;
+    justify-content: end;
+    align-self: center;
+    margin: 0 1% 0 0
+    
+}
+
+.update-button-div {
+    display: flex;
+    width: 33%;
+    justify-content: start;
+    align-self: center;
+    margin: 0 0 0 1%
+}
+
+.update-button {
+    height: 35px;
+    font-size: .75rem;
+    background-color: #74BDCB;
+    border: solid #74BDCB 1px;
+    color: white;
+    padding: 0 1rem;
+    font-weight: lighter;
+}
+.update-button:hover {
+    height: 35px;
+    font-size: .75rem;
+    background-color: white;
+    border: solid #74BDCB 1px;
+    color: #74BDCB;
+    padding: 0 1rem;
+    font-weight: lighter;
+}
+
+.delete-button {
+    height: 35px;
+    font-size: .75rem;
+    border: solid #74BDCB 1px;
+    background-color: #74BDCB;
+    color: white;
+    padding: 0 1rem;
+    font-weight: lighter;
+}
+
+.delete-button:hover {
+    height: 35px;
+    font-size: .75rem;
+    background-color: #E7F2F8;
+    border: solid #74BDCB 1px;
+    color: #74BDCB;
+    padding: 0 1rem;
+    font-weight: lighter;
+
+}

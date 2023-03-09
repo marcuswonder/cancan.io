@@ -1,3 +1,4 @@
+import '../../pages/App/App.css';
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
 
