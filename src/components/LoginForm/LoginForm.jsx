@@ -35,7 +35,7 @@ export default function LoginForm({ setUser }) {
   return (
     <div>
       <div className="form-container">
-        <h1 className="login-h1">log in to cancan</h1>
+        <h1 className="login-h1">yes you cancan!</h1>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Email</label>
           <input type="text" name="email" value={credentials.email} onChange={handleChange} required />

@@ -1,0 +1,53 @@
+.home-container {
+    height: 100%;
+    display: flexbox;
+  }
+  
+  .home-logo {
+    width: 15%;
+    margin-top: 5%
+  }
+  
+  .home-header {
+    font-weight: lighter;
+    font-size: 4rem;
+    color: #FFA384;
+    margin: 1%;
+  }
+
+  .home-button {
+    width: 50px
+  }
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.home-button {
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
+  width: 7rem;
+  font-size: .75rem;
+  background-color: #74BDCB;
+  border: solid white 1px;
+  color: white;
+  margin: 1rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.home-button:hover {
+font-family: 'Helvetica Neue';
+font-weight: 300;
+width: 7rem;
+font-size: .75rem;
+background-color: white;
+border: solid white 1px;
+color: #74BDCB;
+margin: 1rem;
+font-size: 1rem;
+text-align: center;
+}

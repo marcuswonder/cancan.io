@@ -39,7 +39,7 @@ export default class SignUpForm extends Component {
     return (
       <div>
         <div className="form-container">
-        <h1 className="sign-in-h1">sign in to cancan</h1>
+        <h1 className="sign-in-h1">yes you cancan!</h1>
           <form autoComplete="off" onSubmit={this.handleSubmit}>
             <label>Name</label>
             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
