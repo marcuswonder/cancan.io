@@ -1,17 +1,15 @@
-.new-board-h1 {
-    font-family: 'Helvetica Neue';
+.update-big-step-update-h1 {
     font-weight: 300;
-    color: white;
+    color: white
 }
 
-.new-board-select-label {
+.update-big-step-select-label {
     font-family: 'Helvetica Neue' !important; 
     text-align: left;
 }
 
-.new-board-form-select-input {
+.update-big-step-select-options {
     font-family: 'Helvetica Neue' !important; 
     font-weight: 300;
     font-size: 3vmin
-    
 }

@@ -1,4 +1,4 @@
-import '../../pages/App/App.css';
+import './UpdateBigStepPage.css';
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
@@ -84,7 +84,7 @@ export default function UpdateBigStepPage({ user }) {
         <div>
             <p>A big step on the {board.title}</p>
             <div className="form-container">
-                <h1>Update {bigStepUpdate.title}</h1>
+                <h1 className="update-big-step-update-h1">Update {bigStepUpdate.title}</h1>
                 <form autoComplete="off" onSubmit={handleUpdateBigStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={bigStepUpdate.title} required/>
@@ -95,11 +95,11 @@ export default function UpdateBigStepPage({ user }) {
                         <label>Due Date</label>
                         <input type="date" name="due" onChange={handleChange} value={bigStepUpdate.due} required/>
                         
-                        <label>Select Responsible User</label>
-                        <select name="responsible" onChange={handleResponsibleSelect}>
-                            <option value="">Select a responsible user</option>
+                        <label className="update-big-step-select-label">Confirm Responsible User</label>
+                        <select name="responsible" onChange={handleResponsibleSelect} className="update-big-step-select-options" >
+                            <option value="" className="update-big-step-select-options">Select a responsible user</option>
                             {usersGallery.map((user) => (
-                            <option key={user._id} value={user._id}>
+                            <option key={user._id} value={user._id} className="update-big-step-select-options">
                                 {user.name} | {user.email} 
                             </option>
                             ))}

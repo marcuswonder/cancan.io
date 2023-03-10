@@ -36,7 +36,7 @@ export default function BoardDetail({user, board}) {
                             <p className="custom-p">Board Author</p>
                         </div>
                         <div className="board-card-author-details">
-                            {board.author && <p className="custom-p">{board.author.email}  -  {board.author.name}</p>}
+                            {board.author && <p className="custom-p">{board.author.email}   -   {board.author.name}</p>}
                         </div>  
                     
                         <div>

@@ -63,11 +63,11 @@ export default function NewBoardPage({ user }) {
                   <input type="text" name="title" onChange={handleChange} value={newBoard.title} required />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
-                  <label>Select Users</label>
-                  <select  name="users" multiple onChange={handleUserSelect} className="form-select" >
+                  <label className="new-board-select-label">Select Users</label>
+                  <select  name="users" multiple onChange={handleUserSelect}  className="new-board-form-select-input" >
                     {usersGallery.map((user) => (
-                      <option key={user._id} value={user._id} className="form-select-input" >
-                        {user.name}
+                      <option key={user._id} value={user._id} className="new-board-form-select-input" >
+                        {user.name}   -   {user.email}
                       </option>
                     ))}
                   </select>

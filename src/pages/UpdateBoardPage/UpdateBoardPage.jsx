@@ -1,4 +1,4 @@
-import '../../pages/App/App.css';
+import './UpdateBoardPage.css';
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
@@ -78,17 +78,17 @@ export default function UpdateBoardPage({ user }) {
   return (
       <div>
           <div className="form-container">
-            <h1>{boardUpdate.title}</h1>
+            <h1 className="update-board-update-h1">{boardUpdate.title}</h1>
               <form autoComplete="off" onSubmit={handleUpdateBoard}>
                   <label>Title</label>
                   <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={boardUpdate.description}  />
-                  <label>Confirm Users</label>
-                  <select name="users" multiple onChange={handleUserSelect}>
+                  <label className="new-board-select-label">Confirm Users</label>
+                  <select name="users" multiple onChange={handleUserSelect} className="update-board-select-options">
                     {usersGallery.map((user) => (
-                      <option key={user._id} value={user._id}>
-                        {user.name}
+                      <option key={user._id} value={user._id} className="update-board-select-options" >
+                        {user.name}   -   {user.email}
                       </option>
                     ))}
                   </select>
