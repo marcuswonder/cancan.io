@@ -1,0 +1,63 @@
+.boards-list-board-body {
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.boards-list-board-card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+    border-radius: 25px 25px 25px 25px ;
+    background-color: #FFA384;
+    margin: 3%;
+    /* width: 100%; */
+
+
+    border: black solid 1px
+}
+
+.boards-list-board-card {
+    flex: 1;
+    width: 30%;
+    padding: 5%;
+
+}
+
+.boards-list-board-card-title {
+    border: black solid 1px
+}
+
+.boards-list-board-card-description {
+    border: black solid 1px
+}
+
+.boards-list-table {
+
+}
+
+.boards-list-board-navigation {
+    display: flex;
+
+}
+
+.boards-list-board-navigation-details-container {
+
+}
+
+.boards-list-boards-details-icon {
+    width: 25px;
+    margin: 10px 10px 0 0;
+}
+
+.boards-list-board-navigation-delete-container {
+
+}
+
+.boards-list-boards-delete-icon {
+    width: 25px;
+    margin: 10px 0 0 10px;
+}

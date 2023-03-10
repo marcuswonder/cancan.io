@@ -1,5 +1,5 @@
 import './SplashPage.css';
-import { Link, Routes, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import logo from '../../public/assets/idea.png'
 import { useState, useEffect } from 'react'
 

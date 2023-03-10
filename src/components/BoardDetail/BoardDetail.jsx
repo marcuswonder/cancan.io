@@ -1,6 +1,5 @@
 import './BoardDetail.css';
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 
 export default function BoardDetail({user, board}) {
