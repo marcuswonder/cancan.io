@@ -1,3 +1,8 @@
+.custom-p {
+    margin: 0;
+    padding: 0;
+}
+
 .board-card-container {
     display: flex;
     flex-direction: column;
@@ -46,29 +51,52 @@
 }
 
 .board-card-people {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-end;
+    margin: 5rem 2.5% 0 0;
+    text-align: right;
+}
+
+.board-card-author {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 1rem;
+}
+
+.board-card-author-details {
+    font-size: 1rem;
+    color: #7dBDCB;
+    font-weight: 300;
+    margin: 0;
+    margin: 0 0 2% 0;
+}
+
+.board-card-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 1rem;
+}
+
+.board-card-user-details {
     display: flex;
     justify-content: flex-end;
-    flex-direction: column;
-    width: 50%;
-    text-align: right;
-    margin: 2% 1% 1% 1%;
-
 }
 
-.board-card-author-text {
-    font-size: 1.5rem;
-    color: #7dBDCB;
-    margin: 1rem;
-    font-weight: 300;
-    text-align: right;
+.board-card-user-container {
+    margin: 0 0 0 3%
 }
-
-.board-card-users-text {
+  
+  
+.board-card-users-info {
     font-size: 1.5rem;
     color: #7dBDCB;
-    margin: 1rem;
     font-weight: 300;
-    text-align: right;
+    font-size: 1rem;
+    margin: 0 0 2% 0;
 }
 
 .status-and-buttons {
