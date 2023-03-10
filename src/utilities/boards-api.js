@@ -45,8 +45,6 @@ export async function getBigStep(boardNameActual, bigStepNameActual) {
 }
 
 export async function deleteBigStep(boardName, bigStepName) {
-    console.log("bigStepName", bigStepName)
-    console.log("boardName", boardName)
     return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/delete`, 'DELETE')
 }
 
@@ -55,4 +53,16 @@ export async function updateBigStep(bigStepUpdate) {
     const boardId = bigStepUpdate.board
     const bigStepId = bigStepUpdate._id
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/update`, 'PUT', {bigStepUpdate})
+}
+
+export async function changeStatusToPlanned(boardId, bigStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/planned`, 'PUT')
+}
+
+export async function changeStatusToInProgress(boardId, bigStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/in-progress`, 'PUT')
+}
+
+export async function changeStatusToComplete(boardId, bigStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/complete`, 'PUT')
 }

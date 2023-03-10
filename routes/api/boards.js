@@ -15,5 +15,8 @@ router.post('/:boardName/big-steps/add', ensureLoggedIn, bigStepsCtrl.create)
 router.delete('/:boardName/:bigStepName/delete', ensureLoggedIn, bigStepsCtrl.delete)
 router.get('/:boardName/:bigStepName', ensureLoggedIn, bigStepsCtrl.show)
 router.put('/:boardId/:bigStepId/update', ensureLoggedIn, bigStepsCtrl.update)
+router.put('/:boardId/:bigStepId/planned', ensureLoggedIn, bigStepsCtrl.updateStatusToPlanned)
+router.put('/:boardId/:bigStepId/in-progress', ensureLoggedIn, bigStepsCtrl.updateStatusToInProgress)
+router.put('/:boardId/:bigStepId/complete', ensureLoggedIn, bigStepsCtrl.updateStatusToComplete)
 
 module.exports = router;

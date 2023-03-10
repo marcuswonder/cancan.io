@@ -6,6 +6,9 @@ module.exports = {
     delete: deleteBigStep,
     show,
     update,
+    updateStatusToPlanned,
+    updateStatusToInProgress,
+    updateStatusToComplete,
 }
 
 async function create(req, res) {
@@ -56,8 +59,6 @@ async function show(req, res) {
 }
 
 async function update(req, res) {
-  console.log("req.params", req.params)
-  console.log("req.body", req.body)
   const boardId = req.body.bigStepUpdate.board
   const updatedBigStep = req.body.bigStepUpdate
 
@@ -76,3 +77,87 @@ async function update(req, res) {
   
     res.status(200).json(updatedBoard)  
   }
+
+  async function updateStatusToPlanned(req, res) {
+    const boardId = req.params.boardId
+    const bigStepId = req.params.bigStepId
+
+    try {
+      const board = await Board.findById(boardId);
+      if (!board) {
+        return res.status(404).json({ msg: 'Board not found' });
+      }
+  
+      const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId);
+  
+      if (!bigStep) {
+        return res.status(404).json({ msg: 'Big step not found' });
+      }
+  
+      bigStep.status = "Planned"
+  
+      await board.save();
+  
+      res.status(200).json(board);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+  
+
+  async function updateStatusToInProgress(req, res) {
+    const boardId = req.params.boardId
+    const bigStepId = req.params.bigStepId
+
+    try {
+      const board = await Board.findById(boardId);
+      if (!board) {
+        return res.status(404).json({ msg: 'Board not found' });
+      }
+  
+      const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId);
+  
+      if (!bigStep) {
+        return res.status(404).json({ msg: 'Big step not found' });
+      }
+  
+      bigStep.status = "In Progress"
+  
+      await board.save();
+  
+      res.status(200).json(board);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+  
+  
+  async function updateStatusToComplete(req, res) {
+    const boardId = req.params.boardId
+    const bigStepId = req.params.bigStepId
+
+    try {
+      const board = await Board.findById(boardId);
+      if (!board) {
+        return res.status(404).json({ msg: 'Board not found' });
+      }
+  
+      const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId);
+  
+      if (!bigStep) {
+        return res.status(404).json({ msg: 'Big step not found' });
+      }
+  
+      bigStep.status = "Complete"
+  
+      await board.save();
+  
+      res.status(200).json(board);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+  

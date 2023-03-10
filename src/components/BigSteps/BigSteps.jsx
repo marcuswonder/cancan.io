@@ -13,7 +13,7 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
 
     const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned');
     const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress');
-    const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Completed');
+    const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Complete');
 
 
     async function handleDeleteClick(bigStep) {
@@ -22,6 +22,59 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
             setBigSteps(bigSteps.filter((bStep) => bStep._id !== bigStep._id)
         )}
     }
+
+    async function handlePlannedStatusChangeClick(bigStep) {
+        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+            const updatedBigSteps = bigSteps.map(step => {
+                if (step._id === bigStep._id) {
+                    return { ...step, status: "Planned" };
+                }
+                return step;
+            });
+
+            await boardsAPI.changeStatusToPlanned(board._id, bigStep._id)
+            setBigSteps(updatedBigSteps)
+
+        } else {
+            alert("Only the user of a big step can update its status.")
+        }
+    }
+
+    async function handleInProgressStatusChangeClick(bigStep) {
+        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+            const updatedBigSteps = bigSteps.map(step => {
+                if (step._id === bigStep._id) {
+                    return { ...step, status: "In Progress" };
+                }
+                return step;
+            });
+
+            await boardsAPI.changeStatusToInProgress(board._id, bigStep._id)
+            setBigSteps(updatedBigSteps)
+
+        } else {
+            alert("Only the user of a big step can update its status.")
+        }
+    }
+    
+    async function handleCompleteStatusChangeClick(bigStep) {
+        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+            const updatedBigSteps = bigSteps.map(step => {
+                if (step._id === bigStep._id) {
+                    return { ...step, status: "Complete" };
+                }
+                return step;
+            });
+
+            await boardsAPI.changeStatusToComplete(board._id, bigStep._id)
+            setBigSteps(updatedBigSteps)
+
+        } else {
+            alert("Only the user of a big step can update its status.")
+        }
+    }
+   
+    
 
     return (
         <>
@@ -42,11 +95,11 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                             <h1 className="planned-section-header">planned</h1>
                             {plannedSteps.map(bigStep => (
                             <div key={bigStep.id}>
-                                <div className="big-step-card">
+                                <div className="big-step-card" key={bigStep._id}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
                                             <div className="big-step-card-backwards"></div>
-                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} alt='Move your big step forward to the in progress phase' title="Move your big step forward to the in progress phase" /></div>
+                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} alt='Move your big step forward to the in progress phase' title="Move your big step forward to the in progress phase" /></div>
                                         </div>
                                         <div className="big-step-card-top-about">
                                             <h2 className="big-step-card-title">{bigStep.title}</h2>
@@ -86,8 +139,8 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                                 <div className="big-step-card">
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
-                                            <div className="big-step-card-backwards"><img className="backward-icon" src={backwardIcon} alt='go forwards' title="Move your big step back to the planned phase "/></div>
-                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} alt='Move your big step forward to the completed phase' title="Move your big step forward to the completed phase" /></div>
+                                            <div className="big-step-card-backwards"><img className="backward-icon" src={backwardIcon} onClick={(evt) => handlePlannedStatusChangeClick(bigStep)} alt='go forwards' title="Move your big step back to the planned phase "/></div>
+                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleCompleteStatusChangeClick(bigStep)} alt='Move your big step forward to the completed phase' title="Move your big step forward to the completed phase" /></div>
                                         </div>
                                         <div className="big-step-card-top-about">
                                             <h2 className="big-step-card-title">{bigStep.title}</h2>
@@ -120,13 +173,13 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                             ))}
                         </div>
                         <div className="completed-section">
-                            <h1 className="completed-section-header">completed</h1>
+                            <h1 className="completed-section-header">complete</h1>
                             {completedSteps.map(bigStep => (
                             <div key={bigStep.id}>
                                 <div className="big-step-card">
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
-                                        <div className="big-step-card-backwards"><img className="backward-icon" src={backwardIcon} alt='go forwards' title="Move your big step back to the in progress phase "/></div>
+                                        <div className="big-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} src={backwardIcon} alt='go forwards' title="Move your big step back to the in progress phase "/></div>
                                         </div>
                                         <div className="big-step-card-top-about">
                                             <h2 className="big-step-card-title">{bigStep.title}</h2>
