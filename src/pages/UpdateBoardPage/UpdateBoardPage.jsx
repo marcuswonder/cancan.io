@@ -32,7 +32,6 @@ export default function UpdateBoardPage({ user }) {
     }, [boardNameActual])
     
     async function updateBoard(boardUpdate) {
-      boardUpdate.users = selectedUsers
       return await boardsAPI.updateBoard(boardUpdate)
   }
     
@@ -51,22 +50,8 @@ export default function UpdateBoardPage({ user }) {
   function handleChange(evt) {
     const name = evt.target.name;
     const value = evt.target.value;
-    const regex = /^[a-zA-Z0-9\s]*$/; // regex to match only alphanumeric characters and spaces
-    if (name === 'title' || name === 'description') {
-      if (regex.test(value)) {
-        const newFormData = {
-          ...boardUpdate,
-          [name]: value,
-        };
-        setBoardUpdate(newFormData);
-      }
-    } else {
-      const newFormData = {
-        ...boardUpdate,
-        [name]: value,
-      };
-      setBoardUpdate(newFormData);
-    }
+    const newFormData = {...boardUpdate, [name]: value }
+    setBoardUpdate(newFormData);
   }
 
   function handleUserSelect(evt) {
@@ -92,8 +77,8 @@ export default function UpdateBoardPage({ user }) {
 
   return (
       <div>
-          <h1>{boardUpdate.title}</h1>
           <div className="form-container">
+            <h1>{boardUpdate.title}</h1>
               <form autoComplete="off" onSubmit={handleUpdateBoard}>
                   <label>Title</label>
                   <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />

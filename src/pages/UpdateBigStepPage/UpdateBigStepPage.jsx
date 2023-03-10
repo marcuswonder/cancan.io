@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 
-export default function AddBigStepPage({ user }) {
+export default function UpdateBigStepPage({ user }) {
     const navigate = useNavigate()
     const { bigStepName, boardName } = useParams()
     const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
@@ -28,25 +28,25 @@ export default function AddBigStepPage({ user }) {
     useEffect(function() {
         async function getBigStep() {
             const bigStep = await boardsAPI.getBigStep(boardNameActual, bigStepNameActual)
-            setBigStep(bigStep)
+            setBigStepUpdate(bigStep)
         }
         getBigStep()
     }, [boardNameActual, bigStepNameActual])
 
 
     async function updateBigStep(bigStepUpdate) {
-        bigStepUpdate.author = user._id
-        bigStepUpdate.board = board._id
-        bigStepUpdate._id = bigStep._id
-        bigStepUpdate.responsible = responsibleUser
+        // bigStepUpdate.author = user._id
+        // bigStepUpdate.board = 
+        // bigStepUpdate._id = bigStep._id
+        // bigStepUpdate.responsible = responsibleUser
         const updatedBigStep = await boardsAPI.updateBigStep(bigStepUpdate);
         setBigSteps([...bigSteps, updatedBigStep]);
     }
     
     async function handleUpdateBigStep(evt) {
         evt.preventDefault();
-        const bigStepData = { ...bigStepUpdate};
-        await updateBigStep(bigStepData);
+        const bigStepData = { ...bigStepUpdate, _id: bigStepUpdate._id, author: user._id, board: board._id, responsible: responsibleUser};
+        const updatedBigStep = await updateBigStep(bigStepData);
         setBigStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
         navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);
     }
@@ -82,18 +82,18 @@ export default function AddBigStepPage({ user }) {
 
     return (
         <div>
-            <h1>Update {bigStep.title}</h1>
             <p>A big step on the {board.title}</p>
             <div className="form-container">
+                <h1>Update {bigStepUpdate.title}</h1>
                 <form autoComplete="off" onSubmit={handleUpdateBigStep}>
                         <label>Title</label>
-                        <input type="text" name="title" onChange={handleChange} value={bigStepUpdate.title} required />
+                        <input type="text" name="title" onChange={handleChange} value={bigStepUpdate.title} required/>
                         
                         <label>Description</label>
-                        <input type="text" name="description" onChange={handleChange} value={bigStepUpdate.description} required />
+                        <input type="text" name="description" onChange={handleChange} value={bigStepUpdate.description} required/>
                         
                         <label>Due Date</label>
-                        <input type="date" name="due" onChange={handleChange} value={bigStepUpdate.due} required />
+                        <input type="date" name="due" onChange={handleChange} value={bigStepUpdate.due} required/>
                         
                         <label>Select Responsible User</label>
                         <select name="responsible" onChange={handleResponsibleSelect}>

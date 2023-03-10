@@ -15,11 +15,7 @@ export default function NewBoardPage({ user }) {
 
   async function handleCreateBoard(evt) {
     evt.preventDefault()
-    const boardData = {
-      ...newBoard,
-      author: user._id,
-      users: selectedUsers
-    };
+    const boardData = {...newBoard, author: user._id, users: selectedUsers}
     const createdBoard = await boardsAPI.createBoard(boardData)
     setBoards([...boards, createdBoard])
     setNewBoard({ title: "", description: "", users: [] })
@@ -31,22 +27,8 @@ export default function NewBoardPage({ user }) {
   function handleChange(evt) {
     const name = evt.target.name;
     const value = evt.target.value;
-    const regex = /^[a-zA-Z0-9\s]*$/; // regex to match only alphanumeric characters and spaces
-    if (name === 'title' || name === 'description') {
-      if (regex.test(value)) {
-        const newFormData = {
-          ...newBoard,
-          [name]: value,
-        };
-        setNewBoard(newFormData);
-      }
-    } else {
-      const newFormData = {
-        ...newBoard,
-        [name]: value,
-      };
-      setNewBoard(newFormData);
-    }
+    const newFormData = {...newBoard, [name]: value }
+    setNewBoard(newFormData);
   }
 
   function handleUserSelect(evt) {
