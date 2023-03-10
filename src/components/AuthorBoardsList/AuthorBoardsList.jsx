@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'
 
-export default function AuthorBoardsList() {
+export default function AuthorBoardsList({ user }) {
     const [userBoardGallery, setUserBoardGallery] = useState([])
     
 
@@ -13,48 +13,61 @@ export default function AuthorBoardsList() {
         async function getAuthorBoards() {
           const boards = await boardsAPI.getAuthorBoards()
           setUserBoardGallery(boards)
-          console.log(boards)
         }
         getAuthorBoards()
     }, [])
+
+    async function handleDeleteClick(board) {
+        if (user._id === board.author) {
+            await boardsAPI.deleteUserBoard(board.title)
+            setUserBoardGallery(prevState => prevState.filter(b => b._id !== board._id))
+        } else {
+            alert("Only the author of a board can delete it.")
+        }
+    }
 
 
     return (
         <>
         {userBoardGallery.length ?
             <div>
-                <h2>Author Boards List</h2>
+                <h2 className="boards-list-h2">Authored Boards</h2>
+                <p className="boards-list-custom-p">These are boards that you have created</p>
                     <div className="boards-list-board-body">
                         {userBoardGallery.map(board => (
-                            <div className="boards-list-board-card-container">
+                            <div className="boards-list-board-card-container" key={board._id}>
                                 <div className="boards-list-board-card">
-                                    <div boards-list-board-navigation>
+                                    <div className="boards-list-board-navigation">
                                         <div className="boards-list-board-navigation-details-container">
                                             <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}><img className="boards-list-boards-details-icon" src={detailsIcon} alt='See a detailed view of your board'  title="See a detailed view of your board" /></Link>
                                         </div>
                                         <div className="boards-list-board-navigation-delete-container">
-                                            <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}><img className="boards-list-boards-delete-icon" src={deleteIcon} alt='Delete this board'  title="Delete this board" /></Link>
+                                            <img className="boards-list-boards-delete-icon" key={board._id} onClick={() => handleDeleteClick(board)} src={deleteIcon} alt='Delete this board'  title="Delete this board" />
                                         </div>
-                                        <p className="boards-list-board-card-title">{board.title}</p>
-                                        <p className="boards-list-board-card-description">{board.description}</p>
-                                        <p className="custom-p">Big Step Summary</p>
-                                        <div className="table">
-                                        <table>
+                                    </div>
+                                    <h2 className="boards-list-board-card-title">{board.title}</h2>
+                                    <p className="boards-list-board-card-description">{board.description}</p>
+                                    <p className="boards-list-board-card-description">Big Step Summary</p>
+                                    <div className="boards-list-table-container">
+                                        <table className="boards-list-table">
                                             <thead>
-                                                <td>Planned</td>
-                                                <td>In Progress</td>
-                                                <td>Complete</td>
-                                                <td>% Complete</td>
+                                                <tr>
+                                                    <th className="boards-list-th">Planned</th>
+                                                    <th className="boards-list-th">In Progress</th>
+                                                    <th className="boards-list-th">Complete</th>
+                                                    <th className="boards-list-th">% Complete</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                                <td>{board.plannedBigStepsCount}</td>
-                                                <td>{board.inProgressBigStepsCount}</td>
-                                                <td>{board.completeBigStepsCount}</td>
-                                                <td>{board.bigStepCompletionRate}</td>
+                                                <tr>
+                                                    <td className="boards-list-td">{board.plannedBigStepsCount}</td>
+                                                    <td className="boards-list-td">{board.inProgressBigStepsCount}</td>
+                                                    <td className="boards-list-td">{board.completeBigStepsCount}</td>
+                                                    <td className="boards-list-td">{board.bigStepCompletionRate}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
                                 
                                 </div>
                             </div>

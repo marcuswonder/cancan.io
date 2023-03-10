@@ -1,3 +1,24 @@
+.boards-list-h2 {
+    font-family:'Helvetica Neue';
+    font-weight: 300;
+    font-size: 2rem;
+    padding: 0;
+    margin-top: 5%;
+    color: #74BDCB;
+    padding: 0;
+
+}
+
+.boards-list-custom-p {
+    color: #74BDCB;
+    font-weight: 300;
+    font-size: 1.25rem;
+    border-bottom: #74BDCB solid 1px;
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 1%;
+}
+
 .boards-list-board-body {
     width: 95%;
     display: flex;
@@ -10,11 +31,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* justify-content: space-around; */
     border-radius: 25px 25px 25px 25px ;
     background-color: #FFA384;
     margin: 3%;
-    /* width: 100%; */
 
 
     border: black solid 1px
@@ -22,42 +41,71 @@
 
 .boards-list-board-card {
     flex: 1;
-    width: 30%;
-    padding: 5%;
+    width: 330px;
+    padding: 3%;
+    margin: 3%;
 
 }
 
 .boards-list-board-card-title {
-    border: black solid 1px
+    color: white;
+    font-weight: 300;
+    font-size: 2rem;
+    margin: 0;
+    text-decoration: none !important;
 }
 
 .boards-list-board-card-description {
-    border: black solid 1px
+    color: white;
+    font-weight: 300;
+    font-size: 1rem;
+    margin: 2% 0 5% 0;
 }
 
-.boards-list-table {
-
-}
 
 .boards-list-board-navigation {
     display: flex;
-
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .boards-list-board-navigation-details-container {
-
+    display: flex;
 }
 
 .boards-list-boards-details-icon {
     width: 25px;
-    margin: 10px 10px 0 0;
 }
 
 .boards-list-board-navigation-delete-container {
-
+    display: flex;
 }
 
 .boards-list-boards-delete-icon {
     width: 25px;
-    margin: 10px 0 0 10px;
+}
+
+.boards-list-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    color: white;
+    width: 100%;
+    margin-bottom: 3%;
+}
+
+.boards-list-th {
+    font-size: .75rem;
+    font-weight: 300;
+    color: white;
+    vertical-align: bottom;
+    border: 1px solid white;
+}
+
+.boards-list-td {
+    font-size: .75rem;
+    font-weight: 200;
+    vertical-align: top;
+    border: 1px solid white;
 }

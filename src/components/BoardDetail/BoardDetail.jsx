@@ -41,7 +41,7 @@ export default function BoardDetail({user, board}) {
                     
                         <div>
                             {board.users && board.users.length > 0 && (
-                                <div className="board-card-user">
+                                <div className="board-card-user" key={board._id}>
                                     <p className="custom-p">Board Users</p>
                                 </div>
                             )}
@@ -49,7 +49,7 @@ export default function BoardDetail({user, board}) {
                         <div className="board-card-user-details">
                             {board.users && board.users.length > 0 ? (
                                 board.users.map((user) => (
-                                    <div className="board-card-user-container">
+                                    <div className="board-card-user-container" key={user._id}>
                                         <p className="board-card-users-info" key={user._id}>{user.email}</p>
                                     </div>
                                 ))
