@@ -104,14 +104,14 @@ export async function updateBabyStep(babyStepUpdate) {
     return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/update`, 'PUT', {babyStepUpdate})
 }
 
-export async function changeBabyStepStatusToPlanned(boardId, babyStepId) {
-    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/planned`, 'PUT')
+export async function changeBabyStepStatusToPlanned(boardId, bigStepId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/${babyStepId}/planned`, 'PUT')
 }
 
-export async function changeBabyStepStatusToInProgress(boardId, babyStepId) {
-    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/in-progress`, 'PUT')
+export async function changeBabyStepStatusToInProgress(boardId, bigStepId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/${babyStepId}/in-progress`, 'PUT')
 }
 
-export async function changeBabyStepStatusToComplete(boardId, babyStepId) {
-    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/complete`, 'PUT')
+export async function changeBabyStepStatusToComplete(boardId, bigStepId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/${babyStepId}/complete`, 'PUT')
 }

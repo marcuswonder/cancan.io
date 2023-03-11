@@ -119,6 +119,7 @@ async function update(req, res) {
 
   async function updateStatusToPlanned(req, res) {
     const boardId = req.params.boardId
+    const bigStepId = req.params.bigStepId
     const babyStepId = req.params.babyStepId
 
     try {
@@ -127,7 +128,7 @@ async function update(req, res) {
         return res.status(404).json({ msg: 'Board not found' });
       }
   
-      const babyStep = board.babySteps.find((babyStep) => babyStep.id === babyStepId);
+      const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
   
       if (!babyStep) {
         return res.status(404).json({ msg: 'Baby step not found' });
@@ -147,7 +148,9 @@ async function update(req, res) {
 
   async function updateStatusToInProgress(req, res) {
     const boardId = req.params.boardId
+    const bigStepId = req.params.bigStepId
     const babyStepId = req.params.babyStepId
+
 
     try {
       const board = await Board.findById(boardId);
@@ -155,7 +158,7 @@ async function update(req, res) {
         return res.status(404).json({ msg: 'Board not found' });
       }
   
-      const babyStep = board.babySteps.find((babyStep) => babyStep.id === babyStepId);
+      const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
   
       if (!babyStep) {
         return res.status(404).json({ msg: 'Baby step not found' });
@@ -175,6 +178,7 @@ async function update(req, res) {
   
   async function updateStatusToComplete(req, res) {
     const boardId = req.params.boardId
+    const bigStepId = req.params.bigStepId
     const babyStepId = req.params.babyStepId
 
     try {
@@ -183,7 +187,7 @@ async function update(req, res) {
         return res.status(404).json({ msg: 'Board not found' });
       }
   
-      const babyStep = board.babySteps.find((babyStep) => babyStep.id === babyStepId);
+      const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
   
       if (!babyStep) {
         return res.status(404).json({ msg: 'Baby step not found' });

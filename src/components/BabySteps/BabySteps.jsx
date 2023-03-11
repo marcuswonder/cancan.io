@@ -40,57 +40,54 @@ export default function BabySteps({ user, board, setBoard }) {
     }
 
     async function handlePlannedStatusChangeClick(babyStep) {
-        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-        //     const updatedBabySteps = babySteps.map(step => {
-        //         if (step._id === babyStep._id) {
-        //             return { ...step, status: "Planned" };
-        //         }
-        //         return step;
-        //     });
+        if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+            const updatedBabySteps = babySteps.map(step => {
+                if (step._id === babyStep._id) {
+                    return { ...step, status: "Planned" };
+                }
+                return step;
+            });
             
-        //     await boardsAPI.changeBabyStepStatusToPlanned(board._id, babyStep._id)
-        //     setBabySteps(updatedBabySteps)
+            await boardsAPI.changeBabyStepStatusToPlanned(board._id, babyStep.bigStep, babyStep._id)
+            setBabySteps(updatedBabySteps)
             
-        // } else {
-        //     alert("Only the user of a baby step can update its status.")
-        // }
+        } else {
+            alert("Only the user of a baby step can update its status.")
+        }
     }
     
     async function handleInProgressStatusChangeClick(babyStep) {
-        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-        //     const updatedBabySteps = babySteps.map(step => {
-        //         if (step._id === babyStep._id) {
-        //             return { ...step, status: "In Progress" };
-        //         }
-        //         return step;
-        //     });
+        if (user._id === board.author._id || user._id === babyStep.bigStep.author || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+            const updatedBabySteps = babySteps.map(step => {
+                if (step._id === babyStep._id) {
+                    return { ...step, status: "In Progress" };
+                }
+                return step;
+            });
             
-        //     console.log("babyStep._id", babyStep._id)
-        //     console.log("bigStep._id", bigStep._id)
-        //     console.log("board._id", board._id)
-        //     await boardsAPI.changeBabyStepStatusToInProgress(board._id, babyStep._id)
-        //     setBabySteps(updatedBabySteps)
+            await boardsAPI.changeBabyStepStatusToInProgress(board._id, babyStep.bigStep, babyStep._id)
+            setBabySteps(updatedBabySteps)
             
-        // } else {
-        //     alert("Only the user of a baby step can update its status.")
-        // }
+        } else {
+            alert("Only the user of a baby step can update its status.")
+        }
     }
     
     async function handleCompleteStatusChangeClick(babyStep) {
-        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-        //     const updatedBabySteps = babySteps.map(step => {
-        //         if (step._id === babyStep._id) {
-        //             return { ...step, status: "Complete" };
-        //         }
-        //         return step;
-        //     });
+        if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+            const updatedBabySteps = babySteps.map(step => {
+                if (step._id === babyStep._id) {
+                    return { ...step, status: "Complete" };
+                }
+                return step;
+            });
 
-        //     await boardsAPI.changeBabyStepStatusToComplete(board._id, babyStep._id)
-        //     setBabySteps(updatedBabySteps)
+            await boardsAPI.changeBabyStepStatusToComplete(board._id, babyStep.bigStep, babyStep._id)
+            setBabySteps(updatedBabySteps)
 
-        // } else {
-        //     alert("Only the user of a baby step can update its status.")
-        // }
+        } else {
+            alert("Only the user of a baby step can update its status.")
+        }
     }
    
     

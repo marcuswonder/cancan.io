@@ -26,8 +26,8 @@ router.post('/:boardId/:bigStepId/baby-steps/add', ensureLoggedIn, babyStepsCtrl
 router.delete('/:boardName/:bigStepName/:babyStepName/delete', ensureLoggedIn, babyStepsCtrl.delete)
 router.get('/:boardName/:bigStepName/:babyStepName', ensureLoggedIn, babyStepsCtrl.show)
 router.put('/:boardId/:bigStepId/:babyStepName/update', ensureLoggedIn, babyStepsCtrl.update)
-router.put('/:boardId/:bigStepId/:babyStepName/planned', ensureLoggedIn, babyStepsCtrl.updateStatusToPlanned)
-router.put('/:boardId/:bigStepId/:babyStepName/in-progress', ensureLoggedIn, babyStepsCtrl.updateStatusToInProgress)
-router.put('/:boardId/:bigStepId/:babyStepName/complete', ensureLoggedIn, babyStepsCtrl.updateStatusToComplete)
+router.put('/:boardId/:bigStepId/:babyStepId/planned', ensureLoggedIn, babyStepsCtrl.updateStatusToPlanned)
+router.put('/:boardId/:bigStepId/:babyStepId/in-progress', ensureLoggedIn, babyStepsCtrl.updateStatusToInProgress)
+router.put('/:boardId/:bigStepId/:babyStepId/complete', ensureLoggedIn, babyStepsCtrl.updateStatusToComplete)
 
 module.exports = router;
