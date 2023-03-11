@@ -18,8 +18,8 @@ export default function BabySteps({ user, board, setBoard }) {
     useEffect(function() {
         async function getBigStepsBabySteps() {
             await setBoard(board)
-            const bigStep = board.bigSteps.filter(bStep => bStep.title === bigStepNameActual)
-            const babySteps = bigStep[0]?.babySteps || []
+            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            const babySteps = bigStep.babySteps || []
             setBabySteps(babySteps)
         }
         getBigStepsBabySteps()
@@ -35,7 +35,7 @@ export default function BabySteps({ user, board, setBoard }) {
     async function handleDeleteClick(babyStep) {
         if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
             await boardsAPI.deleteBabyStep(board.title, babyStep.title)
-            setBabySteps(babySteps.filter((bStep) => bStep._id !== babyStep._id)
+            setBabySteps(babySteps.find((bStep) => bStep._id !== babyStep._id)
         )}
     }
 
@@ -134,7 +134,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                     </div>
                                     <div className="baby-step-card-bottom-navigation">
                                         <div className="baby-step-card-details">
-                                        <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                        <Link to={`/boards/${boardName}/${bigStepName}/${babyStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
                                             </Link>
                                         </div>

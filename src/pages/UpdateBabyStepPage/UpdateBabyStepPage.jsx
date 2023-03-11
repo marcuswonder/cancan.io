@@ -1,21 +1,24 @@
-import './UpdateBigStepPage.css';
+import './UpdateBabyStepPage.css';
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 
-export default function UpdateBigStepPage({ user }) {
+export default function UpdateBabyStepPage({ user }) {
     const navigate = useNavigate()
-    const { bigStepName, boardName } = useParams()
-    const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
+    const { boardName, bigStepName, babyStepName } = useParams()
+
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
+    const babyStepNameActual = babyStepName ? babyStepName.replace(/-/g, ' ') : ''
     
-    const [ bigSteps, setBigSteps ] = useState([])
-    const [ bigStepUpdate, setBigStepUpdate ] = useState({ title: '', description: '', due: new Date(), responsible: '' })
-    const [ usersGallery, setUsersGallery ] = useState([])
-    const [ responsibleUser, setResponsibleUser ] = useState('')
     const [ board, setBoard ] = useState({})
     const [ bigStep, setBigStep ] = useState({})
+    const [ babySteps, setBabySteps ] = useState([])
+    const [ babyStepUpdate, setBabyStepUpdate ] = useState({ title: '', description: '', due: new Date(), responsible: '' })
+    const [ usersGallery, setUsersGallery ] = useState([])
+    const [ responsibleUser, setResponsibleUser ] = useState('')
+    const [ babyStep, setBabyStep ] = useState({})
 
     useEffect(function() {
         async function getBoard() {
@@ -26,32 +29,35 @@ export default function UpdateBigStepPage({ user }) {
     }, [boardNameActual])
 
     useEffect(function() {
-        async function getBigStep() {
-            const bigStep = await boardsAPI.getBigStep(boardNameActual, bigStepNameActual)
-            setBigStepUpdate(bigStep)
+        async function getBabyStep() {
+            const board = await boardsAPI.getUserBoard(boardNameActual)
+            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            setBigStep(bigStep)
+            const babyStep = bigStep.babySteps.find((bStep) => bStep.title == babyStepNameActual)
+            setBabyStepUpdate(babyStep)
         }
-        getBigStep()
-    }, [boardNameActual, bigStepNameActual])
+        getBabyStep()
+    }, [board, boardNameActual, bigStepNameActual, babyStepNameActual])
 
 
-    async function updateBigStep(bigStepUpdate) {
-        const updatedBigStep = await boardsAPI.updateBigStep(bigStepUpdate);
-        setBigSteps([...bigSteps, updatedBigStep]);
+    async function updateBabyStep(babyStepUpdate) {
+        const updatedBabyStep = await boardsAPI.updateBabyStep(babyStepUpdate);
+        setBabySteps([...babySteps, updatedBabyStep]);
     }
     
-    async function handleUpdateBigStep(evt) {
+    async function handleUpdateBabyStep(evt) {
         evt.preventDefault();
-        const bigStepData = { ...bigStepUpdate, _id: bigStepUpdate._id, author: user._id, board: board._id, responsible: responsibleUser};
-        const updatedBigStep = await updateBigStep(bigStepData);
-        setBigStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
-        navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);
+        const babyStepData = { ...babyStepUpdate, _id: babyStepUpdate._id, author: user._id, board: board._id, responsible: responsibleUser};
+        const updatedBabyStep = await updateBabyStep(babyStepData);
+        setBabyStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
+        navigate(`/boards/${board.title.replace(/\s+/g, '-')}/${bigStep.title.replace(/\s+/g, '-')}`);
     }
 
     function handleChange(evt) {
         const { name, value } = evt.target;
         const newValue = name === "due" ? formatDate(value) : value;
-        const newFormData = { ...bigStepUpdate, [name]: newValue };
-        setBigStepUpdate(newFormData);
+        const newFormData = { ...babyStepUpdate, [name]: newValue };
+        setBabyStepUpdate(newFormData);
     }
 
     function handleResponsibleSelect(evt) {
@@ -80,16 +86,16 @@ export default function UpdateBigStepPage({ user }) {
         <div>
             <p>A big step on the {board.title}</p>
             <div className="form-container">
-                <h1 className="update-big-step-update-h1">Update {bigStepUpdate.title}</h1>
-                <form autoComplete="off" onSubmit={handleUpdateBigStep}>
+                <h1 className="update-big-step-update-h1">Update me now {babyStepUpdate.title}</h1>
+                <form autoComplete="off" onSubmit={handleUpdateBabyStep}>
                         <label>Title</label>
-                        <input type="text" name="title" onChange={handleChange} value={bigStepUpdate.title} required/>
+                        <input type="text" name="title" onChange={handleChange} value={babyStepUpdate.title} required/>
                         
                         <label>Description</label>
-                        <input type="text" name="description" onChange={handleChange} value={bigStepUpdate.description} required/>
+                        <input type="text" name="description" onChange={handleChange} value={babyStepUpdate.description} required/>
                         
                         <label>Due Date</label>
-                        <input type="date" name="due" onChange={handleChange} value={bigStepUpdate.due} required/>
+                        <input type="date" name="due" onChange={handleChange} value={babyStepUpdate.due} required/>
                         
                         <label className="update-big-step-select-label">Confirm Responsible User</label>
                         <select name="responsible" onChange={handleResponsibleSelect} className="update-big-step-select-options" >

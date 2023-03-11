@@ -35,7 +35,7 @@ export default function BigSteps({ user, board, setBoard }) {
     async function handleDeleteClick(bigStep) {
         if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             await boardsAPI.deleteBigStep(board.title, bigStep.title)
-            setBigSteps(bigSteps.filter((bStep) => bStep._id !== bigStep._id)
+            setBigSteps(bigSteps.find((bStep) => bStep._id !== bigStep._id)
         )}
     }
 

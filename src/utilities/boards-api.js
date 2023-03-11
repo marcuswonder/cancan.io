@@ -66,14 +66,6 @@ export async function changeBigStepStatusToComplete(boardId, bigStepId) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/complete`, 'PUT')
 }
 
-
-
-
-
-
-
-
-
 export async function createBabyStep(board, bigStep, newBabyStep) {
     // console.log("newBabyStep", newBabyStep)
     const boardId = board._id
@@ -98,11 +90,18 @@ export async function deleteBabyStep(boardName, babyStepName) {
 }
 
 export async function updateBabyStep(babyStepUpdate) {
-    console.log(babyStepUpdate)
     const boardId = babyStepUpdate.board
+    const bigStepId = babyStepUpdate.bigStep
     const babyStepId = babyStepUpdate._id
-    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/update`, 'PUT', {babyStepUpdate})
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/${babyStepId}/update`, 'PUT', {babyStepUpdate})
 }
+
+
+
+
+
+
+
 
 export async function changeBabyStepStatusToPlanned(boardId, bigStepId, babyStepId) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/${babyStepId}/planned`, 'PUT')

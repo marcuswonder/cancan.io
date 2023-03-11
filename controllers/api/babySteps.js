@@ -98,24 +98,29 @@ async function show(req, res) {
 }
 
 async function update(req, res) {
-  const boardId = req.body.babyStepUpdate.board
-  const updatedBabyStep = req.body.babyStepUpdate
+  const boardId = req.params.boardId;
+  const bigStepId = req.params.bigStepId;
+  const babyStepId = req.params.babyStepId;
 
-  await Board.findOneAndUpdate(
-    {_id: req.params.boardId},
-    {$pull: {babySteps: {_id: req.params.babyStepId}}},
-    {new: true}
-  )
+  const { title, description, responsible, due } = req.body.babyStepUpdate;
 
-
-  const updatedBoard = await Board.findByIdAndUpdate(boardId, {
-      $push: {
-        babySteps: updatedBabyStep
+  const board = await Board.findOneAndUpdate(
+    { _id: boardId, 'bigStep._id': bigStepId, 'bigStep.babyStep._id': babyStepId },
+    {
+      $set: {
+        'bigStep.$[bigStep].babyStep.$[babyStep].title': title,
+        'bigStep.$[bigStep].babyStep.$[babyStep].description': description,
+        'bigStep.$[bigStep].babyStep.$[babyStep].responsible': responsible,
+        'bigStep.$[bigStep].babyStep.$[babyStep].due': due,
       },
-    }, { new: true })
-  
-    res.status(200).json(updatedBoard)  
-  }
+    },
+    { arrayFilters: [{ 'bigStep._id': bigStepId }, { 'babyStep._id': babyStepId }], new: true }
+  );
+
+  console.log("board.bigSteps", board.bigSteps)
+
+  res.status(200).json(board)
+}
 
   async function updateStatusToPlanned(req, res) {
     const boardId = req.params.boardId
