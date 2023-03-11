@@ -7,6 +7,7 @@ import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
 import { useParams, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
+import { Routes, Route } from 'react-router-dom'
 
 export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
     const { boardName } = useParams()
@@ -114,12 +115,12 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
                                         <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
                                                 <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
                                         </div>
                                         <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}/update`} >
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
                                             </Link>
                                         </div>
@@ -155,12 +156,12 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
                                         <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
                                                 <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
                                         </div>
                                         <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}/update`} >
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
                                             </Link>
                                         </div>
@@ -194,12 +195,12 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
                                         <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
                                                 <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
                                         </div>
                                         <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/big-steps/${bigStep.title.replace(/\s+/g, '-')}/update`} >
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
                                             </Link>
                                         </div>

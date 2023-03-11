@@ -2,14 +2,19 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 import BoardDetail from '../../components/BoardDetail/BoardDetail'
-import BigSteps from '../../components/BigSteps/BigSteps'
+import StepsPage from '../StepsPage/StepsPage'
+// import BigSteps from '../../components/BigSteps/BigSteps'
+// import BabySteps from '../../components/BabySteps/BabySteps'
 
-export default function BoardsList({user}) {
-    const { boardName } = useParams()
+export default function BoardPage({user}) {
+    const { boardName, bigStepName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    
+
 
     const [board, setBoard] = useState({})
     const [bigSteps, setBigSteps] = useState([])
+    
 
     useEffect(function() {
         async function getBoard() {
@@ -26,13 +31,15 @@ export default function BoardsList({user}) {
             setBigSteps(bigSteps)
         }
         getBoardBigSteps()
-    }, [])
+    }, [boardNameActual])
+
+
 
 
     return (
         <>
             <BoardDetail user={user} board={board} />
-            <BigSteps user={user} board={board} bigSteps={bigSteps} setBigSteps={setBigSteps} />
+            <StepsPage user={user} board={board} bigSteps={bigSteps} setBigSteps={setBigSteps} boardName={boardName}/>
         </>
     )
 }

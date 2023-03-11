@@ -1,0 +1,261 @@
+import './BabySteps.css'
+import deleteIcon from '../../public/assets/delete-icon-white.png'
+import forwardIcon from '../../public/assets/fwd-white.png'
+import backwardIcon from '../../public/assets/bwd-white.png'
+import detailsIcon from '../../public/assets/details-white.png'
+import editIcon from '../../public/assets/edit.png'
+import addIcon from '../../public/assets/add-white.png'
+import { useParams, Link } from 'react-router-dom'
+import * as boardsAPI from '../../utilities/boards-api'
+import { useState, useEffect } from 'react'
+
+export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
+    const [babySteps, setBabySteps] = useState([])
+
+    const { boardName, bigStepName } = useParams()
+    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
+
+    
+    useEffect(function() {
+        async function getBigStepsBabySteps() {
+            let babySteps = []
+            babySteps = await boardsAPI.getBigStepsBabySteps(boardNameActual, bigStepNameActual)
+            setBabySteps(babySteps)
+        }
+        getBigStepsBabySteps()
+    }, [boardNameActual])
+
+
+
+    // const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned');
+    // const inProgressSteps = babySteps.filter(babyStep => babyStep.status === 'In Progress');
+    // const completedSteps = babySteps.filter(babyStep => babyStep.status === 'Complete');
+
+
+    // async function handleDeleteClick(babyStep) {
+    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+    //         await boardsAPI.deleteBabyStep(board.title, babyStep.title)
+    //         setBabySteps(babySteps.filter((bStep) => bStep._id !== babyStep._id)
+    //     )}
+    // }
+
+    // async function handlePlannedStatusChangeClick(babyStep) {
+    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+    //         const updatedBabySteps = babySteps.map(step => {
+    //             if (step._id === babyStep._id) {
+    //                 return { ...step, status: "Planned" };
+    //             }
+    //             return step;
+    //         });
+
+    //         await boardsAPI.changeStatusToPlanned(board._id, babyStep._id)
+    //         setBabySteps(updatedBabySteps)
+
+    //     } else {
+    //         alert("Only the user of a baby step can update its status.")
+    //     }
+    // }
+
+    // async function handleInProgressStatusChangeClick(babyStep) {
+    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+    //         const updatedBabySteps = babySteps.map(step => {
+    //             if (step._id === babyStep._id) {
+    //                 return { ...step, status: "In Progress" };
+    //             }
+    //             return step;
+    //         });
+
+    //         await boardsAPI.changeStatusToInProgress(board._id, babyStep._id)
+    //         setBabySteps(updatedBabySteps)
+
+    //     } else {
+    //         alert("Only the user of a baby step can update its status.")
+    //     }
+    // }
+    
+    // async function handleCompleteStatusChangeClick(babyStep) {
+    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+    //         const updatedBabySteps = babySteps.map(step => {
+    //             if (step._id === babyStep._id) {
+    //                 return { ...step, status: "Complete" };
+    //             }
+    //             return step;
+    //         });
+
+    //         await boardsAPI.changeStatusToComplete(board._id, babyStep._id)
+    //         setBabySteps(updatedBabySteps)
+
+    //     } else {
+    //         alert("Only the user of a baby step can update its status.")
+    //     }
+    // }
+   
+    
+
+    return (
+        <>
+        <h1>Baby Steps Page</h1>
+            <div className="board-body">
+                {/* {babySteps.length ?
+                <div className="baby-step-container">
+                    <div className="baby-step-header">
+                        <div className="baby-step-header-blank"></div>
+                        <h1 className="baby-step-header-h1">Baby Steps</h1>
+                        <div className="baby-step-header-add">
+                            <Link to={`/boards/${boardName}/baby-steps/add`}>
+                                <img className="add-icon" src={addIcon} alt='go backwards' title="Add a baby step to your project" />
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="baby-step-section-header-container">
+                        <div className="planned-section">
+                            <h1 className="planned-section-header">planned</h1>
+                            {plannedSteps.map(babyStep => (
+                            <div key={babyStep.id}>
+                                <div className="baby-step-card" key={babyStep._id}>
+                                    <div className="baby-step-card-top">
+                                        <div className="baby-step-card-top-navigation">
+                                            <div className="baby-step-card-backwards"></div>
+                                            <div className="baby-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleInProgressStatusChangeClick(babyStep)} alt='Move your baby step forward to the in progress phase' title="Move your baby step forward to the in progress phase" /></div>
+                                        </div>
+                                        <div className="baby-step-card-top-about">
+                                            <h2 className="baby-step-card-title">{babyStep.title}</h2>
+                                            <h4 className="baby-step-card-description">{babyStep.description}</h4>
+                                        </div>
+                                        <div className="baby-step-card-responsible-and-due">
+                                            <p className="baby-step-card-due">Due: {babyStep.due}</p>
+                                            <p className="baby-step-card-responsible">Responsible: {babyStep.responsible.name}</p>
+                                        </div>
+                                    </div>
+                                    <div className="baby-step-card-middle">
+                                    </div>
+                                    <div className="baby-step-card-bottom-navigation">
+                                        <div className="baby-step-card-details">
+                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}`} >
+                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your baby step'  title="See a detailed view of your baby step" />
+                                            </Link>
+                                        </div>
+                                        <div className="baby-step-card-update">
+                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                                <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
+                                            </Link>
+                                        </div>
+                                        <div className="baby-step-card-delete">
+                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(babyStep)} alt='Delete your baby step' title="Delete your baby step from this project" />
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            ))}
+                        </div>
+                        <div className="in-progress-section">
+                            <h1 className="in-progress-section-header">in progress</h1>
+                            {inProgressSteps.map(babyStep => (
+                            <div key={babyStep.id}>
+                                <div className="baby-step-card">
+                                    <div className="baby-step-card-top">
+                                        <div className="baby-step-card-top-navigation">
+                                            <div className="baby-step-card-backwards"><img className="backward-icon" src={backwardIcon} onClick={(evt) => handlePlannedStatusChangeClick(babyStep)} alt='go forwards' title="Move your baby step back to the planned phase "/></div>
+                                            <div className="baby-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleCompleteStatusChangeClick(babyStep)} alt='Move your baby step forward to the completed phase' title="Move your baby step forward to the completed phase" /></div>
+                                        </div>
+                                        <div className="baby-step-card-top-about">
+                                            <h2 className="baby-step-card-title">{babyStep.title}</h2>
+                                            <h4 className="baby-step-card-description">{babyStep.description}</h4>
+                                        </div>
+                                        <div className="baby-step-card-responsible-and-due">
+                                            <p className="baby-step-card-due">Due: {babyStep.due}</p>
+                                            <p className="baby-step-card-responsible">Responsible: {babyStep.responsible.name}</p>
+                                        </div>
+                                    </div>
+                                    <div className="baby-step-card-middle">
+                                    </div>
+                                    <div className="baby-step-card-bottom-navigation">
+                                        <div className="baby-step-card-details">
+                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}`} >
+                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your baby step'  title="See a detailed view of your baby step" />
+                                            </Link>
+                                        </div>
+                                        <div className="baby-step-card-update">
+                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                                <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
+                                            </Link>
+                                        </div>
+                                        <div className="baby-step-card-delete">
+                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(babyStep)} alt='Delete your baby step' title="Delete your baby step from this project" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ))}
+                        </div>
+                        <div className="completed-section">
+                            <h1 className="completed-section-header">complete</h1>
+                            {completedSteps.map(babyStep => (
+                            <div key={babyStep.id}>
+                                <div className="baby-step-card">
+                                    <div className="baby-step-card-top">
+                                        <div className="baby-step-card-top-navigation">
+                                        <div className="baby-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(babyStep)} src={backwardIcon} alt='go forwards' title="Move your baby step back to the in progress phase "/></div>
+                                        </div>
+                                        <div className="baby-step-card-top-about">
+                                            <h2 className="baby-step-card-title">{babyStep.title}</h2>
+                                            <h4 className="baby-step-card-description">{babyStep.description}</h4>
+                                        </div>
+                                        <div className="baby-step-card-responsible-and-due">
+                                            <p className="baby-step-card-due">Due: {babyStep.due}</p>
+                                            <p className="baby-step-card-responsible">Responsible: {babyStep.responsible.name}</p>
+                                        </div>
+                                    </div>
+                                    <div className="baby-step-card-middle">
+                                    </div>
+                                    <div className="baby-step-card-bottom-navigation">
+                                        <div className="baby-step-card-details">
+                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}`} >
+                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your baby step'  title="See a detailed view of your baby step" />
+                                            </Link>
+                                        </div>
+                                        <div className="baby-step-card-update">
+                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                                <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
+                                            </Link>
+                                        </div>
+                                        <div className="baby-step-card-delete">
+                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(babyStep)} alt='Delete your baby step' title="Delete your baby step from this project" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                : */}
+                    <>
+                        <div className="board-body">
+                            <div className="baby-step-container">
+                                <div className="baby-step-header">
+                                    <div className="baby-step-header-blank"></div>
+                                    <h1 className="baby-step-header-h1">baby Steps</h1>
+                                    <div className="baby-step-header-add">
+                                        <Link to={`/boards/${boardName}/baby-steps/add`}>
+                                            <img className="add-icon" src={addIcon} alt='go backwards' title="Add a baby step to your project" />
+                                        </Link>
+                                    </div>
+                                    </div>
+                                    <div>
+                                    <p className="baby-step-header-h1-no-baby-steps">There aren't any baby steps here.</p>
+                                    <p className="baby-step-header-h1-no-baby-steps">Add some baby steps to your project!</p>
+                                    <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}><button className="add-baby-step-button">Add Baby Step</button></Link>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                {/* } */}
+                
+            </div>
+        </>
+    )
+}

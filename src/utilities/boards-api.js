@@ -49,7 +49,6 @@ export async function deleteBigStep(boardName, bigStepName) {
 }
 
 export async function updateBigStep(bigStepUpdate) {
-    console.log(bigStepUpdate)
     const boardId = bigStepUpdate.board
     const bigStepId = bigStepUpdate._id
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/update`, 'PUT', {bigStepUpdate})
@@ -65,4 +64,54 @@ export async function changeStatusToInProgress(boardId, bigStepId) {
 
 export async function changeStatusToComplete(boardId, bigStepId) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/complete`, 'PUT')
+}
+
+
+
+
+
+
+
+
+
+export async function createBabyStep(board, bigStep, newBabyStep) {
+    // console.log("newBabyStep", newBabyStep)
+    const boardId = board._id
+    const bigStepId = bigStep._id
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/baby-steps/add`, 'POST', {newBabyStep})
+}
+
+export async function getBigStepsBabySteps(boardNameActual, bigStepNameNameActual) {
+    const boardName = boardNameActual
+    const bigStepName = bigStepNameNameActual
+    return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/baby-steps`)
+}
+
+export async function getBabyStep(boardNameActual, babyStepNameActual) {
+    const babyStepName = babyStepNameActual
+    const boardName = boardNameActual
+    return sendRequest(`${BASE_URL}/${boardName}/${babyStepName}`)
+}
+
+export async function deleteBabyStep(boardName, babyStepName) {
+    return sendRequest(`${BASE_URL}/${boardName}/${babyStepName}/${babyStepName}/delete`, 'DELETE')
+}
+
+export async function updateBabyStep(babyStepUpdate) {
+    console.log(babyStepUpdate)
+    const boardId = babyStepUpdate.board
+    const babyStepId = babyStepUpdate._id
+    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/update`, 'PUT', {babyStepUpdate})
+}
+
+export async function changeBabyStepStatusToPlanned(boardId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/planned`, 'PUT')
+}
+
+export async function changeBabyStepStatusToInProgress(boardId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/in-progress`, 'PUT')
+}
+
+export async function changeBabyStepStatusToComplete(boardId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${babyStepId}/complete`, 'PUT')
 }
