@@ -1,0 +1,264 @@
+.board-body {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 1%;
+}
+
+.baby-step-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 98%;
+    border: solid #74BDCB 2px;
+    background-color: #FFA384;
+    border-radius: 50px 50px 50px 50px ;
+    padding: 2%;
+    margin-top: 1%;
+    justify-content: space-around;
+}
+
+.baby-step-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.baby-step-header-blank {
+    width: 5%;
+}
+
+.baby-step-header-h1 {
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+    color: white;
+    border-bottom: white solid 1px;
+    padding: 0 0 1% 0;
+    width: 80%;
+}
+
+.baby-step-header-add {
+    width: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 30px;
+    margin: 0 0 1% 0;
+}
+
+.add-icon {
+    width: 30px;
+    height: auto;;
+}
+
+.baby-step-section-header-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.planned-section {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 0 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.planned-section-header {
+    margin: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.in-progress-section {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 0 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.in-progress-section-header {
+    margin: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.completed-section {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 0 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.completed-section-header {
+    margin: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.baby-step-card {
+    width: 330px;
+    border: solid white 1px;
+    margin: 2%;
+    border-radius: 25px 25px 25px 25px ;
+    background-color: #74BDCB;
+    
+}
+
+
+.baby-step-card-top-navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.baby-step-card-backwards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 3% 0 0 3%;
+}
+
+.backward-icon {
+    width: auto;
+    height: auto;
+}
+
+.baby-step-card-forward {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    height: 20px;
+    margin: 3% 3% 0 0;
+}
+
+.forward-icon {
+    width: auto;
+    height: auto;
+}
+.baby-step-card-title {
+    margin: 1%;
+    padding: 1%;
+    font-weight: 300;
+    color: white
+}
+
+.baby-step-card-description {
+    margin: 0;
+    padding-bottom: 0;
+    font-weight: 300;
+    color: white;
+    margin-top: 3%;
+    padding: 1%;
+}
+
+.baby-step-card-responsible-and-due {
+    background-color: #E7F2F8;
+    margin: 3% 0;
+    padding: 1% 1%;
+}
+
+.baby-step-card-middle {
+    /* babySteps will go here */
+}
+
+.baby-step-card-bottom-navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    
+}
+
+.baby-step-card-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 0 0 4% 4%;
+}
+
+.details-icon {
+    width: 20px;
+    height: auto;
+}
+
+.baby-step-card-update {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 0 0 4% 0;
+}
+
+.update-icon {
+    width: 20px;
+    height: auto;
+}
+
+
+.baby-step-card-delete {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 20px;
+    margin: 0 4% 4% 0;
+}
+
+.delete-icon {
+    width: 20px;
+    height: auto;
+}
+
+.no-baby-steps {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.baby-step-header-h1-no-baby-steps {
+    color: white;
+    font-weight: 300;
+}
+
+.add-baby-step-button {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
+    height: 35px;
+    font-size: .75rem;
+    border: solid #74BDCB 1px;
+    background-color: #74BDCB;
+    color: white;
+    padding: 0 1rem;
+}
+
+
+.add-baby-step-button:hover {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
+    height: 35px;
+    font-size: .75rem;
+    background-color: white;
+    border: solid #74BDCB 1px;
+    color: #74BDCB;
+    padding: 0 1rem;
+}

@@ -28,76 +28,75 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
 
 
 
-    // const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned');
-    // const inProgressSteps = babySteps.filter(babyStep => babyStep.status === 'In Progress');
-    // const completedSteps = babySteps.filter(babyStep => babyStep.status === 'Complete');
+    const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned');
+    const inProgressSteps = babySteps.filter(babyStep => babyStep.status === 'In Progress');
+    const completedSteps = babySteps.filter(babyStep => babyStep.status === 'Complete');
 
 
-    // async function handleDeleteClick(babyStep) {
-    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-    //         await boardsAPI.deleteBabyStep(board.title, babyStep.title)
-    //         setBabySteps(babySteps.filter((bStep) => bStep._id !== babyStep._id)
-    //     )}
-    // }
+    async function handleDeleteClick(babyStep) {
+        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        //     await boardsAPI.deleteBabyStep(board.title, babyStep.title)
+        //     setBabySteps(babySteps.filter((bStep) => bStep._id !== babyStep._id)
+        // )}
+    }
 
-    // async function handlePlannedStatusChangeClick(babyStep) {
-    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-    //         const updatedBabySteps = babySteps.map(step => {
-    //             if (step._id === babyStep._id) {
-    //                 return { ...step, status: "Planned" };
-    //             }
-    //             return step;
-    //         });
+    async function handlePlannedStatusChangeClick(babyStep) {
+        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        //     const updatedBabySteps = babySteps.map(step => {
+        //         if (step._id === babyStep._id) {
+        //             return { ...step, status: "Planned" };
+        //         }
+        //         return step;
+        //     });
 
-    //         await boardsAPI.changeStatusToPlanned(board._id, babyStep._id)
-    //         setBabySteps(updatedBabySteps)
+        //     await boardsAPI.changeStatusToPlanned(board._id, babyStep._id)
+        //     setBabySteps(updatedBabySteps)
 
-    //     } else {
-    //         alert("Only the user of a baby step can update its status.")
-    //     }
-    // }
+        // } else {
+        //     alert("Only the user of a baby step can update its status.")
+        // }
+    }
 
-    // async function handleInProgressStatusChangeClick(babyStep) {
-    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-    //         const updatedBabySteps = babySteps.map(step => {
-    //             if (step._id === babyStep._id) {
-    //                 return { ...step, status: "In Progress" };
-    //             }
-    //             return step;
-    //         });
+    async function handleInProgressStatusChangeClick(babyStep) {
+        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        //     const updatedBabySteps = babySteps.map(step => {
+        //         if (step._id === babyStep._id) {
+        //             return { ...step, status: "In Progress" };
+        //         }
+        //         return step;
+        //     });
 
-    //         await boardsAPI.changeStatusToInProgress(board._id, babyStep._id)
-    //         setBabySteps(updatedBabySteps)
+        //     await boardsAPI.changeStatusToInProgress(board._id, babyStep._id)
+        //     setBabySteps(updatedBabySteps)
 
-    //     } else {
-    //         alert("Only the user of a baby step can update its status.")
-    //     }
-    // }
+        // } else {
+        //     alert("Only the user of a baby step can update its status.")
+        // }
+    }
     
-    // async function handleCompleteStatusChangeClick(babyStep) {
-    //     if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-    //         const updatedBabySteps = babySteps.map(step => {
-    //             if (step._id === babyStep._id) {
-    //                 return { ...step, status: "Complete" };
-    //             }
-    //             return step;
-    //         });
+    async function handleCompleteStatusChangeClick(babyStep) {
+        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        //     const updatedBabySteps = babySteps.map(step => {
+        //         if (step._id === babyStep._id) {
+        //             return { ...step, status: "Complete" };
+        //         }
+        //         return step;
+        //     });
 
-    //         await boardsAPI.changeStatusToComplete(board._id, babyStep._id)
-    //         setBabySteps(updatedBabySteps)
+        //     await boardsAPI.changeStatusToComplete(board._id, babyStep._id)
+        //     setBabySteps(updatedBabySteps)
 
-    //     } else {
-    //         alert("Only the user of a baby step can update its status.")
-    //     }
-    // }
+        // } else {
+        //     alert("Only the user of a baby step can update its status.")
+        // }
+    }
    
     
 
     return (
         <>
-        <h1>Baby Steps Page</h1>
             <div className="board-body">
-                {/* {babySteps.length ?
+                {babySteps.length ?
                 <div className="baby-step-container">
                     <div className="baby-step-header">
                         <div className="baby-step-header-blank"></div>
@@ -232,7 +231,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
                     </div>
                 </div>
 
-                : */}
+                :
                     <>
                         <div className="board-body">
                             <div className="baby-step-container">
@@ -253,7 +252,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
                             </div>
                         </div>
                     </>
-                {/* } */}
+                }
                 
             </div>
         </>
