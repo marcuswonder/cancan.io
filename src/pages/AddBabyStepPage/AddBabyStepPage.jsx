@@ -40,7 +40,7 @@ export default function AddBabyStepPage({ user }) {
         const createdBabyStep = await boardsAPI.createBabyStep(board, bigStep, newBabyStep)
         setBabySteps([...babySteps, createdBabyStep])
         setNewBabyStep({ title: "", description: "", due: new Date() })
-        navigate(`/boards/${board.title.replace(/\s+/g, '-')}`)
+        navigate(`/boards/${board.title.replace(/\s+/g, '-')}/${bigStep.title.replace(/\s+/g, '-')}`)
     }
 
     function handleChange(evt) {
