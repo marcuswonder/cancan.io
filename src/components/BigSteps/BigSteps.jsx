@@ -1,20 +1,34 @@
 import './BigSteps.css';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom'
+
+import * as boardsAPI from '../../utilities/boards-api'
+
 import deleteIcon from '../../public/assets/delete-icon-white.png'
 import forwardIcon from '../../public/assets/fwd-white.png'
 import backwardIcon from '../../public/assets/bwd-white.png'
 import detailsIcon from '../../public/assets/details-white.png'
 import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
-import { useParams, Link } from 'react-router-dom'
-import * as boardsAPI from '../../utilities/boards-api'
-import { Routes, Route } from 'react-router-dom'
 
-export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
+
+export default function BigSteps({ user, board, setBoard  }) {
     const { boardName } = useParams()
+    const [bigSteps, setBigSteps] = useState([])
 
     const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned');
     const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress');
     const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Complete');
+
+    useEffect(function() {
+        async function getBigSteps() {
+          const bigSteps = board.bigSteps || []
+          setBigSteps(bigSteps)
+        }
+        getBigSteps()
+      }, [board])
+
+
 
 
     async function handleDeleteClick(bigStep) {
@@ -77,7 +91,12 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
    
     
 
-    return (
+    if (!board) {
+        return <div>Loading...</div>
+      }
+    
+      
+      return (
         <>
             <div className="board-body">
                 {bigSteps.length ?

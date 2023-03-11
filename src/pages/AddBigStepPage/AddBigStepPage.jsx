@@ -24,12 +24,10 @@ export default function AddBigStepPage({ user }) {
 
 
     async function handleCreateBigStep(evt) {
-        console.log("handleCreateBigStep being hit")
         evt.preventDefault();
         newBigStep.author = user._id;
         newBigStep.board = board._id;
         newBigStep.responsible = responsibleUser;
-        console.log("newBigStep", newBigStep)
         const createdBigStep = await boardsAPI.createBigStep(newBigStep);
         setBigSteps([...bigSteps, createdBigStep]);
         setNewBigStep({ title: "", description: "", due: new Date() });
