@@ -36,6 +36,7 @@ export default function AddBabyStepPage({ user }) {
         evt.preventDefault();
         newBabyStep.author = user._id
         newBabyStep.board = board._id
+        newBabyStep.bigStep = bigStep._id
         newBabyStep.responsible = responsibleUser
         const createdBabyStep = await boardsAPI.createBabyStep(board, bigStep, newBabyStep)
         setBabySteps([...babySteps, createdBabyStep])

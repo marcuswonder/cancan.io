@@ -34,7 +34,6 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
 
 
     async function handleDeleteClick(babyStep) {
-        console.log("babyStep", babyStep)
         if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
             await boardsAPI.deleteBabyStep(board.title, babyStep.title)
             setBabySteps(babySteps.filter((bStep) => bStep._id !== babyStep._id)
@@ -49,15 +48,15 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
         //         }
         //         return step;
         //     });
-
-        //     await boardsAPI.changeStatusToPlanned(board._id, babyStep._id)
+            
+        //     await boardsAPI.changeBabyStepStatusToPlanned(board._id, babyStep._id)
         //     setBabySteps(updatedBabySteps)
-
+            
         // } else {
         //     alert("Only the user of a baby step can update its status.")
         // }
     }
-
+    
     async function handleInProgressStatusChangeClick(babyStep) {
         // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
         //     const updatedBabySteps = babySteps.map(step => {
@@ -66,10 +65,13 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
         //         }
         //         return step;
         //     });
-
-        //     await boardsAPI.changeStatusToInProgress(board._id, babyStep._id)
+            
+        //     console.log("babyStep._id", babyStep._id)
+        //     console.log("bigStep._id", bigStep._id)
+        //     console.log("board._id", board._id)
+        //     await boardsAPI.changeBabyStepStatusToInProgress(board._id, babyStep._id)
         //     setBabySteps(updatedBabySteps)
-
+            
         // } else {
         //     alert("Only the user of a baby step can update its status.")
         // }
@@ -84,7 +86,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
         //         return step;
         //     });
 
-        //     await boardsAPI.changeStatusToComplete(board._id, babyStep._id)
+        //     await boardsAPI.changeBabyStepStatusToComplete(board._id, babyStep._id)
         //     setBabySteps(updatedBabySteps)
 
         // } else {

@@ -20,7 +20,16 @@ const babyStepSchema = new Schema({
     responsible: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-    }}, {
+    },
+    bigStep: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'bigStep'
+      },
+    board: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'bigStep'
+      },
+}, {
         timestamps: true,
     
 })
@@ -43,6 +52,10 @@ const bigStepSchema = new Schema({
     responsible: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+    },
+    board: {
+        type: Schema.Types.ObjectId,
+        ref: 'Board',
     },
     babySteps: [babyStepSchema]
 }, {

@@ -54,15 +54,15 @@ export async function updateBigStep(bigStepUpdate) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/update`, 'PUT', {bigStepUpdate})
 }
 
-export async function changeStatusToPlanned(boardId, bigStepId) {
+export async function changeBigStepStatusToPlanned(boardId, bigStepId) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/planned`, 'PUT')
 }
 
-export async function changeStatusToInProgress(boardId, bigStepId) {
+export async function changeBigStepStatusToInProgress(boardId, bigStepId) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/in-progress`, 'PUT')
 }
 
-export async function changeStatusToComplete(boardId, bigStepId) {
+export async function changeBigStepStatusToComplete(boardId, bigStepId) {
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/complete`, 'PUT')
 }
 

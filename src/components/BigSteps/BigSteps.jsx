@@ -33,7 +33,7 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                 return step;
             });
 
-            await boardsAPI.changeStatusToPlanned(board._id, bigStep._id)
+            await boardsAPI.changeBigStepStatusToPlanned(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
         } else {
@@ -50,7 +50,7 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                 return step;
             });
 
-            await boardsAPI.changeStatusToInProgress(board._id, bigStep._id)
+            await boardsAPI.changeBigStepStatusToInProgress(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
         } else {
@@ -67,7 +67,7 @@ export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
                 return step;
             });
 
-            await boardsAPI.changeStatusToComplete(board._id, bigStep._id)
+            await boardsAPI.changeBigStepStatusToComplete(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
         } else {
