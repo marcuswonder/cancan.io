@@ -102,7 +102,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
                         <div className="baby-step-header-blank"></div>
                         <h1 className="baby-step-header-h1">Baby Steps</h1>
                         <div className="baby-step-header-add">
-                            <Link to={`/boards/${boardName}/baby-steps/add`}>
+                            <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}>
                                 <img className="add-icon" src={addIcon} alt='go backwards' title="Add a baby step to your project" />
                             </Link>
                         </div>
@@ -131,12 +131,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
                                     </div>
                                     <div className="baby-step-card-bottom-navigation">
                                         <div className="baby-step-card-details">
-                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your baby step'  title="See a detailed view of your baby step" />
-                                            </Link>
-                                        </div>
-                                        <div className="baby-step-card-update">
-                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                        <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
                                             </Link>
                                         </div>
@@ -172,12 +167,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
                                     </div>
                                     <div className="baby-step-card-bottom-navigation">
                                         <div className="baby-step-card-details">
-                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your baby step'  title="See a detailed view of your baby step" />
-                                            </Link>
-                                        </div>
-                                        <div className="baby-step-card-update">
-                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                        <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
                                             </Link>
                                         </div>
@@ -211,12 +201,7 @@ export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
                                     </div>
                                     <div className="baby-step-card-bottom-navigation">
                                         <div className="baby-step-card-details">
-                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your baby step'  title="See a detailed view of your baby step" />
-                                            </Link>
-                                        </div>
-                                        <div className="baby-step-card-update">
-                                            <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                        <Link to={`/boards/${boardName}/baby-steps/${babyStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
                                             </Link>
                                         </div>
