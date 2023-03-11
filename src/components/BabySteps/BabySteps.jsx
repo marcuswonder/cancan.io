@@ -9,22 +9,21 @@ import { useParams, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
 
-export default function BabySteps({ user, board, bigSteps, setBigSteps }) {
+export default function BabySteps({ user, board, setBoard }) {
     const [babySteps, setBabySteps] = useState([])
 
     const { boardName, bigStepName } = useParams()
-    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
     const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
 
-    
     useEffect(function() {
         async function getBigStepsBabySteps() {
-            let babySteps = []
-            babySteps = await boardsAPI.getBigStepsBabySteps(boardNameActual, bigStepNameActual)
+            await setBoard(board)
+            const bigStep = board.bigSteps.filter(bStep => bStep.title === bigStepNameActual)
+            const babySteps = bigStep[0]?.babySteps || []
             setBabySteps(babySteps)
         }
         getBigStepsBabySteps()
-    }, [boardNameActual])
+    }, [bigStepNameActual, board])
 
 
 

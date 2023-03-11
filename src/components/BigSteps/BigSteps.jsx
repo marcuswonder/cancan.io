@@ -12,7 +12,7 @@ import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
 
 
-export default function BigSteps({ user, board, setBoard  }) {
+export default function BigSteps({ user, board, setBoard }) {
     const { boardName } = useParams()
     const [bigSteps, setBigSteps] = useState([])
 
@@ -22,11 +22,12 @@ export default function BigSteps({ user, board, setBoard  }) {
 
     useEffect(function() {
         async function getBigSteps() {
-          const bigSteps = board.bigSteps || []
-          setBigSteps(bigSteps)
+            await setBoard(board)
+            const bigSteps = board.bigSteps || []
+            setBigSteps(bigSteps)
         }
         getBigSteps()
-      }, [board])
+    }, [board])
 
 
 
