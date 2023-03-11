@@ -23,21 +23,12 @@ export default function BoardPage({user}) {
 
     }, [boardNameActual])
     
+    if (isLoading) {
+        return <div>Loading...</div>
+      }
     
-
-
-    
-    // useEffect(function() {
-    //     async function getBoardBigSteps() {
-    //         let bigSteps = []
-    //         bigSteps = await boardsAPI.getBoardBigSteps(boardNameActual)
-    //         setBigSteps(bigSteps)
-    //     }
-    //     getBoardBigSteps()
-    // }, [boardNameActual])
-    
-
-    return (
+      
+      return (
         <>
             {/* {!isLoading && <BoardDetail user={user} board={board} />}
             {!isLoading && <StepsPage user={user} board={board} bigSteps={bigSteps} setBigSteps={setBigSteps} boardName={boardName}/>} */}

@@ -19,7 +19,12 @@ export default function BoardDetail({user, board}) {
         }
     }
 
-    return (
+    if (!board) {
+        return <div>Loading...</div>
+      }
+    
+      
+      return (
         <>
             <div className="board-card-container">
                 <div className="board-card-header">

@@ -101,7 +101,11 @@ export default function BabySteps({ user, board, setBoard }) {
                 {babySteps.length ?
                 <div className="baby-step-container">
                     <div className="baby-step-header">
-                        <div className="baby-step-header-blank"></div>
+                        <div className="baby-step-header-blank">
+                            <Link to={`/boards/${boardName}`}>
+                                <img className="add-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
+                            </Link>
+                        </div>
                         <h1 className="baby-step-header-h1">Baby Steps</h1>
                         <div className="baby-step-header-add">
                             <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}>

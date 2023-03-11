@@ -90,20 +90,18 @@ export default function BigSteps({ user, board, setBoard }) {
         }
     }
    
-    
 
-    if (!board) {
-        return <div>Loading...</div>
-      }
-    
-      
       return (
         <>
             <div className="board-body">
                 {bigSteps.length ?
                 <div className="big-step-container">
                     <div className="big-step-header">
-                        <div className="big-step-header-blank"></div>
+                        <div className="big-step-header-blank">
+                            <Link to={`/boards`}>
+                                <img className="add-icon" src={backwardIcon} alt='back to your Boards' title="Back to your boards" />
+                            </Link>
+                        </div>
                         <h1 className="big-step-header-h1">Big Steps</h1>
                         <div className="big-step-header-add">
                             <Link to={`/boards/${boardName}/big-steps/add`}>
