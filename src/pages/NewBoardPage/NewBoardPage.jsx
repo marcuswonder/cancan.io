@@ -1,9 +1,9 @@
-import './NewBoardPage.css';
+import './NewBoardPage.css'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
-// import Select from 'react-select'; consider for user search bar later
+// import Select from 'react-select' consider for user search bar later
 
 export default function NewBoardPage({ user }) {
   const navigate = useNavigate()
@@ -11,30 +11,28 @@ export default function NewBoardPage({ user }) {
   const [ newBoard, setNewBoard ] = useState({ title: '', description: '', admins: [], users: [] })
   const [usersGallery, setUsersGallery] = useState([])
   const [selectedAdmins, setSelectedAdmins] = useState([])
-  const [selectedUsers, setSelectedUsers] = useState([])
 
 
   async function handleCreateBoard(evt) {
     evt.preventDefault()
-    const boardData = {...newBoard, author: user._id, admins: selectedAdmins, users: selectedUsers}
+    const boardData = {...newBoard, author: user._id, admins: selectedAdmins}
     const createdBoard = await boardsAPI.createBoard(boardData)
     setBoards([...boards, createdBoard])
     setNewBoard({ title: "", description: "", admins: [], users: [] })
-    setSelectedUsers([]);
-    setSelectedAdmins([]);
+    setSelectedAdmins([])
     navigate(`/boards/${boardData.title.replace(/\s+/g, '-')}`)
   }
   
 
   function handleChange(evt) {
-    const name = evt.target.name;
-    const value = evt.target.value;
+    const name = evt.target.name
+    const value = evt.target.value
     const newFormData = {...newBoard, [name]: value }
-    setNewBoard(newFormData);
+    setNewBoard(newFormData)
   }
 
   function handleAdminSelect(evt) {
-    const options = evt.target.options;
+    const options = evt.target.options
     const selectedAdmins = []
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
@@ -42,20 +40,9 @@ export default function NewBoardPage({ user }) {
       }
     }
     selectedAdmins.unshift(user._id)
-    setSelectedAdmins(selectedAdmins);
+    setSelectedAdmins(selectedAdmins)
   }
   
-  function handleUserSelect(evt) {
-    const options = evt.target.options;
-    const selectedUsers = []
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedUsers.push(options[i].value)
-      }
-    }
-    setSelectedUsers(selectedUsers);
-  }
-
   useEffect(function() {
     async function getUsers() {
       let users = []
@@ -85,16 +72,8 @@ export default function NewBoardPage({ user }) {
                       </option>
                     ))}
                   </select>
-                  <label className="new-board-select-label">Add users to this board</label>
-                  <select  name="users" multiple onChange={handleUserSelect}  className="new-board-form-select-input" >
-                    {usersGallery.map((user) => (
-                      <option key={user._id} value={user._id} className="new-board-form-select-input" >
-                        {user.name}   -   {user.email}
-                      </option>
-                    ))}
-                  </select>
                   <div></div>
-                  <p className="new-board-form-user-info">Admins will have full write permissions at all levels of this board. Users must be allocated responsibilities at each stage.</p>
+                  <p className="new-board-form-user-info">Admins will have full write permissions at all levels of this board. Users will be allocated specific responsibilities at specific steps within this board.</p>
                   
                   <button type="submit">Create Board</button>
               </form>
