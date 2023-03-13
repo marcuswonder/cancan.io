@@ -11,11 +11,11 @@ module.exports = {
 
 async function authorIndex(req, res) {
     try {
-      let boards = []
       if (req.user) {
-        boards = await Board.find({author: req.user._id})
+        const boards = await Board.find({ admins: { $in: [req.user._id] } })
+        res.json(boards)
       }
-      res.json(boards)
+
     } catch (err) {
       console.error(err)
       res.status(500).send('Error retrieving Boards')
@@ -26,16 +26,17 @@ async function userIndex(req, res) {
     try {
       let boards = []
       if (req.user) {
-        boards = await Board.find({users: req.user._id})
+        boards = await Board.find({ users: { $in: [req.user._id] } })
       }
       res.status(200).json(boards)
+
     } catch (err) {
-      console.error(err)
       res.status(500).send('Error retrieving Boards')
     }
   }
 
   async function show(req, res) {
+  try {
     const board = await Board.findOne({title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
     const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
 
@@ -46,9 +47,12 @@ async function userIndex(req, res) {
     
     } else {
       res.status(403).json({ error: "Only users of a board can view it" })
-
     }
+  } catch (err) {
+    console.error(err)
+      res.status(500).send('Error retrieving Boards')
   }
+}
 
 async function create(req, res) {
   newBoard = req.body.board
@@ -93,16 +97,12 @@ async function update(req, res) {
       }
 
     } else {
-      console.log("else if statement being hit")
-      
       res.status(403).json({ error: "Only admins of a board can update it" })
   }
 }
 
 async function deleteBoard(req, res) {
 
-
-  
   const board = await Board.findOne({ title: req.params.boardName });
   if( req.user._id === board.author._id.toString()) {
         await Board.findByIdAndDelete(board._id)

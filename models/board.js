@@ -53,6 +53,10 @@ const bigStepSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    admins: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }],
     board: {
         type: Schema.Types.ObjectId,
         ref: 'Board',
