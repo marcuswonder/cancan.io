@@ -59,14 +59,17 @@
     text-align: right;
 }
 
-.board-card-author {
+.board-card-admins {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     font-size: 1rem;
 }
 
-.board-card-author-details {
+.board-card-admins-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     font-size: 1rem;
     color: #7dBDCB;
     font-weight: 300;

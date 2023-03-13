@@ -39,7 +39,7 @@ async function userIndex(req, res) {
     try {
       let board = {}
       if (req.user) {
-        board = await Board.findOne({user: req.user._id, title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'users', model: 'User' })
+        board = await Board.findOne({user: req.user._id, title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
       }
       if (!board) {
         return res.status(404).send('Board not found')
