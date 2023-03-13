@@ -1,4 +1,4 @@
-import '../../pages/App/App.css';
+import './AddBabyStepPage.css';
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
@@ -79,7 +79,7 @@ export default function AddBabyStepPage({ user }) {
     return (
         <div>
             <div className="form-container">
-            <h1>Add Baby Step to ${board.name}</h1>
+                <h1 className="new-big-step-h1">Add a new Baby Step to {bigStep.title} on the {board.title} board</h1>
                 <form autoComplete="off" onSubmit={handleCreateBabyStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={newBabyStep.title} required />
@@ -90,11 +90,11 @@ export default function AddBabyStepPage({ user }) {
                         <label>Due Date</label>
                         <input type="date" name="due" onChange={handleChange} value={newBabyStep.due} required />
                         
-                        <label>Select Responsible User</label>
-                        <select name="responsible" onChange={handleResponsibleSelect}>
+                        <label className="new-big-step-select-label">Who is responsible?</label>
+                        <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input">
                             <option value="">Select a responsible user</option>
                             {usersGallery.map((user) => (
-                            <option key={user._id} value={user._id}>
+                            <option key={user._id} value={user._id} className="new-big-step-form-select-input">
                                 {user.name} | {user.email} 
                             </option>
                             ))}

@@ -1,4 +1,4 @@
-import '../../pages/App/App.css';
+import './AddBigStepPage.css';
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
@@ -68,8 +68,8 @@ export default function AddBigStepPage({ user }) {
 
     return (
         <div>
-            <h1>Add Big Step to ${board.name}</h1>
             <div className="form-container">
+            <h1 className="new-big-step-h1">Add a new Big Step to the {board.title} board</h1>
                 <form autoComplete="off" onSubmit={handleCreateBigStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={newBigStep.title} required />
@@ -80,11 +80,11 @@ export default function AddBigStepPage({ user }) {
                         <label>Due Date</label>
                         <input type="date" name="due" onChange={handleChange} value={newBigStep.due} required />
                         
-                        <label>Select Responsible User</label>
-                        <select name="responsible" onChange={handleResponsibleSelect}>
+                        <label className="new-big-step-select-label">Who is responsible?</label>
+                        <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input">
                             <option value="">Select a responsible user</option>
                             {usersGallery.map((user) => (
-                            <option key={user._id} value={user._id}>
+                            <option key={user._id} value={user._id} className="new-big-step-form-select-input">
                                 {user.name} | {user.email} 
                             </option>
                             ))}
