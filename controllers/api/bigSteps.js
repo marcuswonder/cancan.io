@@ -46,12 +46,21 @@ async function deleteBigStep(req, res) {
 
 async function index(req, res) {
   const boardName = req.params.boardName
-  const board = await Board.findOne({title: boardName})
-  if(board.bigSteps.length) {
-    res.status(200).json(board.bigSteps)
-  } else {
-    res.status(200).json([])  
-  }
+
+  const board = await Board.findOne({title: boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
+    const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
+
+    if(verifiedUser) {
+      if(board.bigSteps.length) {
+        res.status(200).json(board.bigSteps)
+
+      } else {
+        res.status(200).json([])  
+      }
+
+    } else {
+      res.status(403).json({ error: "Only users of a Board can view its big steps" })
+    }
 }
 
 async function show(req, res) {
