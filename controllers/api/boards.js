@@ -36,18 +36,17 @@ async function userIndex(req, res) {
   }
 
   async function show(req, res) {
-    try {
-      let board = {}
-      if (req.user) {
-        board = await Board.findOne({user: req.user._id, title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
-      }
-      if (!board) {
-        return res.status(404).send('Board not found')
-      }
-      res.json(board)
-    } catch (err) {
-      console.error(err)
-      res.status(500).send('Error retrieving Board')
+    const board = await Board.findOne({title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
+    const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
+
+    const verifiedUser = approvedBoardViewers.find(user => user._id.toString() === req.user._id)
+
+    if(verifiedUser) {
+        res.json(board)
+    
+    } else {
+      res.status(403).json({ error: "Only users of a board can view it" })
+
     }
   }
 
@@ -56,7 +55,7 @@ async function create(req, res) {
 
   const existingBoard = await Board.find({title: newBoard.title})
   
-  if(!existingBoard === true) {
+  if(!existingBoard) {
       console.log("controller create if statement hit!")
       return res.status(400).json({ error: 'A Board with this title already exists' })
       
@@ -73,10 +72,9 @@ async function update(req, res) {
   const board = await Board.findById(updatedBoard._id)
   const admins = board.admins
 
-  const admin = admins.find(admin => admin._id.toString() === req.user._id)
+  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
 
-  if(admin) {
-
+  if(verifiedAdmin) {
     try {
       Board.findOneAndUpdate(
         { _id: updatedBoard._id },

@@ -31,8 +31,8 @@ export default function AuthorBoardsList({ user }) {
         <>
         {userBoardGallery.length ?
             <div>
-                <h2 className="boards-list-h2">Authored Boards</h2>
-                <p className="boards-list-custom-p">These are boards that you have created</p>
+                <h2 className="boards-list-h2">Your Boards</h2>
+                <p className="boards-list-custom-p">These are boards that you are an administrator on</p>
                     <div className="boards-list-board-body">
                         {userBoardGallery.map(board => (
                             <div className="boards-list-board-card-container" key={board._id}>

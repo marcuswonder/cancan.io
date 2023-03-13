@@ -42,7 +42,7 @@ export default function HomePage({user, setUser}) {
 
                             <div className="button-container">
                                 <Link to={`/boards`}><button className="home-button">my boards</button></Link>
-                                <Link to={`/boards/new`}><button className="home-button">new board</button></Link>
+                                <Link to={`/boards/new`}><button className="home-button">create board</button></Link>
                             </div>
                         </>   
                     }
