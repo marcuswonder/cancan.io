@@ -97,115 +97,111 @@ async function show(req, res) {
   }
 }
 
+
 async function update(req, res) {
-  const boardId = req.params.boardId;
-  const bigStepId = req.params.bigStepId;
-  const babyStepId = req.params.babyStepId;
+  const updatedBabyStep = req.body.babyStepUpdate
+  
+  const boardId = req.params.boardId
+  const bigStepId = req.params.bigStepId
+  const babyStepId = req.params.babyStepId
 
-  const { title, description, responsible, due } = req.body.babyStepUpdate;
+  const board = await Board.findOne({ _id: boardId })
+  const bigStep = board.bigSteps.find(bStep => bStep._id.toString() === bigStepId)
+  const babyStep = bigStep.babySteps.find(bStep => bStep._id.toString() === babyStepId)
 
-  const board = await Board.findOneAndUpdate(
-    { _id: boardId, 'bigStep._id': bigStepId, 'bigStep.babyStep._id': babyStepId },
-    {
-      $set: {
-        'bigStep.$[bigStep].babyStep.$[babyStep].title': title,
-        'bigStep.$[bigStep].babyStep.$[babyStep].description': description,
-        'bigStep.$[bigStep].babyStep.$[babyStep].responsible': responsible,
-        'bigStep.$[bigStep].babyStep.$[babyStep].due': due,
-      },
-    },
-    { arrayFilters: [{ 'bigStep._id': bigStepId }, { 'babyStep._id': babyStepId }], new: true }
-  );
+  babyStep.title = updatedBabyStep.title
+  babyStep.description = updatedBabyStep.description
+  babyStep.responsible = updatedBabyStep.responsible
+  babyStep.due = updatedBabyStep.due
 
-  console.log("board.bigSteps", board.bigSteps)
+  await board.save()
 
   res.status(200).json(board)
 }
 
-  async function updateStatusToPlanned(req, res) {
-    const boardId = req.params.boardId
-    const bigStepId = req.params.bigStepId
-    const babyStepId = req.params.babyStepId
+async function updateStatusToPlanned(req, res) {
+  const boardId = req.params.boardId
+  const bigStepId = req.params.bigStepId
+  const babyStepId = req.params.babyStepId
 
-    try {
-      const board = await Board.findById(boardId);
-      if (!board) {
-        return res.status(404).json({ msg: 'Board not found' });
-      }
-  
-      const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
-  
-      if (!babyStep) {
-        return res.status(404).json({ msg: 'Baby step not found' });
-      }
-  
-      babyStep.status = "Planned"
-  
-      await board.save();
-  
-      res.status(200).json(board);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+  try {
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
     }
-  }
-  
 
-  async function updateStatusToInProgress(req, res) {
-    const boardId = req.params.boardId
-    const bigStepId = req.params.bigStepId
-    const babyStepId = req.params.babyStepId
+    const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
 
-
-    try {
-      const board = await Board.findById(boardId);
-      if (!board) {
-        return res.status(404).json({ msg: 'Board not found' });
-      }
-  
-      const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
-  
-      if (!babyStep) {
-        return res.status(404).json({ msg: 'Baby step not found' });
-      }
-  
-      babyStep.status = "In Progress"
-  
-      await board.save();
-  
-      res.status(200).json(board);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+    if (!babyStep) {
+      return res.status(404).json({ msg: 'Baby step not found' });
     }
-  }
-  
-  
-  async function updateStatusToComplete(req, res) {
-    const boardId = req.params.boardId
-    const bigStepId = req.params.bigStepId
-    const babyStepId = req.params.babyStepId
 
-    try {
-      const board = await Board.findById(boardId);
-      if (!board) {
-        return res.status(404).json({ msg: 'Board not found' });
-      }
-  
-      const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
-  
-      if (!babyStep) {
-        return res.status(404).json({ msg: 'Baby step not found' });
-      }
-  
-      babyStep.status = "Complete"
-  
-      await board.save();
-  
-      res.status(200).json(board);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
+    babyStep.status = "Planned"
+
+    await board.save();
+
+    res.status(200).json(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
-  
+}
+
+
+async function updateStatusToInProgress(req, res) {
+  const boardId = req.params.boardId
+  const bigStepId = req.params.bigStepId
+  const babyStepId = req.params.babyStepId
+
+
+  try {
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
+    }
+
+    const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
+
+    if (!babyStep) {
+      return res.status(404).json({ msg: 'Baby step not found' });
+    }
+
+    babyStep.status = "In Progress"
+
+    await board.save();
+
+    res.status(200).json(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}
+
+
+async function updateStatusToComplete(req, res) {
+  const boardId = req.params.boardId
+  const bigStepId = req.params.bigStepId
+  const babyStepId = req.params.babyStepId
+
+  try {
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
+    }
+
+    const babyStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId).babySteps.find((babyStep) => babyStep.id === babyStepId)
+
+    if (!babyStep) {
+      return res.status(404).json({ msg: 'Baby step not found' });
+    }
+
+    babyStep.status = "Complete"
+
+    await board.save();
+
+    res.status(200).json(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}
