@@ -65,7 +65,7 @@ export default function UserBoardsList() {
             </div>
 
         :
-        <p>Create some new boards!</p>
+        <></>
         }
         </>
     )

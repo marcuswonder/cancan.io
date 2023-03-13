@@ -109,3 +109,24 @@
     vertical-align: top;
     border: 1px solid white;
 }
+
+.boards-list-h1 {
+    padding-top: 3%;
+}
+
+.boards-list-p {
+    font-family:'Helvetica Neue';
+    font-weight: 300;
+    color: #74BDCB;
+    width: 70%;
+    border-top: #74BDCB 1px solid;
+    padding: 1%;
+    margin: 0 auto;
+}
+
+.boards-list-button {
+    font-family:'Helvetica Neue';
+    font-weight: 300;
+    font-size: 1rem;
+    padding: .5% 1%;
+}

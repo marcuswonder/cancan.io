@@ -73,10 +73,16 @@ export default function AuthorBoardsList({ user }) {
                             </div>
                         ))}
                     </div>
+                    <p className="boards-list-p">Create another board!</p>
+                    <div><Link to="/boards/new"><button className="boards-list-button">new board</button></Link></div>
             </div>
 
         :
-        <p>Create some new boards!</p>
+        <>
+            <h1 className="boards-list-h1">You have not created any boards yet</h1>
+            <p>Create some now!</p>
+            <div><Link to="/boards/new"><button className="boards-list-button">new board</button></Link></div>
+        </>
         }
         </>
     )

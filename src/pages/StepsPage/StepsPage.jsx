@@ -13,6 +13,8 @@ export default function Steps({ user, board, setBoard }) {
         }
         getBoard()
     }, [board])
+
+    console.log("board on Steps Page", board)
     
 
     return (

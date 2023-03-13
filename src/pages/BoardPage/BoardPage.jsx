@@ -30,8 +30,6 @@ export default function BoardPage({user}) {
       
       return (
         <>
-            {/* {!isLoading && <BoardDetail user={user} board={board} />}
-            {!isLoading && <StepsPage user={user} board={board} bigSteps={bigSteps} setBigSteps={setBigSteps} boardName={boardName}/>} */}
             <BoardDetail user={user} board={board} />
             {!isLoading && <StepsPage user={user} board={board} setBoard={setBoard} />}
         </>

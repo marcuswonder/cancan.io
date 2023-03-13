@@ -15,7 +15,6 @@ export default function NavBar({ user, setUser }) {
             <div className="nav-bar-links">
                 <div className="logo"><Link to="/"><img className="logo" src={logo} alt='go home' /></Link></div>
                 <div><Link to="/boards"><button className="menu-item">my boards</button></Link></div>
-                <div><Link to="/boards/new"><button className="menu-item">new board</button></Link></div>
             </div>
             <div className="nav-bar-auth">
                 <div><Link to="" onClick={handleLogOut}><button className="menu-item">log out</button></Link></div>
