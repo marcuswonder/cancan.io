@@ -30,7 +30,7 @@ export default function BoardPage({user}) {
       
       return (
         <>
-            <BoardDetail user={user} board={board} />
+            <BoardDetail user={user} board={board} setBoard={setBoard} />
             {!isLoading && <StepsPage user={user} board={board} setBoard={setBoard} />}
         </>
     )

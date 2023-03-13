@@ -1,13 +1,19 @@
 import './BoardDetail.css';
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 
-export default function BoardDetail({user, board}) {
+export default function BoardDetail({user, board, setBoard}) {
     const navigate = useNavigate()
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
 
-   
+    useEffect(function() {
+        async function getBoard() {
+            setBoard(board)
+        }
+        getBoard()
+    }, [board])
 
     
     async function handleDeleteClick() {
@@ -77,7 +83,7 @@ export default function BoardDetail({user, board}) {
                     </div>
                 </div>
                 <div className="status-and-buttons">
-                    {user._id === board.author?._id ? (
+                    {(board.admins?.find(admin => admin._id === user._id)) ? (
                         <>
                             <div className="update-button-div"><Link to={`/boards/${boardName}/update`}><button className="update-button">Update Board</button></Link></div>
                             <div className="board-card-status">
