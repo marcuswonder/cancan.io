@@ -8,18 +8,20 @@ import * as usersAPI from '../../utilities/users-api'
 export default function NewBoardPage({ user }) {
   const navigate = useNavigate()
   const [ boards, setBoards ] = useState([])
-  const [ newBoard, setNewBoard ] = useState({ title: '', description: '', users: [] })
+  const [ newBoard, setNewBoard ] = useState({ title: '', description: '', admins: [], users: [] })
   const [usersGallery, setUsersGallery] = useState([])
+  const [selectedAdmins, setSelectedAdmins] = useState([])
   const [selectedUsers, setSelectedUsers] = useState([])
 
 
   async function handleCreateBoard(evt) {
     evt.preventDefault()
-    const boardData = {...newBoard, author: user._id, users: selectedUsers}
+    const boardData = {...newBoard, author: user._id, admins: selectedAdmins, users: selectedUsers}
     const createdBoard = await boardsAPI.createBoard(boardData)
     setBoards([...boards, createdBoard])
-    setNewBoard({ title: "", description: "", users: [] })
+    setNewBoard({ title: "", description: "", admins: [], users: [] })
     setSelectedUsers([]);
+    setSelectedAdmins([]);
     navigate(`/boards/${boardData.title.replace(/\s+/g, '-')}`)
   }
   
@@ -31,6 +33,18 @@ export default function NewBoardPage({ user }) {
     setNewBoard(newFormData);
   }
 
+  function handleAdminSelect(evt) {
+    const options = evt.target.options;
+    const selectedAdmins = []
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedAdmins.push(options[i].value)
+      }
+    }
+    selectedAdmins.unshift(user._id)
+    setSelectedAdmins(selectedAdmins);
+  }
+  
   function handleUserSelect(evt) {
     const options = evt.target.options;
     const selectedUsers = []
@@ -63,7 +77,15 @@ export default function NewBoardPage({ user }) {
                   <input type="text" name="title" onChange={handleChange} value={newBoard.title} required />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
-                  <label className="new-board-select-label">Who will be using this board?</label>
+                  <label className="new-board-select-label">Choose Admins for this board</label>
+                  <select  name="admins" multiple onChange={handleAdminSelect}  className="new-board-form-select-input" >
+                    {usersGallery.map((user) => (
+                      <option key={user._id} value={user._id} className="new-board-form-select-input" >
+                        {user.name}   -   {user.email}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="new-board-select-label">Add users to this board</label>
                   <select  name="users" multiple onChange={handleUserSelect}  className="new-board-form-select-input" >
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id} className="new-board-form-select-input" >
@@ -71,6 +93,8 @@ export default function NewBoardPage({ user }) {
                       </option>
                     ))}
                   </select>
+                  <div></div>
+                  <p className="new-board-form-user-info">Admins will have full write permissions at all levels of this board. Users must be allocated responsibilities at each stage.</p>
                   
                   <button type="submit">Create Board</button>
               </form>

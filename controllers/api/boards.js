@@ -52,43 +52,59 @@ async function userIndex(req, res) {
   }
 
 async function create(req, res) {
-    newBoard = req.body.board
-    const existingBoard = await Board.findByTitle(newBoard.title)
+  newBoard = req.body.board
 
-    if(existingBoard) {
-        return res.status(400).json({ error: 'A Board with this title already exists' })
+  const existingBoard = await Board.find({title: newBoard.title})
+  
+  if(!existingBoard === true) {
+      console.log("controller create if statement hit!")
+      return res.status(400).json({ error: 'A Board with this title already exists' })
+      
     } else {
+      console.log("controller create else statement hit!")
+      console.log("controller create else newBoard", newBoard)
         const board = await Board.create(newBoard)
         res.status(200).json(board)
     }
 }
 
 async function update(req, res) {
-  const boardId = req.body.boardUpdate._id
+  const updatedBoard = req.body.boardUpdate
+  const board = await Board.findById(updatedBoard._id)
+  const admins = board.admins
 
-  const board = Board.findById(boardId)
-  
-  try {
-    const boardUpdate = req.body.boardUpdate
-    
-    Board.findOneAndUpdate(
-      { _id: boardId, author: req.user },
-      boardUpdate,
-      { new: true },
-      (err, updatedBoard) => {
-        if (err) {
-          console.log('Error updating Board:', err);
-        } else {
-          res.status(200).json(updatedBoard)
+  const admin = admins.find(admin => admin._id.toString() === req.user._id)
+
+  if(admin) {
+
+    try {
+      Board.findOneAndUpdate(
+        { _id: updatedBoard._id },
+        updatedBoard,
+        { new: true },
+        (err, updatedBoard) => {
+          if (err) {
+            console.log('Error updating Board:', err);
+          } else {
+            res.status(200).json(updatedBoard)
+          }
         }
+      )
+    } catch (error) {
+        res.status(500).json({ error: "Server Error" })
       }
-    )
-  } catch (error) {
-      res.status(500).json({ error: "Server Error" })
+
+    } else {
+      console.log("else if statement being hit")
+      
+      res.status(403).json({ error: "Only admins of a board can update it" })
   }
 }
 
 async function deleteBoard(req, res) {
+
+
+  
   const board = await Board.findOne({ title: req.params.boardName });
   if( req.user._id === board.author._id.toString()) {
         await Board.findByIdAndDelete(board._id)

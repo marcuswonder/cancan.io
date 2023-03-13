@@ -8,11 +8,14 @@ import * as usersAPI from '../../utilities/users-api'
 export default function UpdateBoardPage({ user }) {
   const { boardName } = useParams()
   const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
-  const [ boardUpdate, setBoardUpdate ] = useState({ title: '', description: '', users: [] })
+  const [ boardUpdate, setBoardUpdate ] = useState({ title: '', description: '', admins: [], users: [] })
   const [usersGallery, setUsersGallery] = useState([])
+  const [selectedAdmins, setSelectedAdmins] = useState([])
   const [selectedUsers, setSelectedUsers] = useState([])
   const navigate = useNavigate()
 
+  
+  // Needs to be updated with Admin priveliges
   useEffect(function() {
     async function checkUser() {
       const board = await boardsAPI.getUserBoard(boardNameActual)
@@ -31,15 +34,16 @@ export default function UpdateBoardPage({ user }) {
       getBoard()
     }, [boardNameActual])
     
-    async function updateBoard(boardUpdate) {
-      return await boardsAPI.updateBoard(boardUpdate)
+  
+  async function updateBoard(boardUpdate) {
+    return await boardsAPI.updateBoard(boardUpdate)
   }
     
   async function handleUpdateBoard(evt) {
     evt.preventDefault();
-    const boardData = { ...boardUpdate, users: selectedUsers, _id: boardUpdate._id };
+    const boardData = { ...boardUpdate, admins: selectedAdmins, users: selectedUsers, _id: boardUpdate._id };
     const updatedBoard = await updateBoard(boardData);
-    setBoardUpdate({ title: "", description: "", users: [] });
+    setBoardUpdate({ title: "", description: "", admins: [], users: [] });
     setSelectedUsers([]);
     
     const newUrl = updatedBoard.title ? updatedBoard.title.replace(/\s+/g, '-') : ''
@@ -52,6 +56,18 @@ export default function UpdateBoardPage({ user }) {
     const value = evt.target.value;
     const newFormData = {...boardUpdate, [name]: value }
     setBoardUpdate(newFormData);
+  }
+
+  function handleAdminSelect(evt) {
+    const options = evt.target.options;
+    const selectedAdmins = []
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedAdmins.push(options[i].value)
+      }
+    }
+    selectedAdmins.unshift(user._id)
+    setSelectedAdmins(selectedAdmins);
   }
 
   function handleUserSelect(evt) {
@@ -78,12 +94,20 @@ export default function UpdateBoardPage({ user }) {
   return (
       <div>
           <div className="form-container">
-            <h1 className="update-board-update-h1">{boardUpdate.title}</h1>
+            <h1 className="update-board-update-h1">Update {boardUpdate.title} board</h1>
               <form autoComplete="off" onSubmit={handleUpdateBoard}>
                   <label>Title</label>
                   <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={boardUpdate.description}  />
+                  <label className="new-board-select-label">Confirm Admins</label>
+                  <select name="admins" multiple onChange={handleAdminSelect} className="update-board-select-options">
+                    {usersGallery.map((user) => (
+                      <option key={user._id} value={user._id} className="update-board-select-options" >
+                        {user.name}   -   {user.email}
+                      </option>
+                    ))}
+                  </select>
                   <label className="new-board-select-label">Confirm Users</label>
                   <select name="users" multiple onChange={handleUserSelect} className="update-board-select-options">
                     {usersGallery.map((user) => (

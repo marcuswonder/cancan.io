@@ -72,6 +72,10 @@ const boardSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    admins: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }],
     users: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -82,74 +86,74 @@ const boardSchema = new Schema({
     
 })
 
-boardSchema.virtual('bigStepsCount').get(function() {
-    return this.bigSteps.length
-  });
+// boardSchema.virtual('bigStepsCount').get(function() {
+//     return this.bigSteps.length
+//   });
 
-boardSchema.virtual('plannedBigStepsCount').get(function() {
-return this.bigSteps.reduce((count, bigStep) => {
-    if (bigStep.status === 'Planned') {
-    return count + 1
-    } else {
-    return count
-    }
-}, 0)
-})
+// boardSchema.virtual('plannedBigStepsCount').get(function() {
+// return this.bigSteps.reduce((count, bigStep) => {
+//     if (bigStep.status === 'Planned') {
+//     return count + 1
+//     } else {
+//     return count
+//     }
+// }, 0)
+// })
 
-boardSchema.virtual('inProgressBigStepsCount').get(function() {
-    return this.bigSteps.reduce((count, bigStep) => {
-        if (bigStep.status === 'In Progress') {
-        return count + 1
-        } else {
-        return count
-        }
-    }, 0)
-    })
+// boardSchema.virtual('inProgressBigStepsCount').get(function() {
+//     return this.bigSteps.reduce((count, bigStep) => {
+//         if (bigStep.status === 'In Progress') {
+//         return count + 1
+//         } else {
+//         return count
+//         }
+//     }, 0)
+//     })
 
 
-boardSchema.virtual('completeBigStepsCount').get(function() {
-return this.bigSteps.reduce((count, bigStep) => {
-    if (bigStep.status === 'Complete') {
-    return count + 1
-    } else {
-    return count
-    }
-}, 0)
-})
+// boardSchema.virtual('completeBigStepsCount').get(function() {
+// return this.bigSteps.reduce((count, bigStep) => {
+//     if (bigStep.status === 'Complete') {
+//     return count + 1
+//     } else {
+//     return count
+//     }
+// }, 0)
+// })
 
-boardSchema.virtual('bigStepCompletionRate').get(function() {
-    const completeBigSteps = this.bigSteps.reduce((count, bigStep) => {
-        if (bigStep.status === 'Complete') {
-        return count + 1
-        } else {
-        return count
-        }
-    }, 0)
-    const totalBigSteps = this.bigSteps.length
+// boardSchema.virtual('bigStepCompletionRate').get(function() {
+//     const completeBigSteps = this.bigSteps.reduce((count, bigStep) => {
+//         if (bigStep.status === 'Complete') {
+//         return count + 1
+//         } else {
+//         return count
+//         }
+//     }, 0)
+//     const totalBigSteps = this.bigSteps.length
     
-    return completeBigSteps / totalBigSteps
-    })
+//     return completeBigSteps / totalBigSteps
+//     })
 
-boardSchema.statics.findByTitle = async function(title) {
-    const board = await this.findOne({ title });
-    return board;
-  };
+// boardSchema.statics.findByTitle = async function(title) {
+//     const board = await this.findOne({ title });
+//     return board;
+//   };
 
-boardSchema.methods.convertBigStepDueDate = function() {
-    console.log("this", this)
+// boardSchema.methods.convertBigStepDueDate = function() {
+//     console.log("this", this)
 
-    const BigStepdue = this.bigSteps.due
-}
+//     const BigStepdue = this.bigSteps.due
+// }
 
 
-boardSchema.methods.addUsersToBoard = function() {
-    const babyStepUsers = this.bigSteps.babySteps.find({}).populate({ path: 'responsible', model: 'User' })
-    console.log("babyStepUsers", babyStepUsers)
-    const bigStepUsers = this.bigSteps.find({}).populate({ path: 'responsible', model: 'User' })
-    console.log("bigStepUsers", bigStepUsers)
-    const boardUsers = [...babyStepUsers, bigStepUsers]
-    this.users.push(boardUsers)
-    console.log("boardUsers", boardUsers)
-  }
+// boardSchema.methods.addUsersToBoard = function() {
+//     const babyStepUsers = this.bigSteps.babySteps.find({}).populate({ path: 'responsible', model: 'User' })
+//     console.log("babyStepUsers", babyStepUsers)
+//     const bigStepUsers = this.bigSteps.find({}).populate({ path: 'responsible', model: 'User' })
+//     console.log("bigStepUsers", bigStepUsers)
+//     const boardUsers = [...babyStepUsers, bigStepUsers]
+//     this.users.push(boardUsers)
+//     console.log("boardUsers", boardUsers)
+//   }
 
 module.exports = mongoose.model('Board', boardSchema);
