@@ -74,7 +74,7 @@ export default function AuthorBoardsList({ user }) {
                         ))}
                     </div>
                     <p className="boards-list-p">Create another board!</p>
-                    <div><Link to="/boards/new"><button className="boards-list-button">new board</button></Link></div>
+                    <div><Link to="/boards/new"><button className="boards-list-button">create board</button></Link></div>
             </div>
 
         :
