@@ -90,27 +90,27 @@ const boardSchema = new Schema({
     
 })
 
-// boardSchema.post('save', function(next) {
-//     const board = this
-//     board.users = []
-//     const usersToAdd = new Set()
+boardSchema.post('save', function(next) {
+    const board = this
+    board.users = []
+    const usersToAdd = new Set()
   
-//     board.bigSteps.forEach((bigStep) => {
-//       if (bigStep.responsible) {
-//         usersToAdd.add(bigStep.responsible)
-//       }
-//       bigStep.babySteps.forEach((babyStep) => {
-//         if (babyStep.responsible) {
-//           usersToAdd.add(babyStep.responsible)
-//         }
-//       })
-//     })
+    board.bigSteps.forEach((bigStep) => {
+      if (bigStep.responsible) {
+        usersToAdd.add(bigStep.responsible)
+      }
+      bigStep.babySteps.forEach((babyStep) => {
+        if (babyStep.responsible) {
+          usersToAdd.add(babyStep.responsible)
+        }
+      })
+    })
   
-//     usersToAdd.forEach((userId) => {
-//       board.users.push(userId)
-//     })
+    usersToAdd.forEach((userId) => {
+      board.users.push(userId)
+    })
     
-//     return board.save()
-//   })
+    return board.save()
+  })
 
 module.exports = mongoose.model('Board', boardSchema);

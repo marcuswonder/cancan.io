@@ -7,6 +7,7 @@ import addIcon from '../../public/assets/add-white.png'
 import { useParams, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
+import moment from 'moment'
 
 export default function BabySteps({ user, board, setBoard }) {
     const { boardName, bigStepName } = useParams()

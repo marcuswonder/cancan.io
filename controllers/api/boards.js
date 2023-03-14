@@ -37,7 +37,7 @@ async function userIndex(req, res) {
 
   async function show(req, res) {
   try {
-    const board = await Board.findOne({title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
+    const board = await Board.findOne({title: req.params.boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).populate({path: "bigSteps",populate: {path: "bigSteps.responsible"}}).exec()
     const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
 
     const verifiedUser = approvedBoardViewers.find(user => user._id.toString() === req.user._id)
