@@ -133,7 +133,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                             <h4 className="baby-step-card-description">{babyStep.description}</h4>
                                         </div>
                                         <div className="baby-step-card-responsible-and-due">
-                                            <p className="baby-step-card-due">Due: {babyStep.due}</p>
+                                            <p className="baby-step-card-due">Due: {new Date(babyStep.due).toLocaleDateString('en-GB')}</p>
                                             <p className="baby-step-card-responsible">Responsible: {babyStep.responsible.name}</p>
                                         </div>
                                     </div>
@@ -169,7 +169,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                             <h4 className="baby-step-card-description">{babyStep.description}</h4>
                                         </div>
                                         <div className="baby-step-card-responsible-and-due">
-                                            <p className="baby-step-card-due">Due: {babyStep.due}</p>
+                                            <p className="baby-step-card-due">Due: {new Date(babyStep.due).toLocaleDateString('en-GB')}</p>
                                             <p className="baby-step-card-responsible">Responsible: {babyStep.responsible.name}</p>
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                 <div className="baby-step-card">
                                     <div className="baby-step-card-top">
                                         <div className="baby-step-card-top-navigation">
-                                        <div className="baby-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(babyStep)} src={backwardIcon} alt='go forwards' title="Move your baby step back to the in progress phase "/></div>
+                                        <div className="baby-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(babyStep)} src={backwardIcon} alt='go backwards' title="Move your baby step back to the in progress phase "/></div>
                                         </div>
                                         <div className="baby-step-card-top-about">
                                             <h2 className="baby-step-card-title">{babyStep.title}</h2>
@@ -230,8 +230,12 @@ export default function BabySteps({ user, board, setBoard }) {
                     <>
                         <div className="board-body">
                             <div className="baby-step-container">
-                                <div className="baby-step-header">
-                                    <div className="baby-step-header-blank"></div>
+                                <div className="baby-step-header">   
+                                    <div className="baby-step-header-blank">
+                                        <Link to={`/boards/${boardName}`}>
+                                            <img className="add-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
+                                        </Link>
+                                    </div>
                                     <h1 className="baby-step-header-h1">baby Steps</h1>
                                     <div className="baby-step-header-add">
                                         <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}>

@@ -27,14 +27,6 @@ export default function UpdateBigStepPage({ user }) {
           getBoard()
     }, [boardNameActual])
 
-    // useEffect(function() {
-    //     async function getBigStep() {
-    //         const bigStep = await boardsAPI.getBigStep(boardNameActual, bigStepNameActual)
-    //         setBigStepUpdate(bigStep)
-    //     }
-    //     getBigStep()
-    // }, [boardNameActual, bigStepNameActual])
-
 
     async function updateBigStep(bigStepUpdate) {
         const updatedBigStep = await boardsAPI.updateBigStep(bigStepUpdate);
@@ -80,7 +72,6 @@ export default function UpdateBigStepPage({ user }) {
 
     return (
         <div>
-            <p>A big step on the {board.title}</p>
             <div className="form-container">
                 <h1 className="update-big-step-update-h1">Update {bigStepUpdate.title}</h1>
                 <form autoComplete="off" onSubmit={handleUpdateBigStep}>

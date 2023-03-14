@@ -86,7 +86,7 @@ export default function UpdateBoardPage({ user }) {
   return (
       <div>
           <div className="form-container">
-            <h1 className="update-board-update-h1">Update {boardUpdate.title} board</h1>
+            <h1 className="update-board-update-h1">Update {boardUpdate.title}</h1>
               <form autoComplete="off" onSubmit={handleUpdateBoard}>
                   <label>Title</label>
                   <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />

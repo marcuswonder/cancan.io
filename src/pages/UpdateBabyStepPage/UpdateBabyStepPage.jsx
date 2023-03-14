@@ -83,9 +83,8 @@ export default function UpdateBabyStepPage({ user }) {
 
     return (
         <div>
-            <p>A big step on the {board.title}</p>
             <div className="form-container">
-                <h1 className="update-big-step-update-h1">Update me now {babyStepUpdate.title}</h1>
+                <h1 className="update-big-step-update-h1">Update {babyStepUpdate.title}</h1>
                 <form autoComplete="off" onSubmit={handleUpdateBabyStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={babyStepUpdate.title} required/>

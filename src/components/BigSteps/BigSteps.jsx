@@ -31,8 +31,6 @@ export default function BigSteps({ user, board, setBoard }) {
     }, [board, setBoard, setBigSteps])
 
 
-
-
     async function handleDeleteClick(bigStep) {
         if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             const updatedBoard = await boardsAPI.deleteBigStep(board._id, bigStep._id)
@@ -127,7 +125,7 @@ export default function BigSteps({ user, board, setBoard }) {
                                             <h4 className="big-step-card-description">{bigStep.description}</h4>
                                         </div>
                                         <div className="big-step-card-responsible-and-due">
-                                            <p className="big-step-card-due">Due: {bigStep.due}</p>
+                                            <p className="big-step-card-due">Due: {new Date(bigStep.due).toLocaleDateString('en-GB')}</p>
                                             <p className="big-step-card-responsible">Responsible: {bigStep.responsible.name}</p>
                                         </div>
                                     </div>
@@ -168,7 +166,7 @@ export default function BigSteps({ user, board, setBoard }) {
                                             <h4 className="big-step-card-description">{bigStep.description}</h4>
                                         </div>
                                         <div className="big-step-card-responsible-and-due">
-                                            <p className="big-step-card-due">Due: {bigStep.due}</p>
+                                            <p className="big-step-card-due">Due: {new Date(bigStep.due).toLocaleDateString('en-GB')}</p>
                                             <p className="big-step-card-responsible">Responsible: {bigStep.responsible.name}</p>
                                         </div>
                                     </div>
@@ -207,7 +205,7 @@ export default function BigSteps({ user, board, setBoard }) {
                                             <h4 className="big-step-card-description">{bigStep.description}</h4>
                                         </div>
                                         <div className="big-step-card-responsible-and-due">
-                                            <p className="big-step-card-due">Due: {bigStep.due}</p>
+                                            <p className="big-step-card-due">Due: {new Date(bigStep.due).toLocaleDateString('en-GB')}</p>
                                             <p className="big-step-card-responsible">Responsible: {bigStep.responsible.name}</p>
                                         </div>
                                     </div>

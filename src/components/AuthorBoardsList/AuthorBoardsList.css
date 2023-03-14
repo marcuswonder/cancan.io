@@ -1,3 +1,13 @@
+.boards-list-h1 {
+    font-family:'Helvetica Neue';
+    font-weight: 300;
+    font-size: 2rem;
+    padding: 0;
+    margin-top: 5%;
+    color: #74BDCB;
+    padding: 0;
+
+}
 .boards-list-h2 {
     font-family:'Helvetica Neue';
     font-weight: 300;
@@ -34,9 +44,7 @@
     border-radius: 25px 25px 25px 25px ;
     background-color: #FFA384;
     margin: 3%;
-
-
-    border: black solid 1px
+    border: #74BDCB solid 1px
 }
 
 .boards-list-board-card {

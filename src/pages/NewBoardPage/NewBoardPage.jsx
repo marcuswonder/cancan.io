@@ -47,8 +47,9 @@ export default function NewBoardPage({ user }) {
     async function getUsers() {
       let users = []
       users = await usersAPI.getUsers()
-      const otherUsers = users.filter((u) => u._id !== user._id)
-      setUsersGallery(otherUsers)
+      // const otherUsers = users.filter((u) => u._id !== user._id)
+      // setUsersGallery(otherUsers)
+      setUsersGallery(users)
     }
     getUsers()
 }, [user._id])
@@ -65,7 +66,7 @@ export default function NewBoardPage({ user }) {
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={newBoard.description} required />
                   <label className="new-board-select-label">Choose Admins for this board</label>
-                  <select  name="admins" multiple onChange={handleAdminSelect}  className="new-board-form-select-input" >
+                  <select  name="admins" multiple onChange={handleAdminSelect}  className="new-board-form-select-input" required >
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id} className="new-board-form-select-input" >
                         {user.name}   -   {user.email}

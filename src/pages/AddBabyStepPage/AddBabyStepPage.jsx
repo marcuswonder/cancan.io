@@ -24,7 +24,7 @@ export default function AddBabyStepPage({ user }) {
             
             console.log("bigStepNameActual", bigStepNameActual)
             
-            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStep(bigStep)
             console.log("bigStep", bigStep)
         }
@@ -76,33 +76,39 @@ export default function AddBabyStepPage({ user }) {
       }
 
     return (
-        <div>
-            <div className="form-container">
-                {/* <h1 className="new-big-step-h1">Add a new Baby Step to {bigStep.title} on the {board.title} board</h1> */}
-                <form autoComplete="off" onSubmit={handleCreateBabyStep}>
-                        <label>Title</label>
-                        <input type="text" name="title" onChange={handleChange} value={newBabyStep.title} required />
+        <>
+        {!bigStep ?
+            <div>Loading...</div>
+        :
+            <div>
+                <div className="form-container">
+                    <h1 className="new-big-step-h1">Add a new Baby Step on the {bigStep.title} Big step</h1>
+                    <form autoComplete="off" onSubmit={handleCreateBabyStep}>
+                            <label>Title</label>
+                            <input type="text" name="title" onChange={handleChange} value={newBabyStep.title} required />
+                            
+                            <label>Description</label>
+                            <input type="text" name="description" onChange={handleChange} value={newBabyStep.description} required />
+                            
+                            <label>Due Date</label>
+                            <input type="date" name="due" onChange={handleChange} value={newBabyStep.due} required />
+                            
+                            <label className="new-big-step-select-label">Who is responsible?</label>
+                            <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input">
+                                <option value="">Select a responsible user</option>
+                                {usersGallery.map((user) => (
+                                <option key={user._id} value={user._id} className="new-big-step-form-select-input">
+                                    {user.name} | {user.email} 
+                                </option>
+                                ))}
+                            </select>
                         
-                        <label>Description</label>
-                        <input type="text" name="description" onChange={handleChange} value={newBabyStep.description} required />
-                        
-                        <label>Due Date</label>
-                        <input type="date" name="due" onChange={handleChange} value={newBabyStep.due} required />
-                        
-                        <label className="new-big-step-select-label">Who is responsible?</label>
-                        <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input">
-                            <option value="">Select a responsible user</option>
-                            {usersGallery.map((user) => (
-                            <option key={user._id} value={user._id} className="new-big-step-form-select-input">
-                                {user.name} | {user.email} 
-                            </option>
-                            ))}
-                        </select>
-                    
-                        <button type="submit">Add Baby Step</button>
-                </form>
+                            <button type="submit">Add Baby Step</button>
+                    </form>
+                </div>
             </div>
-        </div>
-
+        }
+        </>
     )
+                
 }
