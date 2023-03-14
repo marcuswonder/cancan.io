@@ -1,6 +1,6 @@
 import './BigSteps.css';
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 import * as boardsAPI from '../../utilities/boards-api'
 
@@ -15,6 +15,7 @@ import addIcon from '../../public/assets/add-white.png'
 export default function BigSteps({ user, board, setBoard }) {
     const { boardName } = useParams()
     const [bigSteps, setBigSteps] = useState([])
+    const navigate = useNavigate()
 
     const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned');
     const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress');
@@ -34,9 +35,9 @@ export default function BigSteps({ user, board, setBoard }) {
 
     async function handleDeleteClick(bigStep) {
         if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
-            await boardsAPI.deleteBigStep(board.title, bigStep.title)
-            setBigSteps(bigSteps.find((bStep) => bStep._id !== bigStep._id)
-        )}
+            const updatedBoard = await boardsAPI.deleteBigStep(board._id, bigStep._id)
+            setBoard(updatedBoard)
+        }
     }
 
     async function handlePlannedStatusChangeClick(bigStep) {

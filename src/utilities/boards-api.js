@@ -44,8 +44,8 @@ export async function getBigStep(boardNameActual, bigStepNameActual) {
     return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}`)
 }
 
-export async function deleteBigStep(boardName, bigStepName) {
-    return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/delete`, 'DELETE')
+export async function deleteBigStep(boardId, bigStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/delete`, 'DELETE')
 }
 
 export async function updateBigStep(bigStepUpdate) {
@@ -79,8 +79,8 @@ export async function getBigStepsBabySteps(boardNameActual, bigStepNameNameActua
     return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/baby-steps`)
 }
 
-export async function deleteBabyStep(boardName, babyStepName) {
-    return sendRequest(`${BASE_URL}/${boardName}/${babyStepName}/${babyStepName}/delete`, 'DELETE')
+export async function deleteBabyStep(boardId, bigStepId, babyStepId) {
+    return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/${babyStepId}/delete`, 'DELETE')
 }
 
 export async function updateBabyStep(babyStepUpdate) {

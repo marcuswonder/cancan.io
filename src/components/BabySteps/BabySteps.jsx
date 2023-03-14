@@ -41,9 +41,9 @@ export default function BabySteps({ user, board, setBoard }) {
 
     async function handleDeleteClick(babyStep) {
         if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
-            await boardsAPI.deleteBabyStep(board.title, babyStep.title)
-            setBabySteps(babySteps.find((bStep) => bStep._id !== babyStep._id)
-        )}
+            const updatedBoard = await boardsAPI.deleteBabyStep(board._id, bigStep._id, babyStep._id)
+            setBoard(updatedBoard)
+        }
     }
 
     async function handlePlannedStatusChangeClick(babyStep) {
