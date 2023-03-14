@@ -65,8 +65,12 @@ export default function UpdateBoardPage({ user }) {
         selectedAdmins.push(options[i].value)
       }
     }
-    selectedAdmins.unshift(user._id)
-    setSelectedAdmins(selectedAdmins)
+    if (selectedAdmins.length === 0) {
+      setSelectedAdmins(boardUpdate.admins)
+    } else {
+      selectedAdmins.unshift(user._id)
+      setSelectedAdmins(selectedAdmins)
+    }
   }
 
   useEffect(function() {

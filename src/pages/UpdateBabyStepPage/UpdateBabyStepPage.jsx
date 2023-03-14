@@ -18,7 +18,6 @@ export default function UpdateBabyStepPage({ user }) {
     const [ babyStepUpdate, setBabyStepUpdate ] = useState({ title: '', description: '', due: new Date(), responsible: '' })
     const [ usersGallery, setUsersGallery ] = useState([])
     const [ responsibleUser, setResponsibleUser ] = useState('')
-    const [ babyStep, setBabyStep ] = useState({})
 
     useEffect(function() {
         async function getBoard() {
@@ -33,7 +32,7 @@ export default function UpdateBabyStepPage({ user }) {
             const board = await boardsAPI.getUserBoard(boardNameActual)
             const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStep(bigStep)
-            const babyStep = bigStep.babySteps.find((bStep) => bStep.title == babyStepNameActual)
+            const babyStep = bigStep.babySteps.find((bStep) => bStep.title === babyStepNameActual)
             setBabyStepUpdate(babyStep)
         }
         getBabyStep()

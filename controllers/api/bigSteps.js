@@ -10,27 +10,26 @@ module.exports = {
 }
 
 async function create(req, res) {
-    const newBigStep = req.body.bigStep
-    const board = await Board.findById(newBigStep.board)
-    const admins = board.admins
-    const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const newBigStep = req.body.bigStep
+  const board = await Board.findById(newBigStep.board)
+  const boardAdmins = board.admins
 
-    if(verifiedAdmin) {
-      try {
-        const updatedBoard = await Board.findByIdAndUpdate(newBigStep.board, {
-            $push: { bigSteps: newBigStep },
-            // $addToSet: { users: newBigStep.responsible },
-          }, { new: true })
+  const verifiedAdmin = boardAdmins.find(admin => admin._id.toString() === req.user._id)
 
-          res.status(200).json(updatedBoard)
+  if(verifiedAdmin) {
+    try {
+      board.bigSteps.push(newBigStep);
+        const updatedBoard = await board.save();
+      
+      res.status(200).json(updatedBoard)
 
-        } catch (error) {
-          res.status(500).json({ error: "Server Error" })
-        }
+    } catch (error) {
+      res.status(500).json({ error: "Server Error" })
+    }
 
-      } else {
-        res.status(403).json({ error: "Only the administrator of a Board can add a Big Step" })
-      }
+  } else {
+    res.status(403).json({ error: "Only the administrator of a Board can add a Big Step" })
+  }
 }
 
 async function deleteBigStep(req, res) {
@@ -52,7 +51,8 @@ async function deleteBigStep(req, res) {
       { $pull: { bigSteps: { _id: bigStepId } } },
       { new: true }
     ).exec()
-
+    
+    await board.save()
     res.status(200).json(updatedBoard)
   
   } else {

@@ -90,27 +90,33 @@ const boardSchema = new Schema({
     
 })
 
-boardSchema.post('save', function(next) {
-    const board = this
-    board.users = []
+boardSchema.pre('save', function(next) {
+  console.log("middleware function being hit")
+  const board = this
+  board.users = []
+  console.log("middleware board.users", board.users)
     const usersToAdd = new Set()
   
     board.bigSteps.forEach((bigStep) => {
       if (bigStep.responsible) {
+        console.log("middleware function bigSteps forEach loop hit")
         usersToAdd.add(bigStep.responsible)
       }
       bigStep.babySteps.forEach((babyStep) => {
         if (babyStep.responsible) {
+          console.log("middleware function babySteps forEach loop hit")
           usersToAdd.add(babyStep.responsible)
         }
       })
     })
-  
+
     usersToAdd.forEach((userId) => {
       board.users.push(userId)
     })
+    console.log("board", board)
+    console.log("board.users", board.users)
     
-    return board.save()
+    return next();
   })
 
 module.exports = mongoose.model('Board', boardSchema);
