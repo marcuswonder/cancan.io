@@ -4,7 +4,6 @@ module.exports = {
     index,
     create,
     delete: deleteBabyStep,
-    show,
     update,
     updateStatusToPlanned,
     updateStatusToInProgress,
@@ -38,36 +37,41 @@ async function index(req, res) {
 }
 
 
-
-
-
-
-
 async function create(req, res) {
-  const { boardId, bigStepId } = req.params
   const newBabyStep = req.body.newBabyStep
-  console.log("newBabyStep", newBabyStep)
+  const bigStepId = req.params.bigStepId
 
+  const board = await Board.findById(newBabyStep.board)
+  const admins = board.admins
+  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
 
-  try {
-    const board = await Board.findById(boardId)
-    if (!board) {
-      return res.status(404).json({ message: 'Board not found' })
-    }
+  if (verifiedAdmin) {
+    try {
+      if (!board) {
+        return res.status(404).json({ message: 'Board not found' })
+      }
 
-    const bigStep = board.bigSteps.id(bigStepId);
+      const bigStep = board.bigSteps.id(bigStepId);
+
     if (!bigStep) {
       return res.status(404).json({ message: 'Big step not found' })
     }
 
-    const babyStep = bigStep.babySteps.push(newBabyStep)
-    await board.save()
+    const updatedBoard = await Board.findByIdAndUpdate(newBabyStep.board, {
+      $push: { bigSteps: newBabyStep },
+          // $addToSet: { users: newBigStep.responsible },
+      }, { new: true })
 
-    return res.status(200).json(babyStep);
+          res.status(200).json(updatedBoard)
 
-  } catch (error) {
-    console.error(error)
-    return res.status(500).json({ message: 'Server error' })
+
+          
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ message: 'Server error' })
+    }
+  } else {
+    res.status(403).json({ error: "Only the administrator of a Board can add a Big Step" })
   }
 }
 
@@ -80,23 +84,6 @@ async function deleteBabyStep(req, res) {
   )
   res.status(200).json(babyStep)
 }
-
-
-async function show(req, res) {
-  try {
-    const board = await Board.findOne({ title: req.params.boardName, 'babySteps.title': req.params.babyStepName }, { 'babySteps.$': 1 });
-    if (!board) {
-      return res.status(404).send('Board not found')
-    }
-    const babyStep = board.babySteps[0];
-    res.status(200).json(babyStep);
-    
-  } catch (err) {
-    console.error(err)
-    res.status(500).send('Error retrieving Board')
-  }
-}
-
 
 async function update(req, res) {
   const updatedBabyStep = req.body.babyStepUpdate
@@ -111,8 +98,8 @@ async function update(req, res) {
 
   babyStep.title = updatedBabyStep.title
   babyStep.description = updatedBabyStep.description
-  babyStep.responsible = updatedBabyStep.responsible
   babyStep.due = updatedBabyStep.due
+  babyStep.responsible = updatedBabyStep.responsible
 
   await board.save()
 

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import BigSteps from '../../components/BigSteps/BigSteps'
 import BabySteps from '../../components/BabySteps/BabySteps'
@@ -12,9 +12,7 @@ export default function Steps({ user, board, setBoard }) {
             setBoard(board)
         }
         getBoard()
-    }, [board])
-
-    console.log("board on Steps Page", board)
+    }, [board, setBoard])
     
 
     return (

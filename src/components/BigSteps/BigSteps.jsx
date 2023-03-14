@@ -27,7 +27,7 @@ export default function BigSteps({ user, board, setBoard }) {
             setBigSteps(bigSteps)
         }
         getBigSteps()
-    }, [board])
+    }, [board, setBoard])
 
 
 

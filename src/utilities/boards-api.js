@@ -79,12 +79,6 @@ export async function getBigStepsBabySteps(boardNameActual, bigStepNameNameActua
     return sendRequest(`${BASE_URL}/${boardName}/${bigStepName}/baby-steps`)
 }
 
-export async function getBabyStep(boardNameActual, babyStepNameActual) {
-    const babyStepName = babyStepNameActual
-    const boardName = boardNameActual
-    return sendRequest(`${BASE_URL}/${boardName}/${babyStepName}`)
-}
-
 export async function deleteBabyStep(boardName, babyStepName) {
     return sendRequest(`${BASE_URL}/${boardName}/${babyStepName}/${babyStepName}/delete`, 'DELETE')
 }

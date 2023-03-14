@@ -20,17 +20,16 @@ export default function AddBabyStepPage({ user }) {
         async function getBoard() {
             const board = await boardsAPI.getUserBoard(boardNameActual)
             setBoard(board)
+            console.log("board", board)
+            
+            console.log("bigStepNameActual", bigStepNameActual)
+            
+            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            setBigStep(bigStep)
+            console.log("bigStep", bigStep)
         }
         getBoard()
-    }, [boardNameActual])
-
-    useEffect(function() {
-        async function getBigStep() {
-            const bigStep = await boardsAPI.getBigStep(boardNameActual, bigStepNameActual)
-            setBigStep(bigStep)
-        }
-        getBigStep()
-    }, [bigStepNameActual])
+    }, [boardNameActual, bigStepNameActual, setBoard, setBigStep])
 
     async function handleCreateBabyStep(evt) {
         evt.preventDefault();
@@ -79,7 +78,7 @@ export default function AddBabyStepPage({ user }) {
     return (
         <div>
             <div className="form-container">
-                <h1 className="new-big-step-h1">Add a new Baby Step to {bigStep.title} on the {board.title} board</h1>
+                {/* <h1 className="new-big-step-h1">Add a new Baby Step to {bigStep.title} on the {board.title} board</h1> */}
                 <form autoComplete="off" onSubmit={handleCreateBabyStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={newBabyStep.title} required />

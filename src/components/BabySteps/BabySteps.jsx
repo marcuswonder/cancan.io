@@ -2,7 +2,6 @@ import './BabySteps.css'
 import deleteIcon from '../../public/assets/delete-icon-white.png'
 import forwardIcon from '../../public/assets/fwd-white.png'
 import backwardIcon from '../../public/assets/bwd-white.png'
-import detailsIcon from '../../public/assets/details-white.png'
 import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
 import { useParams, Link } from 'react-router-dom'
@@ -10,26 +9,34 @@ import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
 
 export default function BabySteps({ user, board, setBoard }) {
-    const [babySteps, setBabySteps] = useState([])
-
     const { boardName, bigStepName } = useParams()
     const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
 
-    useEffect(function() {
-        async function getBigStepsBabySteps() {
-            await setBoard(board)
-            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-            const babySteps = bigStep.babySteps || []
-            setBabySteps(babySteps)
-        }
-        getBigStepsBabySteps()
-    }, [bigStepNameActual, board])
-
-
+    const [bigStep, setBigStep] = useState([])
+    const [babySteps, setBabySteps] = useState([])
 
     const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned');
     const inProgressSteps = babySteps.filter(babyStep => babyStep.status === 'In Progress');
     const completedSteps = babySteps.filter(babyStep => babyStep.status === 'Complete');
+
+    useEffect(function() {
+        async function getBigStepsBabySteps() {
+            await setBoard(board)
+            console.log("board", board)
+
+            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            setBigStep(bigStep)
+            console.log("bigStep", bigStep)
+
+            const babySteps = bigStep.babySteps || []
+            setBabySteps(babySteps)
+            console.log("babySteps", babySteps)
+        }
+        getBigStepsBabySteps()
+    }, [board, setBoard, setBabySteps])
+
+
+
 
 
     async function handleDeleteClick(babyStep) {

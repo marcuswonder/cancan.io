@@ -90,74 +90,27 @@ const boardSchema = new Schema({
     
 })
 
-// boardSchema.virtual('bigStepsCount').get(function() {
-//     return this.bigSteps.length
-//   });
-
-// boardSchema.virtual('plannedBigStepsCount').get(function() {
-// return this.bigSteps.reduce((count, bigStep) => {
-//     if (bigStep.status === 'Planned') {
-//     return count + 1
-//     } else {
-//     return count
-//     }
-// }, 0)
-// })
-
-// boardSchema.virtual('inProgressBigStepsCount').get(function() {
-//     return this.bigSteps.reduce((count, bigStep) => {
-//         if (bigStep.status === 'In Progress') {
-//         return count + 1
-//         } else {
-//         return count
-//         }
-//     }, 0)
-//     })
-
-
-// boardSchema.virtual('completeBigStepsCount').get(function() {
-// return this.bigSteps.reduce((count, bigStep) => {
-//     if (bigStep.status === 'Complete') {
-//     return count + 1
-//     } else {
-//     return count
-//     }
-// }, 0)
-// })
-
-// boardSchema.virtual('bigStepCompletionRate').get(function() {
-//     const completeBigSteps = this.bigSteps.reduce((count, bigStep) => {
-//         if (bigStep.status === 'Complete') {
-//         return count + 1
-//         } else {
-//         return count
-//         }
-//     }, 0)
-//     const totalBigSteps = this.bigSteps.length
+boardSchema.post('save', function(next) {
+    const board = this
+    board.users = []
+    const usersToAdd = new Set()
     
-//     return completeBigSteps / totalBigSteps
-//     })
+    board.bigSteps.forEach((bigStep) => {
+      if (bigStep.responsible) {
+        usersToAdd.add(bigStep.responsible)
+      }
+      bigStep.babySteps.forEach((babyStep) => {
+        if (babyStep.responsible) {
+          usersToAdd.add(babyStep.responsible)
+        }
+      })
+    })
 
-// boardSchema.statics.findByTitle = async function(title) {
-//     const board = await this.findOne({ title });
-//     return board;
-//   };
-
-// boardSchema.methods.convertBigStepDueDate = function() {
-//     console.log("this", this)
-
-//     const BigStepdue = this.bigSteps.due
-// }
-
-
-// boardSchema.methods.addUsersToBoard = function() {
-//     const babyStepUsers = this.bigSteps.babySteps.find({}).populate({ path: 'responsible', model: 'User' })
-//     console.log("babyStepUsers", babyStepUsers)
-//     const bigStepUsers = this.bigSteps.find({}).populate({ path: 'responsible', model: 'User' })
-//     console.log("bigStepUsers", bigStepUsers)
-//     const boardUsers = [...babyStepUsers, bigStepUsers]
-//     this.users.push(boardUsers)
-//     console.log("boardUsers", boardUsers)
-//   }
+    usersToAdd.forEach((userId) => {
+      board.users.push(userId)
+    })
+    
+    next()
+  })
 
 module.exports = mongoose.model('Board', boardSchema);

@@ -2,9 +2,7 @@ const Board = require('../../models/board')
 
 module.exports = {
     create,
-    index,
     delete: deleteBigStep,
-    show,
     update,
     updateStatusToPlanned,
     updateStatusToInProgress,
@@ -21,18 +19,18 @@ async function create(req, res) {
       try {
         const updatedBoard = await Board.findByIdAndUpdate(newBigStep.board, {
             $push: { bigSteps: newBigStep },
-            $addToSet: { users: newBigStep.responsible },
+            // $addToSet: { users: newBigStep.responsible },
           }, { new: true })
-        
+
           res.status(200).json(updatedBoard)
 
         } catch (error) {
           res.status(500).json({ error: "Server Error" })
         }
 
-    } else {
-      res.status(403).json({ error: "Only the administrator of a Board can add a Big Step" })
-    }
+      } else {
+        res.status(403).json({ error: "Only the administrator of a Board can add a Big Step" })
+      }
 }
 
 async function deleteBigStep(req, res) {
@@ -44,59 +42,24 @@ async function deleteBigStep(req, res) {
   res.status(200).json(bigStep)
 }
 
-async function index(req, res) {
-  const boardName = req.params.boardName
-
-  const board = await Board.findOne({title: boardName}).populate({path: 'author', model: 'User'}).populate({ path: 'admins', model: 'User' }).populate({ path: 'users', model: 'User' }).exec()
-    const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
-
-    if(verifiedUser) {
-      if(board.bigSteps.length) {
-        res.status(200).json(board.bigSteps)
-
-      } else {
-        res.status(200).json([])  
-      }
-
-    } else {
-      res.status(403).json({ error: "Only users of a Board can view its big steps" })
-    }
-}
-
-async function show(req, res) {
-  try {
-    const board = await Board.findOne({ title: req.params.boardName, 'bigSteps.title': req.params.bigStepName }, { 'bigSteps.$': 1 });
-    if (!board) {
-      return res.status(404).send('Board not found')
-    }
-    const bigStep = board.bigSteps[0];
-    res.status(200).json(bigStep);
-    
-  } catch (err) {
-    console.error(err)
-    res.status(500).send('Error retrieving Board')
-  }
-}
-
 async function update(req, res) {
-  const boardId = req.body.bigStepUpdate.board
   const updatedBigStep = req.body.bigStepUpdate
 
-  await Board.findOneAndUpdate(
-    {_id: req.params.boardId},
-    {$pull: {bigSteps: {_id: req.params.bigStepId}}},
-    {new: true}
-  )
+  const boardId = req.params.boardId
+  const bigStepId = req.params.bigStepId
 
-
-  const updatedBoard = await Board.findByIdAndUpdate(boardId, {
-      $push: {
-        bigSteps: updatedBigStep
-      },
-    }, { new: true })
+  const board = await Board.findOne({ _id: boardId })
+  const bigStep = board.bigSteps.find(bStep => bStep._id.toString() === bigStepId)
   
-    res.status(200).json(updatedBoard)  
-  }
+  bigStep.title = updatedBigStep.title
+  bigStep.description = updatedBigStep.description
+  bigStep.due = updatedBigStep.due
+  bigStep.responsible = updatedBigStep.responsible
+
+  await board.save()
+
+  res.staus(200).json(board)
+}
 
   async function updateStatusToPlanned(req, res) {
     const boardId = req.params.boardId
