@@ -21,17 +21,19 @@ export default function UpdateBigStepPage({ user }) {
         async function getBoard() {
             const board = await boardsAPI.getUserBoard(boardNameActual)
             setBoard(board)
+            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            setBigStepUpdate(bigStep)
         }
           getBoard()
     }, [boardNameActual])
 
-    useEffect(function() {
-        async function getBigStep() {
-            const bigStep = await boardsAPI.getBigStep(boardNameActual, bigStepNameActual)
-            setBigStepUpdate(bigStep)
-        }
-        getBigStep()
-    }, [boardNameActual, bigStepNameActual])
+    // useEffect(function() {
+    //     async function getBigStep() {
+    //         const bigStep = await boardsAPI.getBigStep(boardNameActual, bigStepNameActual)
+    //         setBigStepUpdate(bigStep)
+    //     }
+    //     getBigStep()
+    // }, [boardNameActual, bigStepNameActual])
 
 
     async function updateBigStep(bigStepUpdate) {

@@ -64,13 +64,16 @@ async function update(req, res) {
   const bigStepId = req.params.bigStepId
 
   const board = await Board.findOne({ _id: boardId })
+  console.log("board", board)
   const boardAdmins = board.admins
   const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  console.log("bigStep", bigStep)
   const bigStepResponsible = bigStep.responsible
 
   const verifiedEditors = [...boardAdmins, bigStepResponsible]
 
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
+  console.log("verifiedAdmin", verifiedAdmin)
 
   if(verifiedAdmin) {
     const bigStep = board.bigSteps.find(bStep => bStep._id.toString() === bigStepId)

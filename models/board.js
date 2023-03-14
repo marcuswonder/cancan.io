@@ -91,29 +91,29 @@ const boardSchema = new Schema({
 })
 
 boardSchema.pre('save', function(next) {
-  console.log("middleware function being hit")
   const board = this
-  board.users = []
-  console.log("middleware board.users", board.users)
-    const usersToAdd = new Set()
+  let usersToAdd = []
   
     board.bigSteps.forEach((bigStep) => {
       if (bigStep.responsible) {
         console.log("middleware function bigSteps forEach loop hit")
-        usersToAdd.add(bigStep.responsible)
+        usersToAdd.push(bigStep.responsible)
       }
       bigStep.babySteps.forEach((babyStep) => {
         if (babyStep.responsible) {
           console.log("middleware function babySteps forEach loop hit")
-          usersToAdd.add(babyStep.responsible)
+          usersToAdd.push(babyStep.responsible)
         }
       })
     })
+    let users = new Set(usersToAdd)
+    console.log("users", users)
+    
+    board.users = []
 
-    usersToAdd.forEach((userId) => {
+    users.forEach((userId) => {
       board.users.push(userId)
     })
-    console.log("board", board)
     console.log("board.users", board.users)
     
     return next();

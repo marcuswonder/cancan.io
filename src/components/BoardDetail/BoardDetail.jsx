@@ -13,7 +13,7 @@ export default function BoardDetail({user, board, setBoard}) {
             setBoard(board)
         }
         getBoard()
-    }, [board, setBoard, boardNameActual])
+    }, [board, setBoard])
 
     
     async function handleDeleteClick() {

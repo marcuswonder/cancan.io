@@ -10,7 +10,6 @@ export default function BoardPage({user}) {
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
     
     const [board, setBoard] = useState({})
-    const [isLoading, setIsLoading] = useState(true)
     
 
     useEffect(function() {
@@ -19,19 +18,15 @@ export default function BoardPage({user}) {
           setBoard(board)
         }
         getBoard()
-        setIsLoading(false)
 
-    }, [boardNameActual, board, setBoard])
-    
-    if (isLoading) {
-        return <div>Loading...</div>
-      }
+    }, [boardNameActual, setBoard])
+
     
       
       return (
         <>
             <BoardDetail user={user} board={board} setBoard={setBoard} />
-            {!isLoading && <StepsPage user={user} board={board} setBoard={setBoard} />}
+            <StepsPage user={user} board={board} setBoard={setBoard} />
         </>
     )
 }

@@ -37,6 +37,7 @@ export default function BigSteps({ user, board, setBoard }) {
         if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             const updatedBoard = await boardsAPI.deleteBigStep(board._id, bigStep._id)
             setBoard(updatedBoard)
+            navigate(`/boards/${boardName}`)
         }
     }
 

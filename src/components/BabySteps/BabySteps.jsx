@@ -4,13 +4,14 @@ import forwardIcon from '../../public/assets/fwd-white.png'
 import backwardIcon from '../../public/assets/bwd-white.png'
 import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
 
 export default function BabySteps({ user, board, setBoard }) {
     const { boardName, bigStepName } = useParams()
     const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
+    const navigate = useNavigate()
 
     const [bigStep, setBigStep] = useState([])
     const [babySteps, setBabySteps] = useState([])
@@ -22,18 +23,16 @@ export default function BabySteps({ user, board, setBoard }) {
     useEffect(function() {
         async function getBigStepsBabySteps() {
             await setBoard(board)
-            console.log("board", board)
 
             const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStep(bigStep)
-            console.log("bigStep", bigStep)
 
             const babySteps = bigStep.babySteps || []
             setBabySteps(babySteps)
-            console.log("babySteps", babySteps)
         }
         getBigStepsBabySteps()
     }, [board, setBoard, setBabySteps])
+
 
 
 
@@ -43,6 +42,7 @@ export default function BabySteps({ user, board, setBoard }) {
         if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
             const updatedBoard = await boardsAPI.deleteBabyStep(board._id, bigStep._id, babyStep._id)
             setBoard(updatedBoard)
+            navigate(`/boards/${boardName}/${bigStepName}`)
         }
     }
 
