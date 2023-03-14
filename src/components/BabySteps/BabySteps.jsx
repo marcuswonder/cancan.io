@@ -7,7 +7,6 @@ import addIcon from '../../public/assets/add-white.png'
 import { useParams, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
-import moment from 'moment'
 
 export default function BabySteps({ user, board, setBoard }) {
     const { boardName, bigStepName } = useParams()
@@ -235,7 +234,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                     <div className="baby-step-header-blank"></div>
                                     <h1 className="baby-step-header-h1">baby Steps</h1>
                                     <div className="baby-step-header-add">
-                                        <Link to={`/boards/${boardName}/baby-steps/add`}>
+                                        <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}>
                                             <img className="add-icon" src={addIcon} alt='go backwards' title="Add a baby step to your project" />
                                         </Link>
                                     </div>

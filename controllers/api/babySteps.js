@@ -19,7 +19,7 @@ async function create(req, res) {
   const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
   const bigStepResponsible = bigStep.responsible
 
-  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+  const verifiedEditors = [...boardAdmins, bigStepResponsible]
 
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
@@ -61,21 +61,18 @@ async function deleteBabyStep(req, res) {
   const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
   const babyStepResponsible = babyStep.responsible
 
-  // const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible.concat(babyStepResponsible))))
   const verifiedEditors = [...boardAdmins, bigStepResponsible, babyStepResponsible]
-  console.log("verifiedEditors", verifiedEditors)
 
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
-    const updatedBoard = await Board.findOneAndUpdate(
-      { _id: boardId, 'bigSteps._id': bigStepId },
-      { $pull: { 'bigSteps.$.babySteps': { _id: babyStepId } } },
-      { new: true }
-    ).exec()
-    
+    const updatedBabySteps = bigStep.babySteps.filter((babyStep) => babyStep.id !== babyStepId)
+    console.log("updatedBabySteps", updatedBabySteps)
+
+    bigStep.babySteps = updatedBabySteps
+
     await board.save()
-    res.status(200).json(updatedBoard)
+    res.status(200).json(board)
     
   } else {
     res.status(403).json({ error: "Only the administrator of a Board can delete a Big Step" })
@@ -97,7 +94,6 @@ async function update(req, res) {
   const babyStepResponsible = babyStep.responsible
   
   
-  // const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible.concat(babyStepResponsible))))
   const verifiedEditors = [...boardAdmins, bigStepResponsible, babyStepResponsible]
 
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
@@ -132,7 +128,7 @@ async function updateStatusToPlanned(req, res) {
   const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
   const babyStepResponsible = babyStep.responsible
 
-  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible).concat(babyStepResponsible)))
+  const verifiedEditors = [...boardAdmins, bigStepResponsible, babyStepResponsible]
   
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
@@ -165,7 +161,7 @@ async function updateStatusToInProgress(req, res) {
   const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
   const babyStepResponsible = babyStep.responsible
 
-  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible).concat(babyStepResponsible)))
+  const verifiedEditors = [...boardAdmins, bigStepResponsible, babyStepResponsible]
   
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
@@ -198,7 +194,7 @@ async function updateStatusToComplete(req, res) {
   const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
   const babyStepResponsible = babyStep.responsible
 
-  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible).concat(babyStepResponsible)))
+  const verifiedEditors = [...boardAdmins, bigStepResponsible, babyStepResponsible]
   
   const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 

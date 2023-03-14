@@ -21,7 +21,7 @@ export default function BoardPage({user}) {
         getBoard()
         setIsLoading(false)
 
-    }, [boardNameActual])
+    }, [boardNameActual, board, setBoard])
     
     if (isLoading) {
         return <div>Loading...</div>
