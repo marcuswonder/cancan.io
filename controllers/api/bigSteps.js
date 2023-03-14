@@ -38,8 +38,13 @@ async function deleteBigStep(req, res) {
   const bigStepId = req.params.bigStepId
   
   const board = await Board.findOne({_id: boardId})
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+
+  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+
+  const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
     const updatedBoard = await Board.findOneAndUpdate(
@@ -62,9 +67,13 @@ async function update(req, res) {
   const bigStepId = req.params.bigStepId
 
   const board = await Board.findOne({ _id: boardId })
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
 
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+
+  const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
     const bigStep = board.bigSteps.find(bStep => bStep._id.toString() === bigStepId)
@@ -87,8 +96,13 @@ async function updateStatusToPlanned(req, res) {
   const bigStepId = req.params.bigStepId
 
   const board = await Board.findById(boardId)
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+
+  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+
+  const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
     try {
@@ -112,8 +126,13 @@ async function updateStatusToPlanned(req, res) {
     const bigStepId = req.params.bigStepId
 
     const board = await Board.findById(boardId)
-    const admins = board.admins
-    const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+    const boardAdmins = board.admins
+    const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+    const bigStepResponsible = bigStep.responsible
+  
+    const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+  
+    const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
     try {
@@ -137,8 +156,13 @@ async function updateStatusToPlanned(req, res) {
     const bigStepId = req.params.bigStepId
 
     const board = await Board.findById(boardId)
-    const admins = board.admins
-    const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+    const boardAdmins = board.admins
+    const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+    const bigStepResponsible = bigStep.responsible
+  
+    const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+  
+    const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
     try {

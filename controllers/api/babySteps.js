@@ -15,8 +15,13 @@ async function create(req, res) {
   const bigStepId = req.params.bigStepId
 
   const board = await Board.findById(boardId)
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+
+  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible)))
+
+  const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if (verifiedAdmin) {
     try {
@@ -50,11 +55,15 @@ async function deleteBabyStep(req, res) {
   const babyStepId = req.params.babyStepId
 
   const board = await Board.findOne({_id: boardId})
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
-  
-  // const bigStep = board.bigSteps.find(bStep => bStep._id === bigStepId)
-  // const babyStep = bigStep.babySteps.find(bStep => bStep._id === babyStepId)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+  const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
+  const babyStepResponsible = babyStep.responsible
+
+  const verifiedEditors = Array.from(new Set(boardAdmins.concat(bigStepResponsible).concat(babyStepResponsible)))
+  console.log("verifiedEditors", verifiedEditors)
+  const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
 
   if(verifiedAdmin) {
     const updatedBoard = await Board.findOneAndUpdate(
@@ -78,8 +87,11 @@ async function update(req, res) {
   const babyStepId = req.params.babyStepId
 
   const board = await Board.findOne({ _id: boardId })
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+  const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
+  const babyStepResponsible = babyStep.responsible
   
 
   if(verifiedAdmin) {
@@ -106,8 +118,11 @@ async function updateStatusToPlanned(req, res) {
   const babyStepId = req.params.babyStepId
 
   const board = await Board.findById(boardId);
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+  const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
+  const babyStepResponsible = babyStep.responsible
 
   if(verifiedAdmin) {
     try {
@@ -132,8 +147,11 @@ async function updateStatusToInProgress(req, res) {
   const babyStepId = req.params.babyStepId
 
   const board = await Board.findById(boardId);
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+  const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
+  const babyStepResponsible = babyStep.responsible
 
   if(verifiedAdmin) {
     try {
@@ -158,8 +176,11 @@ async function updateStatusToComplete(req, res) {
   const babyStepId = req.params.babyStepId
 
   const board = await Board.findById(boardId);
-  const admins = board.admins
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const boardAdmins = board.admins
+  const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
+  const bigStepResponsible = bigStep.responsible
+  const babyStep = bigStep.babySteps.find((babyStep) => babyStep.id === babyStepId)
+  const babyStepResponsible = babyStep.responsible
 
   if(verifiedAdmin) {
     try {
