@@ -32,15 +32,26 @@ export default function AuthorBoardsList({ user }) {
     
     return (
     <>
-        <div>
-        <h2 className="boards-list-h2">Your Boards</h2>
-        <p className="boards-list-custom-p">These are boards that you are an administrator on</p>
-        <div className="boards-list-board-body">
-            {userBoardGallery.map(board => (
-            <BoardCard key={board._id} board={board} onDeleteClick={handleDeleteClick} />
-            ))}
-        </div>
-        </div>
+        {userBoardGallery.length ?
+            <div>
+                <h2 className="boards-list-h2">Your Boards</h2>
+                <p className="boards-list-custom-p">These are boards that you are an administrator on</p>
+                <div className="boards-list-board-body">
+                    {userBoardGallery.map(board => (
+                    <BoardCard key={board._id} board={board} onDeleteClick={handleDeleteClick} />
+                    ))}
+                </div>
+                <p className="boards-list-p">Create another board!</p>
+                <div><Link to="/boards/new"><button className="boards-list-button">create board</button></Link></div>
+            </div>
+        :
+        <>
+            <h1 className="boards-list-h1">You have not created any boards yet</h1>
+            <p>Create some now!</p>
+            <div><Link to="/boards/new"><button className="boards-list-button">new board</button></Link></div>
+        </>
+        }
+
     </>
     );
 }

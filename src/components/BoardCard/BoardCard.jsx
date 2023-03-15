@@ -10,7 +10,7 @@ export default function BoardCard({ board, onDeleteClick }) {
 
   return (
     <div
-      className="boards-list-board-card-container"
+      className="card-body-board-card-container"
       onMouseOver={() => {
         setHoveredTitle(board.totalBigSteps);
         setHoveredDescription('% complete');
@@ -20,21 +20,21 @@ export default function BoardCard({ board, onDeleteClick }) {
         setHoveredDescription(null);
       }}
     >
-      <div className="boards-list-board-card">
-        <div className="boards-list-board-navigation">
-          <div className="boards-list-board-navigation-details-container">
+      <div className="card-body-board-card">
+        <div className="card-body-board-navigation">
+          <div className="card-body-board-navigation-details-container">
             <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}>
               <img
-                className="boards-list-boards-details-icon"
+                className="card-body-boards-details-icon"
                 src={detailsIcon}
                 alt="See a detailed view of your board"
                 title="See a detailed view of your board"
               />
             </Link>
           </div>
-          <div className="boards-list-board-navigation-delete-container">
+          <div className="card-body-board-navigation-delete-container">
             <img
-              className="boards-list-boards-delete-icon"
+              className="card-body-boards-delete-icon"
               key={board._id}
               onClick={() => onDeleteClick(board)}
               src={deleteIcon}
@@ -43,10 +43,10 @@ export default function BoardCard({ board, onDeleteClick }) {
             />
           </div>
         </div>
-        <h2 className="boards-list-board-card-title">
+        <h2 className="card-body-board-card-title">
           {hoveredTitle === null ? board.title : board.totalComplete}
         </h2>
-        <h2 className="boards-list-board-card-description">
+        <h2 className="card-body-board-card-description">
           {hoveredDescription === null ? board.description : '% complete'}
         </h2>
       </div>

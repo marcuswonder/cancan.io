@@ -38,103 +38,6 @@
     
 }
 
-.boards-list-board-card-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-radius: 25px 25px 25px 25px ;
-    background-color: #FFA384;
-    margin: 3%;
-    justify-content: center;
-    border:  #74BDCB solid 1px;
-}
-
-.boards-list-board-card {
-    flex: 1;
-    width: 330px;
-    padding: 3%;
-    margin: 3%;
-
-}
-
-.boards-list-board-card-title {
-    color: white;
-    font-weight: 300;
-    font-size: 2rem;
-    margin: 0;
-    text-decoration: none !important;
-}
-
-.boards-list-board-card-description {
-    color: white;
-    font-weight: 300;
-    font-size: 1rem;
-    margin: 2% 0 5% 0;
-}
-
-
-.boards-list-board-navigation {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.boards-list-board-navigation-details-container {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.boards-list-boards-details-icon {
-    width: 25px;
-    transition: transform 0.5s ease-in-out;
-}
-
-.boards-list-boards-details-icon:hover {
-    width: 25px;
-    transform: rotate(360deg);
-}
-
-.boards-list-board-navigation-delete-container {
-    display: flex;
-}
-
-.boards-list-boards-delete-icon {
-    width: 25px;
-    transition: transform 0.5s ease-in-out;
-}
-
-.boards-list-boards-delete-icon:hover {
-    /* width: 30px; */
-    cursor: pointer;
-    transform: rotate(360deg);
-    
-
-}
-
-.boards-list-table {
-    border-collapse: collapse;
-    margin: 0 auto;
-    color: white;
-    width: 100%;
-    margin-bottom: 3%;
-}
-
-.boards-list-th {
-    font-size: .75rem;
-    font-weight: 300;
-    color: white;
-    vertical-align: bottom;
-    border: 1px solid white;
-}
-
-.boards-list-td {
-    font-size: .75rem;
-    font-weight: 200;
-    vertical-align: top;
-    border: 1px solid white;
-}
 
 .boards-list-h1 {
     padding-top: 3%;
@@ -150,6 +53,7 @@
     margin: 0 auto;
 }
 
+
 .boards-list-button {
     font-family: 'Helvetica Neue';
     font-weight: 300;
@@ -159,6 +63,7 @@
     border: solid #74BDCB 1px;
     color: white;
     padding: 0 1rem;
+    transition: transform 0.5s ease-in-out;
 }
 
 .boards-list-button:hover {
@@ -170,4 +75,5 @@
     border: solid #74BDCB 1px;
     color: #74BDCB;
     padding: 0 1rem;
+    transform: scale(1.1);
 }
