@@ -37,7 +37,10 @@ async function userIndex(req, res) {
     try {
       let boards = []
       if (req.user) {
-        boards = await Board.find({ users: { $in: [req.user._id] } })
+        boards = await Board.find({
+          admins: { $nin: [req.user._id] },
+          users: { $in: [req.user._id] }
+          })
       }
       res.status(200).json(boards)
 

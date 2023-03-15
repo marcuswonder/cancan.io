@@ -199,7 +199,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                             <h4 className="baby-step-card-description">{babyStep.description}</h4>
                                         </div>
                                         <div className="baby-step-card-responsible-and-due">
-                                            <p className="baby-step-card-due">Due: {babyStep.due}</p>
+                                            <p className="baby-step-card-due">Due: {new Date(babyStep.due).toLocaleDateString('en-GB')}</p>
                                             <p className="baby-step-card-responsible">Responsible: {babyStep.responsible.name}</p>
                                         </div>
                                     </div>
@@ -227,7 +227,7 @@ export default function BabySteps({ user, board, setBoard }) {
                         <div className="board-body">
                             <div className="baby-step-container">
                                 <div className="baby-step-header">   
-                                    <div className="baby-step-header-blank">
+                                    <div className="baby-step-header-back">
                                         <Link to={`/boards/${boardName}`}>
                                             <img className="add-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
                                         </Link>
