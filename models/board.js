@@ -137,7 +137,7 @@ boardSchema.pre('save', function(next) {
     })
     let totalComplete = (bigStepCount / this.bigSteps.length) * 100
 
-    if (totalComplete == 0) {
+    if (totalComplete === 0 || bigStepCount === 0) {
       return 0
 
     } else {

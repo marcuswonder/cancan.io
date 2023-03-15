@@ -238,7 +238,7 @@ export default function BigSteps({ user, board, setBoard }) {
                         <div className="board-body">
                             <div className="big-step-container">
                                 <div className="big-step-header">
-                                    <div className="big-step-header-blank"></div>
+                                    <div className="big-step-header-back"></div>
                                     <h1 className="big-step-header-h1">Big Steps</h1>
                                     <div className="big-step-header-add">
                                         <Link to={`/boards/${boardName}/big-steps/add`}>
