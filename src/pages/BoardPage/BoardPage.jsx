@@ -16,7 +16,6 @@ export default function BoardPage({user}) {
         async function getBoard() {
             const board = await boardsAPI.getUserBoard(boardNameActual)
           setBoard(board)
-          console.log("board", board)
         }
         getBoard()
 

@@ -20,13 +20,9 @@ export default function AddBabyStepPage({ user }) {
         async function getBoard() {
             const board = await boardsAPI.getUserBoard(boardNameActual)
             setBoard(board)
-            console.log("board", board)
-            
-            console.log("bigStepNameActual", bigStepNameActual)
             
             const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStep(bigStep)
-            console.log("bigStep", bigStep)
         }
         getBoard()
     }, [boardNameActual, bigStepNameActual, setBoard, setBigStep])

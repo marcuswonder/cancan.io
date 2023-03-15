@@ -15,7 +15,6 @@ export default function UpdateBigStepPage({ user }) {
     const [ usersGallery, setUsersGallery ] = useState([])
     const [ responsibleUser, setResponsibleUser ] = useState('')
     const [ board, setBoard ] = useState({})
-    const [ bigStep, setBigStep ] = useState({})
 
     useEffect(function() {
         async function getBoard() {
@@ -25,7 +24,7 @@ export default function UpdateBigStepPage({ user }) {
             setBigStepUpdate(bigStep)
         }
           getBoard()
-    }, [boardNameActual])
+    }, [boardNameActual, bigStepNameActual])
 
 
     async function updateBigStep(bigStepUpdate) {
@@ -36,7 +35,7 @@ export default function UpdateBigStepPage({ user }) {
     async function handleUpdateBigStep(evt) {
         evt.preventDefault();
         const bigStepData = { ...bigStepUpdate, _id: bigStepUpdate._id, author: user._id, board: board._id, responsible: responsibleUser};
-        const updatedBigStep = await updateBigStep(bigStepData);
+        await updateBigStep(bigStepData);
         setBigStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
         navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);
     }

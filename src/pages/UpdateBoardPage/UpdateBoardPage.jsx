@@ -14,16 +14,23 @@ export default function UpdateBoardPage({ user }) {
   const navigate = useNavigate()
 
   
-  // Needs to be updated with Admin priveliges
-  useEffect(function() {
-    async function checkUser() {
-      const board = await boardsAPI.getUserBoard(boardNameActual)
-      if (user._id !== board.author._id) {
-        navigate(`/boards/${boardName}`)
-      }
-    }
-    checkUser()
-  }, [boardNameActual, boardName, user, navigate])
+  // // Needs to be updated with Admin priveliges
+  // useEffect(function() {
+  //   async function checkUser() {
+  //     const boardAdmins = boardUpdate.admins
+  //     console.log("boardAdmins", boardAdmins)
+
+  //     const verifiedEditors = [...boardAdmins]
+  //     console.log("verifiedEditors", verifiedEditors)
+
+  //     const verifiedAdmin = verifiedEditors.find(admin => admin._id.toString() === user._id)
+
+  //     if(!verifiedAdmin) { 
+  //       navigate(`/boards/${boardName}`)
+  //     }
+  //   }
+  //   checkUser()
+  // }, [boardNameActual, boardName, user, navigate])
 
   useEffect(function() {
       async function getBoard() {
@@ -77,8 +84,9 @@ export default function UpdateBoardPage({ user }) {
     async function getUsers() {
       let users = []
       users = await usersAPI.getUsers()
-      const otherUsers = users.filter((u) => u._id !== user._id)
-      setUsersGallery(otherUsers)
+      // const otherUsers = users.filter((u) => u._id !== user._id)
+      // setUsersGallery(otherUsers)
+      setUsersGallery(users)
     }
     getUsers()
 }, [user._id])

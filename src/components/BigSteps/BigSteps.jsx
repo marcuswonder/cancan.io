@@ -32,15 +32,15 @@ export default function BigSteps({ user, board, setBoard }) {
 
 
     async function handleDeleteClick(bigStep) {
-        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             const updatedBoard = await boardsAPI.deleteBigStep(board._id, bigStep._id)
             setBoard(updatedBoard)
             navigate(`/boards/${boardName}`)
-        }
+        // }
     }
 
     async function handlePlannedStatusChangeClick(bigStep) {
-        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             const updatedBigSteps = bigSteps.map(step => {
                 if (step._id === bigStep._id) {
                     return { ...step, status: "Planned" };
@@ -51,13 +51,13 @@ export default function BigSteps({ user, board, setBoard }) {
             await boardsAPI.changeBigStepStatusToPlanned(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
-        } else {
-            alert("Only the user of a big step can update its status.")
-        }
+        // } else {
+        //     alert("Only the user of a big step can update its status.")
+        // }
     }
 
     async function handleInProgressStatusChangeClick(bigStep) {
-        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             const updatedBigSteps = bigSteps.map(step => {
                 if (step._id === bigStep._id) {
                     return { ...step, status: "In Progress" };
@@ -68,13 +68,13 @@ export default function BigSteps({ user, board, setBoard }) {
             await boardsAPI.changeBigStepStatusToInProgress(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
-        } else {
-            alert("Only the user of a big step can update its status.")
-        }
+        // } else {
+        //     alert("Only the user of a big step can update its status.")
+        // }
     }
     
     async function handleCompleteStatusChangeClick(bigStep) {
-        if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
             const updatedBigSteps = bigSteps.map(step => {
                 if (step._id === bigStep._id) {
                     return { ...step, status: "Complete" };
@@ -85,9 +85,9 @@ export default function BigSteps({ user, board, setBoard }) {
             await boardsAPI.changeBigStepStatusToComplete(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
-        } else {
-            alert("Only the user of a big step can update its status.")
-        }
+        // } else {
+        //     alert("Only the user of a big step can update its status.")
+        // }
     }
    
 

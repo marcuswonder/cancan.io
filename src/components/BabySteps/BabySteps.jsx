@@ -31,11 +31,7 @@ export default function BabySteps({ user, board, setBoard }) {
             setBabySteps(babySteps)
         }
         getBigStepsBabySteps()
-    }, [board, setBoard, setBabySteps])
-
-
-
-
+    }, [board, setBoard, setBabySteps, bigStepNameActual])
 
 
     async function handleDeleteClick(babyStep) {
@@ -47,7 +43,7 @@ export default function BabySteps({ user, board, setBoard }) {
     }
 
     async function handlePlannedStatusChangeClick(babyStep) {
-        if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "Planned" };
@@ -58,13 +54,13 @@ export default function BabySteps({ user, board, setBoard }) {
             await boardsAPI.changeBabyStepStatusToPlanned(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
             
-        } else {
-            alert("Only the user of a baby step can update its status.")
-        }
+        // } else {
+        //     alert("Only the user of a baby step can update its status.")
+        // }
     }
     
     async function handleInProgressStatusChangeClick(babyStep) {
-        if (user._id === board.author._id || user._id === babyStep.bigStep.author || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === babyStep.bigStep.author || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "In Progress" };
@@ -75,13 +71,13 @@ export default function BabySteps({ user, board, setBoard }) {
             await boardsAPI.changeBabyStepStatusToInProgress(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
             
-        } else {
-            alert("Only the user of a baby step can update its status.")
-        }
+        // } else {
+        //     alert("Only the user of a baby step can update its status.")
+        // }
     }
     
     async function handleCompleteStatusChangeClick(babyStep) {
-        if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "Complete" };
@@ -92,9 +88,9 @@ export default function BabySteps({ user, board, setBoard }) {
             await boardsAPI.changeBabyStepStatusToComplete(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
 
-        } else {
-            alert("Only the user of a baby step can update its status.")
-        }
+        // } else {
+        //     alert("Only the user of a baby step can update its status.")
+        // }
     }
    
     

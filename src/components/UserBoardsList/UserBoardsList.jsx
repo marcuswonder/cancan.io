@@ -1,15 +1,11 @@
 import './UserBoardsList.css'
-import detailsIcon from '../../public/assets/details-white.png'
-import deleteIcon from '../../public/assets/delete-icon-white.png'
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'
 import BoardCard from '../BoardCard/BoardCard'
 
 export default function UserBoardsList({ user }) {
     const [userBoardGallery, setUserBoardGallery] = useState([])
-    const [hoveredTitle, setHoveredTitle] = useState(null);
-    const [hoveredDescription, setHoveredDescription] = useState(null);
+
     
 
     useEffect(function() {
