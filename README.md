@@ -55,10 +55,11 @@ Find planning documents below:
  <br>
 
 ## Unsolved Problems:
- * Although CRUD operations are restricted on the back-end, there is no front-end authorisation.
- * Users and Admins are duplicated on the BoardDetail component. Authorizations remain functional, but the UX suffers from this.
- * Upon signup new users are not directed to the home page.
- * The site is not responsive.
+ * Although CRUD operations are restricted on the back-end, there is no front-end authorisation
+ * Users and Admins are duplicated on the BoardDetail component. Authorizations remain functional, but the UX suffers from this
+ * Upon signup new users are not directed to the home page
+ * Date selectors return the day prior to selected date
+ * The site is not responsive
 
  <br>
  <br>
@@ -66,8 +67,9 @@ Find planning documents below:
 ## Future Enhancements:
  * Resolve unsolved problems
  * Improve UI and styling
- * Build out the completion logic in the model virtuals to show a more accurate picture of completeness
- * Improve the authorizations for additional flexibility
+ * Build out the logic in the model virtuals to show a more accurate picture of completeness
+ * Implement front-end authorizations
+ * Improve the back-end authorizations for additional flexibility
  * Sort tasks by due date
  * Add a dashboard that shows impending tasks - include functionality like identifying quick wins
  * Add a calendar of upcoming deadlines
