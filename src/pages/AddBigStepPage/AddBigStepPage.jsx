@@ -69,7 +69,7 @@ export default function AddBigStepPage({ user }) {
     return (
         <div>
             <div className="form-container">
-            <h1 className="new-big-step-h1">Add a new Big Step to the {board.title} board</h1>
+            <h1 className="new-big-step-h1">Add a new Big Step to '{board.title}'</h1>
                 <form autoComplete="off" onSubmit={handleCreateBigStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={newBigStep.title} required />
@@ -85,7 +85,7 @@ export default function AddBigStepPage({ user }) {
                             <option value="">Select a responsible user</option>
                             {usersGallery.map((user) => (
                             <option key={user._id} value={user._id} className="new-big-step-form-select-input">
-                                {user.name} | {user.email} 
+                                {user.name}
                             </option>
                             ))}
                         </select>

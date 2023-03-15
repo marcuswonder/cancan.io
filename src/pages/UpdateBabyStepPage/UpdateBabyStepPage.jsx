@@ -100,7 +100,7 @@ export default function UpdateBabyStepPage({ user }) {
                             <option value="" className="update-big-step-select-options">Select a responsible user</option>
                             {usersGallery.map((user) => (
                             <option key={user._id} value={user._id} className="update-big-step-select-options">
-                                {user.name} | {user.email} 
+                                {user.name}
                             </option>
                             ))}
                         </select>

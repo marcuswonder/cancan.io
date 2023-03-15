@@ -104,7 +104,7 @@ export default function UpdateBoardPage({ user }) {
                   <select name="admins" multiple onChange={handleAdminSelect} className="update-board-select-options">
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id} className="update-board-select-options" >
-                        {user.name}   -   {user.email}
+                        {user.name}
                       </option>
                     ))}
                   </select>

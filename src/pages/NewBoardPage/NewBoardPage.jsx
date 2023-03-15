@@ -69,7 +69,7 @@ export default function NewBoardPage({ user }) {
                   <select  name="admins" multiple onChange={handleAdminSelect}  className="new-board-form-select-input" required >
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id} className="new-board-form-select-input" >
-                        {user.name}   -   {user.email}
+                        {user.name}
                       </option>
                     ))}
                   </select>

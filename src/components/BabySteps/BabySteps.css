@@ -245,10 +245,11 @@
     font-weight: 300;
     height: 35px;
     font-size: .75rem;
-    border: solid #74BDCB 1px;
-    background-color: #74BDCB;
+    border: solid #E7F2F8 1px;
+    background-color: #FFA384;
     color: white;
     padding: 0 1rem;
+    transform: 0.5s ease-in-out;
 }
 
 
@@ -257,8 +258,9 @@
     font-weight: 300;
     height: 35px;
     font-size: .75rem;
-    background-color: white;
-    border: solid #74BDCB 1px;
+    background-color: #E7F2F8;
+    border: solid #E7F2F8 1px;
     color: #74BDCB;
     padding: 0 1rem;
+    transform: scale(1.2);
 }

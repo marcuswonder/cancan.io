@@ -54,7 +54,7 @@ export default function BoardDetail({user, board, setBoard}) {
                             {board.admins && board.admins.length > 0 ? (
                                     board.admins.map((user) => (
                                         <div className="board-card-user-container" key={user._id}>
-                                            <p className="board-card-users-info" key={user._id}>{user.email}</p>
+                                            <p className="board-card-users-info" key={user._id}>{user.name}</p>
                                         </div>
                                     ))
                                 ) : (
@@ -73,7 +73,7 @@ export default function BoardDetail({user, board, setBoard}) {
                             {board.users && board.users.length > 0 ? (
                                 board.users.map((user) => (
                                     <div className="board-card-user-container" key={user._id}>
-                                        <p className="board-card-users-info" key={user._id}>{user.email}</p>
+                                        <p className="board-card-users-info" key={user._id}>{user.name}</p>
                                     </div>
                                 ))
                             ) : (
@@ -87,13 +87,13 @@ export default function BoardDetail({user, board, setBoard}) {
                         <>
                             <div className="update-button-div"><Link to={`/boards/${boardName}/update`}><button className="update-button">Update Board</button></Link></div>
                             <div className="board-card-status">
-                                <p className="board-card-status-text">Status - Needs to be calculated!</p>
+                                <p className="board-card-status-text"></p>
                             </div>
                             <div className="button-div delete-button-div"><button onClick={handleDeleteClick} className="delete-button">Delete Board</button></div>
                         </>
                     ) : (
                         <div className="board-card-status">
-                            <p className="board-card-status-text">Status - Needs to be calculated!</p>
+                            <p className="board-card-status-text"></p>
                         </div>
                     )}
                 </div>

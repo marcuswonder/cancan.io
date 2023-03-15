@@ -94,7 +94,7 @@ export default function AddBabyStepPage({ user }) {
                                 <option value="">Select a responsible user</option>
                                 {usersGallery.map((user) => (
                                 <option key={user._id} value={user._id} className="new-big-step-form-select-input">
-                                    {user.name} | {user.email} 
+                                    {user.name}
                                 </option>
                                 ))}
                             </select>

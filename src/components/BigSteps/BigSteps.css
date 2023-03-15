@@ -53,7 +53,7 @@
 .add-icon {
     width: 30px;
     height: auto;;
-    transition: transform 0.5s ease-in-out;
+    transform: 0.5s ease-in-out;
 }
 
 .add-icon:hover {
