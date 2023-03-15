@@ -13,6 +13,17 @@ async function authorIndex(req, res) {
     try {
       if (req.user) {
         const boards = await Board.find({ admins: { $in: [req.user._id] } })
+        .populate({ path: 'author', model: 'User' })
+        .populate({ path: 'admins', model: 'User' })
+        .populate({ path: 'users', model: 'User' })
+        .populate({
+          path: 'bigSteps',
+          populate: [
+            { path: 'responsible', select: 'name email' },
+            { path: 'babySteps', populate: { path: 'responsible', select: 'name email' } }
+          ]
+        })
+        .exec()
         res.json(boards)
       }
 
@@ -50,11 +61,6 @@ async function userIndex(req, res) {
     })
     .exec()
     
-
-      
-    
-  
-  
     const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
 
     const verifiedUser = approvedBoardViewers.find(user => user._id.toString() === req.user._id)

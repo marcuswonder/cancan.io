@@ -11,8 +11,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 98%;
-    border: solid #74BDCB 2px;
-    background-color: #FFA384;
+    border: solid #FFA384 2px;
+    background-color: #74BDCB;
     border-radius: 50px 50px 50px 50px ;
     padding: 2%;
     margin-top: 1%;
@@ -27,7 +27,7 @@
     align-items: center;
 }
 
-.baby-step-header-blank {
+.baby-step-header-back {
     width: 5%;
 }
 
@@ -117,7 +117,7 @@
     border: solid white 1px;
     margin: 2%;
     border-radius: 25px 25px 25px 25px ;
-    background-color: #74BDCB;
+    background-color: #FFA384;
     
 }
 

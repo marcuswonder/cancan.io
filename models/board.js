@@ -83,6 +83,7 @@ const boardSchema = new Schema({
     bigSteps: [bigStepSchema]
 }, {
         timestamps: true,
+        toJSON: { virtuals: true }
     
 })
 
@@ -114,5 +115,80 @@ boardSchema.pre('save', function(next) {
     
     return next();
   })
+
+  boardSchema.pre('find', function(next) {
+    this.populate({
+      path: 'bigSteps',
+      populate: [
+        { path: 'responsible', select: 'name email' },
+        { path: 'babySteps', populate: { path: 'responsible', select: 'name email' } }
+      ]
+    })
+    next();
+  });
+
+
+  boardSchema.virtual('totalComplete').get(function() {
+    let bigStepCount = 0;
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.status === 'Complete') {
+        bigStepCount++
+      }
+    })
+    return (bigStepCount / this.bigSteps.length) * 100;
+  })
+
+
+
+
+
+
+
+
+  boardSchema.virtual('totalBigSteps').get(function() {
+    return this.bigSteps.length, 0
+  })
+
+  boardSchema.virtual('plannedBigStepsCount').get(function() {
+    let count = 0;
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.status === 'Planned') {
+        count++
+      }
+    })
+    return count
+  })
+
+  boardSchema.virtual('inProgressBigStepsCount').get(function() {
+    let count = 0;
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.status === 'In Progress') {
+        count++
+      }
+    })
+    return count
+  })
+
+  boardSchema.virtual('completeBigStepsCount').get(function() {
+    let count = 0;
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.status === 'Complete') {
+        count++
+      }
+    })
+    return count
+  })
+
+  boardSchema.virtual('totalBabySteps').get(function() {
+    let total = 0
+    this.bigSteps.forEach(bigStep => {
+      total += bigStep.babySteps.length
+    })
+    return total
+  })
+
+
+
+
 
 module.exports = mongoose.model('Board', boardSchema);

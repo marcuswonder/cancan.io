@@ -15,6 +15,9 @@ export default function BoardDetail({user, board, setBoard}) {
         getBoard()
     }, [board, setBoard])
 
+    console.log("Board.totalBigSteps on BoardDetail", board.totalBigSteps)
+    console.log("Board.totalBabySteps on BoardDetail", board.totalBabySteps)
+
     
     async function handleDeleteClick() {
         if (user._id === board.author._id) {

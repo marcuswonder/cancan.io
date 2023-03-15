@@ -105,9 +105,9 @@ export default function BabySteps({ user, board, setBoard }) {
                 {babySteps.length ?
                 <div className="baby-step-container">
                     <div className="baby-step-header">
-                        <div className="baby-step-header-blank">
+                        <div className="baby-step-header-back">
                             <Link to={`/boards/${boardName}`}>
-                                <img className="add-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
+                                <img className="back-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
                             </Link>
                         </div>
                         <h1 className="baby-step-header-h1">Baby Steps</h1>
@@ -141,7 +141,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                     </div>
                                     <div className="baby-step-card-bottom-navigation">
                                         <div className="baby-step-card-details">
-                                        <Link to={`/boards/${boardName}/${bigStepName}/${babyStep.title.replace(/\s+/g, '-')}/update`} >
+                                            <Link to={`/boards/${boardName}/${bigStepName}/${babyStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your baby step' title="Update the details on your baby step" />
                                             </Link>
                                         </div>

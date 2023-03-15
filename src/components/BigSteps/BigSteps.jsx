@@ -97,9 +97,9 @@ export default function BigSteps({ user, board, setBoard }) {
                 {bigSteps.length ?
                 <div className="big-step-container">
                     <div className="big-step-header">
-                        <div className="big-step-header-blank">
+                        <div className="big-step-header-back">
                             <Link to={`/boards`}>
-                                <img className="add-icon" src={backwardIcon} alt='back to your Boards' title="Back to your boards" />
+                                <img className="back-icon" src={backwardIcon} alt='back to your Boards' title="Back to your boards" />
                             </Link>
                         </div>
                         <h1 className="big-step-header-h1">Big Steps</h1>
@@ -132,14 +132,14 @@ export default function BigSteps({ user, board, setBoard }) {
                                     <div className="big-step-card-middle">
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
-                                        <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
-                                        </div>
                                         <div className="big-step-card-update">
                                             <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
+                                            </Link>
+                                        </div>
+                                        <div className="big-step-card-details">
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
                                         </div>
                                         <div className="big-step-card-delete">
@@ -173,14 +173,14 @@ export default function BigSteps({ user, board, setBoard }) {
                                     <div className="big-step-card-middle">
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
-                                        <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
-                                        </div>
                                         <div className="big-step-card-update">
                                             <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
+                                            </Link>
+                                        </div>
+                                        <div className="big-step-card-details">
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
                                         </div>
                                         <div className="big-step-card-delete">
@@ -212,14 +212,14 @@ export default function BigSteps({ user, board, setBoard }) {
                                     <div className="big-step-card-middle">
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
-                                        <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
-                                        </div>
                                         <div className="big-step-card-update">
                                             <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
+                                            </Link>
+                                        </div>
+                                        <div className="big-step-card-details">
+                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
                                         </div>
                                         <div className="big-step-card-delete">
