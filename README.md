@@ -5,6 +5,8 @@ cancan is a kanban-based tool to track the progress of projects. Each board has 
 
 As a user, you can track your big and baby step progress with your teammates, assigning responsibility of project stages.
 
+ <br>
+ <br>
 
 ### Screenshots
 Welcome
@@ -55,6 +57,7 @@ Find planning documents below:
 ## Unsolved Problems:
  * Although CRUD operations are restricted on the back-end, there is no front-end authorisation.
  * Users and Admins are duplicated on the BoardDetail component. Authorizations remain functional, but the UX suffers from this.
+ * Upon signup new users are not directed to the home page.
  * The site is not responsive.
 
  <br>
