@@ -32,32 +32,45 @@ export default function BigSteps({ user, board, setBoard }) {
 
 
     async function handleDeleteClick(bigStep) {
-        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        // console.log("authorisedBoardAdmin", authorisedBoardAdmin)
+        // console.log("authorisedBigStepUser", authorisedBigStepUser)
+
+        if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBoard = await boardsAPI.deleteBigStep(board._id, bigStep._id)
             setBoard(updatedBoard)
             navigate(`/boards/${boardName}`)
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for a big step can delete it.")
+        }
     }
 
     async function handlePlannedStatusChangeClick(bigStep) {
-        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBigSteps = bigSteps.map(step => {
                 if (step._id === bigStep._id) {
                     return { ...step, status: "Planned" };
                 }
                 return step;
-            });
+            })
 
             await boardsAPI.changeBigStepStatusToPlanned(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
-        // } else {
-        //     alert("Only the user of a big step can update its status.")
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for a big step can update its status.")
+        }
     }
 
     async function handleInProgressStatusChangeClick(bigStep) {
-        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBigSteps = bigSteps.map(step => {
                 if (step._id === bigStep._id) {
                     return { ...step, status: "In Progress" };
@@ -68,13 +81,16 @@ export default function BigSteps({ user, board, setBoard }) {
             await boardsAPI.changeBigStepStatusToInProgress(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
-        // } else {
-        //     alert("Only the user of a big step can update its status.")
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for a big step can update its status.")
+        }
     }
     
     async function handleCompleteStatusChangeClick(bigStep) {
-        // if (user._id === board.author._id || user._id === bigStep.author._id || user._id === bigStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBigSteps = bigSteps.map(step => {
                 if (step._id === bigStep._id) {
                     return { ...step, status: "Complete" };
@@ -85,9 +101,9 @@ export default function BigSteps({ user, board, setBoard }) {
             await boardsAPI.changeBigStepStatusToComplete(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
-        // } else {
-        //     alert("Only the user of a big step can update its status.")
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for a big step can update its status.")
+        }
     }
    
 

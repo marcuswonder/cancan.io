@@ -54,7 +54,7 @@ export default function BoardDetail({user, board, setBoard}) {
                             {board.admins && board.admins.length > 0 ? (
                                     board.admins.map((user) => (
                                         <div className="board-card-user-container" key={user._id}>
-                                            <p className="board-card-users-info" key={user._id}>{user.name}</p>
+                                            <p className="board-card-users-info">{user.name}</p>
                                         </div>
                                     ))
                                 ) : (
@@ -73,7 +73,7 @@ export default function BoardDetail({user, board, setBoard}) {
                             {board.users && board.users.length > 0 ? (
                                 board.users.map((user) => (
                                     <div className="board-card-user-container" key={user._id}>
-                                        <p className="board-card-users-info" key={user._id}>{user.name}</p>
+                                        <p className="board-card-users-info">{user.name}</p>
                                     </div>
                                 ))
                             ) : (

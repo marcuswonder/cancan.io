@@ -55,8 +55,8 @@ Find planning documents below:
  <br>
 
 ## Unsolved Problems:
+ * Admin array does not check for duplicates
  * Although CRUD operations are restricted on the back-end, there is no front-end authorisation
- * Users and Admins are duplicated on the BoardDetail component. Authorizations remain functional, but the UX suffers from this
  * Date selectors return the day prior to selected date
  * The site is not responsive
 
