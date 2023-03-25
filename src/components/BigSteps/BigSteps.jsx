@@ -17,9 +17,9 @@ export default function BigSteps({ user, board, setBoard }) {
     const [bigSteps, setBigSteps] = useState([])
     const navigate = useNavigate()
 
-    const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned');
-    const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress');
-    const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Complete');
+    const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned')
+    const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress')
+    const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Complete')
 
     useEffect(function() {
         async function getBigSteps() {
@@ -113,7 +113,6 @@ export default function BigSteps({ user, board, setBoard }) {
                         <div className="planned-section">
                             <h1 className="planned-section-header">planned</h1>
                             {plannedSteps.map(bigStep => (
-                            <div key={bigStep.id}>
                                 <div className="big-step-card" key={bigStep._id}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
@@ -147,15 +146,12 @@ export default function BigSteps({ user, board, setBoard }) {
                                         </div>
                                     </div>
                                 </div>
-                                    
-                            </div>
                             ))}
                         </div>
                         <div className="in-progress-section">
                             <h1 className="in-progress-section-header">in progress</h1>
                             {inProgressSteps.map(bigStep => (
-                            <div key={bigStep.id}>
-                                <div className="big-step-card">
+                                <div className="big-step-card" key={bigStep._id}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
                                             <div className="big-step-card-backwards"><img className="backward-icon" src={backwardIcon} onClick={(evt) => handlePlannedStatusChangeClick(bigStep)} alt='go forwards' title="Move your big step back to the planned phase "/></div>
@@ -188,14 +184,12 @@ export default function BigSteps({ user, board, setBoard }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             ))}
                         </div>
                         <div className="completed-section">
                             <h1 className="completed-section-header">complete</h1>
                             {completedSteps.map(bigStep => (
-                            <div key={bigStep.id}>
-                                <div className="big-step-card">
+                                <div className="big-step-card" key={bigStep._id}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
                                         <div className="big-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} src={backwardIcon} alt='go forwards' title="Move your big step back to the in progress phase "/></div>
@@ -227,7 +221,6 @@ export default function BigSteps({ user, board, setBoard }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             ))}
                         </div>
                     </div>

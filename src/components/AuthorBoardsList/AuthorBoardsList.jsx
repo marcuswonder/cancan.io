@@ -34,7 +34,7 @@ export default function AuthorBoardsList({ user }) {
                 <p className="boards-list-custom-p">These are boards that you are an administrator on</p>
                 <div className="boards-list-board-body">
                     {userBoardGallery.map(board => (
-                    <BoardCard board={board} onDeleteClick={handleDeleteClick} />
+                    <BoardCard board={board} onDeleteClick={handleDeleteClick} key={board.id} />
                     ))}
                 </div>
                 <p className="boards-list-p">Create another board!</p>

@@ -23,12 +23,14 @@ export default function BabySteps({ user, board, setBoard }) {
     useEffect(function() {
         async function getBigStepsBabySteps() {
             await setBoard(board)
-
-            const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-            setBigStep(bigStep)
-
-            const babySteps = bigStep.babySteps || []
-            setBabySteps(babySteps)
+    
+            if (board && board.bigSteps) {
+                const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+                setBigStep(bigStep)
+    
+                const babySteps = bigStep.babySteps || []
+                setBabySteps(babySteps)
+            }
         }
         getBigStepsBabySteps()
     }, [board, setBoard, setBabySteps, bigStepNameActual])
@@ -117,7 +119,6 @@ export default function BabySteps({ user, board, setBoard }) {
                         <div className="planned-section">
                             <h1 className="planned-section-header">planned</h1>
                             {plannedSteps.map(babyStep => (
-                            <div key={babyStep.id}>
                                 <div className="baby-step-card" key={babyStep._id}>
                                     <div className="baby-step-card-top">
                                         <div className="baby-step-card-top-navigation">
@@ -146,15 +147,12 @@ export default function BabySteps({ user, board, setBoard }) {
                                         </div>
                                     </div>
                                 </div>
-                                    
-                            </div>
                             ))}
                         </div>
                         <div className="in-progress-section">
                             <h1 className="in-progress-section-header">in progress</h1>
                             {inProgressSteps.map(babyStep => (
-                            <div key={babyStep.id}>
-                                <div className="baby-step-card">
+                                <div className="baby-step-card" key={babyStep._id}>
                                     <div className="baby-step-card-top">
                                         <div className="baby-step-card-top-navigation">
                                             <div className="baby-step-card-backwards"><img className="backward-icon" src={backwardIcon} onClick={(evt) => handlePlannedStatusChangeClick(babyStep)} alt='go forwards' title="Move your baby step back to the planned phase "/></div>
@@ -182,14 +180,12 @@ export default function BabySteps({ user, board, setBoard }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             ))}
                         </div>
                         <div className="completed-section">
                             <h1 className="completed-section-header">complete</h1>
                             {completedSteps.map(babyStep => (
-                            <div key={babyStep.id}>
-                                <div className="baby-step-card">
+                                <div className="baby-step-card" key={babyStep._id}>
                                     <div className="baby-step-card-top">
                                         <div className="baby-step-card-top-navigation">
                                         <div className="baby-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(babyStep)} src={backwardIcon} alt='go backwards' title="Move your baby step back to the in progress phase "/></div>
@@ -216,7 +212,6 @@ export default function BabySteps({ user, board, setBoard }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             ))}
                         </div>
                     </div>
