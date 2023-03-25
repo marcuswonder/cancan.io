@@ -56,6 +56,7 @@ Find planning documents below:
 
 ## Unsolved Problems:
  * Admin array does not check for duplicates
+ * User Board List shouldn't include delete button - create a separated userBoardCard component.
  * Although CRUD operations are restricted on the back-end, there is no front-end authorisation
  * Date selectors return the day prior to selected date
  * The site is not responsive

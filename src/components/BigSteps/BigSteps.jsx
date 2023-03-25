@@ -34,8 +34,6 @@ export default function BigSteps({ user, board, setBoard }) {
     async function handleDeleteClick(bigStep) {
         const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
         const authorisedBigStepUser = bigStep.responsible._id === user._id
-        // console.log("authorisedBoardAdmin", authorisedBoardAdmin)
-        // console.log("authorisedBigStepUser", authorisedBigStepUser)
 
         if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBoard = await boardsAPI.deleteBigStep(board._id, bigStep._id)
@@ -121,7 +119,7 @@ export default function BigSteps({ user, board, setBoard }) {
                         <h1 className="big-step-header-h1">Big Steps</h1>
                         <div className="big-step-header-add">
                             <Link to={`/boards/${boardName}/big-steps/add`}>
-                                <img className="add-icon" src={addIcon} alt='go backwards' title="Add a big step to your project" />
+                                <img className="add-icon" src={addIcon} alt='Add a big step to your project' title="Add a big step to your project" />
                             </Link>
                         </div>
                     </div>

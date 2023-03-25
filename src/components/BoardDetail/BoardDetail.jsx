@@ -17,12 +17,14 @@ export default function BoardDetail({user, board, setBoard}) {
 
     
     async function handleDeleteClick() {
-        // if (user._id === board.author._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+
+        if (authorisedBoardAdmin) {
             await boardsAPI.deleteUserBoard(boardNameActual)
             navigate('/boards');
-        // } else {
-        //     alert("Only the author of a board can delete it.")
-        // }
+        } else {
+            alert("Only the admin of a board can delete it.")
+        }
     }
 
     if (!board) {

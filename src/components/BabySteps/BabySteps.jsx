@@ -37,15 +37,25 @@ export default function BabySteps({ user, board, setBoard }) {
 
 
     async function handleDeleteClick(babyStep) {
-        if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        const authorisedBabyStepUser = babyStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBoard = await boardsAPI.deleteBabyStep(board._id, bigStep._id, babyStep._id)
             setBoard(updatedBoard)
             navigate(`/boards/${boardName}/${bigStepName}`)
+        } else {
+            alert("Only the admin of a board or the user responsible for a big step can delete it.")
         }
     }
 
-    async function handlePlannedStatusChangeClick(babyStep) {
-        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+    async function handlePlannedStatusChangeClick(babyStep) {  
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        const authorisedBabyStepUser = babyStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "Planned" };
@@ -56,13 +66,17 @@ export default function BabySteps({ user, board, setBoard }) {
             await boardsAPI.changeBabyStepStatusToPlanned(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
             
-        // } else {
-        //     alert("Only the user of a baby step can update its status.")
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
+        }
     }
     
     async function handleInProgressStatusChangeClick(babyStep) {
-        // if (user._id === board.author._id || user._id === babyStep.bigStep.author || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        const authorisedBabyStepUser = babyStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "In Progress" };
@@ -73,13 +87,17 @@ export default function BabySteps({ user, board, setBoard }) {
             await boardsAPI.changeBabyStepStatusToInProgress(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
             
-        // } else {
-        //     alert("Only the user of a baby step can update its status.")
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
+        }
     }
     
     async function handleCompleteStatusChangeClick(babyStep) {
-        // if (user._id === board.author._id || user._id === babyStep.author._id || user._id === babyStep.responsible._id) {
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        const authorisedBabyStepUser = babyStep.responsible._id === user._id
+
+        if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "Complete" };
@@ -90,9 +108,9 @@ export default function BabySteps({ user, board, setBoard }) {
             await boardsAPI.changeBabyStepStatusToComplete(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
 
-        // } else {
-        //     alert("Only the user of a baby step can update its status.")
-        // }
+        } else {
+            alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
+        }
     }
    
     
