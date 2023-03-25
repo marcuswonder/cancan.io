@@ -13,6 +13,7 @@ export default function AddBigStepPage({ user }) {
     const [board, setBoard] = useState({})
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    
 
     useEffect(function() {
         async function getBoard() {
@@ -69,7 +70,7 @@ export default function AddBigStepPage({ user }) {
     return (
         <div>
             <div className="form-container">
-            <h1 className="new-big-step-h1">Add a new Big Step to '{board.title}'</h1>
+            <h1 className="new-big-step-h1">Add a Big Step to '{board.title}'</h1>
                 <form autoComplete="off" onSubmit={handleCreateBigStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={newBigStep.title} required />

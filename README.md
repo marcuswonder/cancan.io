@@ -57,7 +57,6 @@ Find planning documents below:
 ## Unsolved Problems:
  * Although CRUD operations are restricted on the back-end, there is no front-end authorisation
  * Users and Admins are duplicated on the BoardDetail component. Authorizations remain functional, but the UX suffers from this
- * Upon signup new users are not directed to the home page
  * Date selectors return the day prior to selected date
  * The site is not responsive
 

@@ -103,8 +103,20 @@ boardSchema.pre('save', function(next) {
         }
       })
     })
-    let users = new Set(usersToAdd)
-    console.log("users", users)
+
+    const admins = board.admins
+    
+    const users = usersToAdd.filter(user => {
+      if (admins.some(admin => admin.toString() === user.toString())) {
+        return false
+      } else {
+        return true
+      }
+    }).filter((user, index, array) => {
+      return !array.slice(0, index).some((otherUser) => {
+        return otherUser.toString() === user.toString();
+      });
+    });
     
     board.users = []
 

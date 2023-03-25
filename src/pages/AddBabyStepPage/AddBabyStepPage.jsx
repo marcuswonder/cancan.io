@@ -78,7 +78,7 @@ export default function AddBabyStepPage({ user }) {
         :
             <div>
                 <div className="form-container">
-                    <h1 className="new-big-step-h1">Add a new Baby Step on the {bigStep.title} Big step</h1>
+                    <h1 className="new-big-step-h1">Add a Baby Step on the {bigStep.title} Big step</h1>
                     <form autoComplete="off" onSubmit={handleCreateBabyStep}>
                             <label>Title</label>
                             <input type="text" name="title" onChange={handleChange} value={newBabyStep.title} required />
