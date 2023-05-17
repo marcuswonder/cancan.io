@@ -85,11 +85,10 @@ async function create(req, res) {
 
   const existingBoard = await Board.find({title: newBoard.title})
   
-  if(!existingBoard) {
+  if (existingBoard.length > 0) {
       return res.status(400).json({ error: 'A Board with this title already exists' })
       
     } else {
-      console.log("controller create else newBoard", newBoard)
         const board = await Board.create(newBoard)
         res.status(200).json(board)
     }

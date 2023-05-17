@@ -39,8 +39,8 @@ async function create(req, res) {
       res.status(200).json(updatedBoard)     
 
     } catch (error) {
-      console.error(error)
-      return res.status(500).json({ message: 'Server error' })
+        console.error(error)
+        return res.status(500).json({ message: 'Server error' })
     }
 
   } else {
