@@ -360,6 +360,7 @@ I have several key takeaways from this project:
     <li>Ensure that data relationships are planned correctly in advance of commencing development
     <li>Build apps with a Mobile-First Design, especially when you are expecting users to interact with the app on the go
     <li>Always follow RESTful conventions - I had to spend some time refactoring code which did not follow these conventions
+</ul>
 <br>
 <br>
 
