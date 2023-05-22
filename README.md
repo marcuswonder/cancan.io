@@ -80,7 +80,7 @@ I am currently using cancan to track development pipelines across all my current
 <br>
 
 ## Timeframe & Working Team
-This was a solo project. We had 7 working days to complete this project, and I worked over weekend and a public holiday to bring it up to 10 solid days of work.
+This was the fourth project assigned as part of my Software Engineering Immersive course at General Assembly; it was a solo project for which we were given 7 working days. I worked over weekend and a public holiday totalling 10 full days of development.
 
 <br>
 <br>
@@ -373,7 +373,6 @@ Use the following credentials to log in to the app and navigate to "my boards", 
 
 <ul>
     <li>User: guest@guest.com
-<br>
     <li>Pass: guest
 </ul>
  <br>
