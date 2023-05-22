@@ -86,7 +86,7 @@ This was a solo project. We had 7 working days to complete this project, and I w
 <br>
 
 ## Technologies Used
-During this project I used the MERN Stack:
+During this project I used the MERN Stack and Heroku for deployment:
  * MongoDB/Mongoose
  * Express
  * React.js
