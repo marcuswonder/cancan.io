@@ -245,7 +245,7 @@ export default function BabySteps({ user, board, setBoard }) {
                                             <img className="add-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
                                         </Link>
                                     </div>
-                                    <h1 className="baby-step-header-h1">baby Steps</h1>
+                                    <h1 className="baby-step-header-h1">Baby Steps</h1>
                                     <div className="baby-step-header-add">
                                         <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}>
                                             <img className="add-icon" src={addIcon} alt='go backwards' title="Add a baby step to your project" />
