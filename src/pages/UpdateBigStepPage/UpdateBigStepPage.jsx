@@ -34,7 +34,6 @@ export default function UpdateBigStepPage({ user }) {
     async function handleUpdateBigStep(evt) {
         evt.preventDefault();
         const bigStepData = { ...bigStepUpdate, _id: bigStepUpdate._id, author: user._id, board: board._id};
-        console.log("bigStepData", bigStepData)
         await updateBigStep(bigStepData);
         setBigStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
         navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);

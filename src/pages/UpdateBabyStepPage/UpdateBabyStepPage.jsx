@@ -15,7 +15,7 @@ export default function UpdateBabyStepPage({ user }) {
     const [ board, setBoard ] = useState({})
     const [ bigStep, setBigStep ] = useState({})
     const [ babySteps, setBabySteps ] = useState([])
-    const [ babyStepUpdate, setBabyStepUpdate ] = useState({ title: '', description: '', due: new Date(), responsible: '' })
+    const [ babyStepUpdate, setBabyStepUpdate ] = useState({ title: '', description: '', due: '', responsible: '' })
     const [ usersGallery, setUsersGallery ] = useState([])
     const [ responsibleUser, setResponsibleUser ] = useState('')
 
@@ -46,22 +46,25 @@ export default function UpdateBabyStepPage({ user }) {
     
     async function handleUpdateBabyStep(evt) {
         evt.preventDefault();
-        const babyStepData = { ...babyStepUpdate, _id: babyStepUpdate._id, author: user._id, board: board._id, responsible: responsibleUser};
-        const updatedBabyStep = await updateBabyStep(babyStepData);
+        const babyStepData = { ...babyStepUpdate, _id: babyStepUpdate._id, author: user._id, board: board._id};
+        await updateBabyStep(babyStepData);
         setBabyStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
         navigate(`/boards/${board.title.replace(/\s+/g, '-')}/${bigStep.title.replace(/\s+/g, '-')}`);
     }
 
     function handleChange(evt) {
         const { name, value } = evt.target;
-        const newValue = name === "due" ? formatDate(value) : value;
-        const newFormData = { ...babyStepUpdate, [name]: newValue };
+        const newDueDate = name === "due" ? formatDate(value) : value;
+        if( name === "responsible") {
+            const responsibleUserId = evt.target.value;
+            console.log("responsibleUserId", responsibleUserId)
+            const responsibleUser = usersGallery.find(user => user._id === responsibleUserId);
+            setResponsibleUser(responsibleUser);
+            babyStepUpdate.responsible = responsibleUser
+        }
+        const newFormData = { ...babyStepUpdate, [name]: newDueDate };
         setBabyStepUpdate(newFormData);
-    }
-
-    function handleResponsibleSelect(evt) {
-        const responsibleUser = evt.target.value
-        setResponsibleUser(responsibleUser);
+        console.log("newFormData", newFormData)
     }
 
     // Needs to be updated to only retrieve users of the specific board
@@ -93,10 +96,10 @@ export default function UpdateBabyStepPage({ user }) {
                         <input type="text" name="description" onChange={handleChange} value={babyStepUpdate.description} required/>
                         
                         <label>Due Date</label>
-                        <input type="date" name="due" onChange={handleChange} value={babyStepUpdate.due} required/>
+                        <input type="date" name="due" onChange={handleChange} value={formatDate(babyStepUpdate.due)} required/>
                         
                         <label className="update-big-step-select-label">Confirm Responsible User</label>
-                        <select name="responsible" onChange={handleResponsibleSelect} className="update-big-step-select-options" >
+                        <select name="responsible" onChange={handleChange} value={babyStepUpdate.responsible._id} className="update-big-step-select-options" >
                             <option value="" className="update-big-step-select-options">Select a responsible user</option>
                             {usersGallery.map((user) => (
                             <option key={user._id} value={user._id} className="update-big-step-select-options">
