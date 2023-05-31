@@ -11,7 +11,7 @@ export default function UpdateBigStepPage({ user }) {
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
     
     const [ bigSteps, setBigSteps ] = useState([])
-    const [ bigStepUpdate, setBigStepUpdate ] = useState({ title: '', description: '', due: new Date(), responsible: '' })
+    const [ bigStepUpdate, setBigStepUpdate ] = useState({ title: '', description: '', due: '', responsible: '' })
     const [ usersGallery, setUsersGallery ] = useState([])
     const [ responsibleUser, setResponsibleUser ] = useState('')
     const [ board, setBoard ] = useState({})
@@ -22,11 +22,10 @@ export default function UpdateBigStepPage({ user }) {
             setBoard(board)
             const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStepUpdate(bigStep)
-            console.log("bigStepUpdate", bigStepUpdate)
         }
-          getBoard()
+        getBoard()
     }, [boardNameActual, bigStepNameActual])
-
+    
     async function updateBigStep(bigStepUpdate) {
         const updatedBigStep = await boardsAPI.updateBigStep(bigStepUpdate);
         setBigSteps([...bigSteps, updatedBigStep]);
@@ -34,23 +33,26 @@ export default function UpdateBigStepPage({ user }) {
     
     async function handleUpdateBigStep(evt) {
         evt.preventDefault();
-        const bigStepData = { ...bigStepUpdate, _id: bigStepUpdate._id, author: user._id, board: board._id, responsible: responsibleUser};
+        const bigStepData = { ...bigStepUpdate, _id: bigStepUpdate._id, author: user._id, board: board._id};
+        console.log("bigStepData", bigStepData)
         await updateBigStep(bigStepData);
         setBigStepUpdate({ title: "", description: "", due: new Date(), responsible: '' });
         navigate(`/boards/${board.title.replace(/\s+/g, '-')}`);
     }
 
-    function handleChange(evt) {
+    async function handleChange(evt) {
         const { name, value } = evt.target;
-        const newValue = name === "due" ? formatDate(value) : value;
-        const newFormData = { ...bigStepUpdate, [name]: newValue };
+        const newDueDate = name === "due" ? formatDate(value) : value;
+        if( name === "responsible") {
+            const responsibleUserId = evt.target.value;
+            const responsibleUser = usersGallery.find(user => user._id === responsibleUserId);
+            setResponsibleUser(responsibleUser);
+            bigStepUpdate.responsible = responsibleUser
+        }
+        console.log("bigStepUpdate", bigStepUpdate);
+        const newFormData = { ...bigStepUpdate, [name]: newDueDate};
         setBigStepUpdate(newFormData);
-    }
-
-    function handleResponsibleSelect(evt) {
-        const responsibleUser = evt.target.value
-        setResponsibleUser(responsibleUser);
-    }
+      }
 
     // Needs to be updated to only retrieve users of the specific board
     useEffect(function() {
@@ -68,6 +70,7 @@ export default function UpdateBigStepPage({ user }) {
         const day = ("0" + d.getDate()).slice(-2);
         return `${year}-${month}-${day}`;
       }
+      
 
     return (
         <div>
@@ -84,8 +87,8 @@ export default function UpdateBigStepPage({ user }) {
                         <input type="date" name="due" onChange={handleChange} value={formatDate(bigStepUpdate.due)} required/>
                         
                         <label className="update-big-step-select-label">Confirm Responsible User</label>
-                        <select name="responsible" onChange={handleResponsibleSelect} className="update-big-step-select-options" >
-                            <option value="" className="update-big-step-select-options">Select a responsible user</option>
+                        <select name="responsible" onChange={handleChange} value={bigStepUpdate.responsible._id} className="update-big-step-select-options" >
+                            <option value="" className="update-big-step-select-options">Confirm responsible user</option>
                             {usersGallery.map((user) => (
                             <option key={user._id} value={user._id} className="update-big-step-select-options">
                                 {user.name}
