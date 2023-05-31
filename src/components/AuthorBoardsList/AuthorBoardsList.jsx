@@ -1,12 +1,12 @@
 import './AuthorBoardsList.css'
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'
 import BoardCard from '../BoardCard/BoardCard'
 
 export default function AuthorBoardsList({ user }) {
     const [userBoardGallery, setUserBoardGallery] = useState([])
-    
+    const navigate = useNavigate()
 
     useEffect(function() {
         async function getAuthorBoards() {
@@ -19,6 +19,7 @@ export default function AuthorBoardsList({ user }) {
     async function handleDeleteClick(board) {
         // if (user._id === board.author) {
             await boardsAPI.deleteUserBoard(board.title)
+            navigate('/boards')
             setUserBoardGallery(prevState => prevState.filter(b => b._id !== board._id))
         // } else {
         //     alert("Only the author of a board can delete it.")
