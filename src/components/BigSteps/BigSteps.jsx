@@ -30,8 +30,15 @@ export default function BigSteps({ user, board, setBoard }) {
         getBigSteps()
     }, [board, setBoard, setBigSteps])
 
+    function handleBigStepCardClick(bigStep) {
+        navigate(`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`)
+    }
 
-    async function handleDeleteClick(bigStep) {
+    function handleBigStepUpdateClick(bigStep) {
+        navigate(`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`)
+    }
+
+    async function handleBigStepDeleteClick(bigStep) {
         const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
         const authorisedBigStepUser = bigStep.responsible._id === user._id
 
@@ -128,7 +135,7 @@ export default function BigSteps({ user, board, setBoard }) {
                         <div className="planned-section">
                             <h1 className="planned-section-header">planned</h1>
                             {plannedSteps.map(bigStep => (
-                                <div className="big-step-card" key={bigStep._id}>
+                                <div className="big-step-card" key={bigStep._id} onClick={() => handleBigStepCardClick(bigStep)}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
                                             <div className="big-step-card-backwards"></div>
@@ -147,17 +154,13 @@ export default function BigSteps({ user, board, setBoard }) {
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
                                         <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
-                                                <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
-                                            </Link>
+                                                <img className="update-icon" src={editIcon} onClick={(evt) => { evt.stopPropagation(); handleBigStepUpdateClick(bigStep) }} alt='Update the details on your big step' title="Update the details on your big step" />
                                         </div>
                                         {/* <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
+                                                <img className="details-icon" src={detailsIcon} onClick={() => { evt.stopPropagation(); handleBigStepCardClick(bigStep) }} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                         </div> */}
                                         <div className="big-step-card-delete">
-                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
+                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => { evt.stopPropagation(); handleBigStepDeleteClick(bigStep) }}alt='Delete your big step' title="Delete your big step from this project" />
                                         </div>
                                     </div>
                                 </div>
@@ -166,11 +169,11 @@ export default function BigSteps({ user, board, setBoard }) {
                         <div className="in-progress-section">
                             <h1 className="in-progress-section-header">in progress</h1>
                             {inProgressSteps.map(bigStep => (
-                                <div className="big-step-card" key={bigStep._id}>
+                                <div className="big-step-card" key={bigStep._id} onClick={() => handleBigStepCardClick(bigStep)}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
-                                            <div className="big-step-card-backwards"><img className="backward-icon" src={backwardIcon} onClick={(evt) => handlePlannedStatusChangeClick(bigStep)} alt='go forwards' title="Move your big step back to the planned phase "/></div>
-                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleCompleteStatusChangeClick(bigStep)} alt='Move your big step forward to the completed phase' title="Move your big step forward to the completed phase" /></div>
+                                            <div className="big-step-card-backwards"><img className="backward-icon" src={backwardIcon} onClick={(evt) => { evt.stopPropagation(); handlePlannedStatusChangeClick(bigStep) }} alt='go forwards' title="Move your big step back to the planned phase "/></div>
+                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => { evt.stopPropagation(); handleCompleteStatusChangeClick(bigStep) }} alt='Move your big step forward to the completed phase' title="Move your big step forward to the completed phase" /></div>
                                         </div>
                                         <div className="big-step-card-top-about">
                                             <h2 className="big-step-card-title">{bigStep.title}</h2>
@@ -185,17 +188,13 @@ export default function BigSteps({ user, board, setBoard }) {
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
                                         <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
-                                                <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
-                                            </Link>
+                                                <img className="update-icon" src={editIcon} onClick={(evt) => { evt.stopPropagation(); handleBigStepUpdateClick(bigStep) }} alt='Update the details on your big step' title="Update the details on your big step" />
                                         </div>
                                         {/* <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
+                                                <img className="details-icon" src={detailsIcon} onClick={() => { evt.stopPropagation(); handleBigStepCardClick(bigStep) }} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                         </div> */}
                                         <div className="big-step-card-delete">
-                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
+                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => { evt.stopPropagation(); handleBigStepDeleteClick(bigStep) }}alt='Delete your big step' title="Delete your big step from this project" />
                                         </div>
                                     </div>
                                 </div>
@@ -204,10 +203,10 @@ export default function BigSteps({ user, board, setBoard }) {
                         <div className="completed-section">
                             <h1 className="completed-section-header">complete</h1>
                             {completedSteps.map(bigStep => (
-                                <div className="big-step-card" key={bigStep._id}>
+                                <div className="big-step-card" key={bigStep._id} onClick={() => handleBigStepCardClick(bigStep)}>
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
-                                        <div className="big-step-card-backwards"><img className="backward-icon" onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} src={backwardIcon} alt='go forwards' title="Move your big step back to the in progress phase "/></div>
+                                        <div className="big-step-card-backwards"><img className="backward-icon" onClick={(evt) => { evt.stopPropagation(); handleInProgressStatusChangeClick(bigStep) }} src={backwardIcon} alt='go forwards' title="Move your big step back to the in progress phase "/></div>
                                         </div>
                                         <div className="big-step-card-top-about">
                                             <h2 className="big-step-card-title">{bigStep.title}</h2>
@@ -222,17 +221,13 @@ export default function BigSteps({ user, board, setBoard }) {
                                     </div>
                                     <div className="big-step-card-bottom-navigation">
                                         <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
-                                                <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
-                                            </Link>
+                                                <img className="update-icon" src={editIcon} onClick={(evt) => { evt.stopPropagation(); handleBigStepUpdateClick(bigStep) }} alt='Update the details on your big step' title="Update the details on your big step" />
                                         </div>
                                         {/* <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
+                                                <img className="details-icon" src={detailsIcon} onClick={() => { evt.stopPropagation(); handleBigStepCardClick(bigStep) }} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                         </div> */}
                                         <div className="big-step-card-delete">
-                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
+                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => { evt.stopPropagation(); handleBigStepDeleteClick(bigStep) }}alt='Delete your big step' title="Delete your big step from this project" />
                                         </div>
                                     </div>
                                 </div>
