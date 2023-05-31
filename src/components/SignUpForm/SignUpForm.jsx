@@ -42,6 +42,7 @@ export default function SignUpForm(props) {
       };
       const user = await signUp(formData);
       props.setUser(user);
+      console.log("user", user)
       navigate('/boards');
     } catch {
       setError('Sign Up Failed - Try Again');

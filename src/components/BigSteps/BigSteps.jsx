@@ -78,6 +78,7 @@ export default function BigSteps({ user, board, setBoard }) {
 
             await boardsAPI.changeBigStepStatusToInProgress(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
+            navigate(`/boards/${boardName}`)
 
         } else {
             alert("Only the admin of a board or the user responsible for a big step can update its status.")
@@ -131,7 +132,7 @@ export default function BigSteps({ user, board, setBoard }) {
                                     <div className="big-step-card-top">
                                         <div className="big-step-card-top-navigation">
                                             <div className="big-step-card-backwards"></div>
-                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} alt='Move your big step forward to the in progress phase' title="Move your big step forward to the in progress phase" /></div>
+                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => { evt.stopPropagation(); handleInProgressStatusChangeClick(bigStep)}} alt='Move your big step forward to the in progress phase' title="Move your big step forward to the in progress phase" /></div>
                                         </div>
                                         <div className="big-step-card-top-about">
                                             <h2 className="big-step-card-title">{bigStep.title}</h2>
@@ -150,11 +151,11 @@ export default function BigSteps({ user, board, setBoard }) {
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
                                             </Link>
                                         </div>
-                                        <div className="big-step-card-details">
+                                        {/* <div className="big-step-card-details">
                                             <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
                                                 <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
-                                        </div>
+                                        </div> */}
                                         <div className="big-step-card-delete">
                                             <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
                                         </div>
@@ -188,11 +189,11 @@ export default function BigSteps({ user, board, setBoard }) {
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
                                             </Link>
                                         </div>
-                                        <div className="big-step-card-details">
+                                        {/* <div className="big-step-card-details">
                                             <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
                                                 <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
-                                        </div>
+                                        </div> */}
                                         <div className="big-step-card-delete">
                                             <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
                                         </div>
@@ -225,11 +226,11 @@ export default function BigSteps({ user, board, setBoard }) {
                                                 <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
                                             </Link>
                                         </div>
-                                        <div className="big-step-card-details">
+                                        {/* <div className="big-step-card-details">
                                             <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
                                                 <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
                                             </Link>
-                                        </div>
+                                        </div> */}
                                         <div className="big-step-card-delete">
                                             <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
                                         </div>

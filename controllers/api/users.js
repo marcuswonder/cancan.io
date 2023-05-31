@@ -10,10 +10,19 @@ module.exports = {
 }
 
 async function create(req, res) {
+    const userEmail = req.body.email
+
+    const existingUser = await User.findOne({ email: userEmail })
+
+    if (existingUser) {
+        return res.status(400).json('Email is already associated with an existing user')
+    }
+    
     try {
         const user = await User.create(req.body)
         const token = createJWT(user)
         res.json(token)
+        
     } catch(err) {
         res.status(400).json(err)
     }
