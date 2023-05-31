@@ -127,39 +127,36 @@ export default function BigSteps({ user, board, setBoard }) {
                         <div className="planned-section">
                             <h1 className="planned-section-header">planned</h1>
                             {plannedSteps.map(bigStep => (
-                                <div className="big-step-card" key={bigStep._id}>
-                                    <div className="big-step-card-top">
-                                        <div className="big-step-card-top-navigation">
-                                            <div className="big-step-card-backwards"></div>
-                                            <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} alt='Move your big step forward to the in progress phase' title="Move your big step forward to the in progress phase" /></div>
+                                <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
+                                    <div className="big-step-card" key={bigStep._id}>
+                                        <div className="big-step-card-top">
+                                            <div className="big-step-card-top-navigation">
+                                                <div className="big-step-card-backwards"></div>
+                                                <div className="big-step-card-forward"><img className="forward-icon" src={forwardIcon} onClick={(evt) => handleInProgressStatusChangeClick(bigStep)} alt='Move your big step forward to the in progress phase' title="Move your big step forward to the in progress phase" /></div>
+                                            </div>
+                                            <div className="big-step-card-top-about">
+                                                <h2 className="big-step-card-title">{bigStep.title}</h2>
+                                                <h4 className="big-step-card-description">{bigStep.description}</h4>
+                                            </div>
+                                            <div className="big-step-card-responsible-and-due">
+                                                <p className="big-step-card-due">Due: {new Date(bigStep.due).toLocaleDateString('en-GB')}</p>
+                                                <p className="big-step-card-responsible">Responsible: {bigStep.responsible.name}</p>
+                                            </div>
                                         </div>
-                                        <div className="big-step-card-top-about">
-                                            <h2 className="big-step-card-title">{bigStep.title}</h2>
-                                            <h4 className="big-step-card-description">{bigStep.description}</h4>
+                                        <div className="big-step-card-middle">
                                         </div>
-                                        <div className="big-step-card-responsible-and-due">
-                                            <p className="big-step-card-due">Due: {new Date(bigStep.due).toLocaleDateString('en-GB')}</p>
-                                            <p className="big-step-card-responsible">Responsible: {bigStep.responsible.name}</p>
-                                        </div>
-                                    </div>
-                                    <div className="big-step-card-middle">
-                                    </div>
-                                    <div className="big-step-card-bottom-navigation">
-                                        <div className="big-step-card-update">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
-                                                <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
-                                            </Link>
-                                        </div>
-                                        <div className="big-step-card-details">
-                                            <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}`} >
-                                                <img className="details-icon" src={detailsIcon} alt='See a detailed view of your big step'  title="See a detailed view of your big step" />
-                                            </Link>
-                                        </div>
-                                        <div className="big-step-card-delete">
-                                            <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
+                                        <div className="big-step-card-bottom-navigation">
+                                            <div className="big-step-card-update">
+                                                <Link to={`/boards/${boardName}/${bigStep.title.replace(/\s+/g, '-')}/update`} >
+                                                    <img className="update-icon" src={editIcon} alt='Update the details on your big step' title="Update the details on your big step" />
+                                                </Link>
+                                            </div>
+                                            <div className="big-step-card-delete">
+                                                <img className="delete-icon" src={deleteIcon} onClick={(evt) => handleDeleteClick(bigStep)} alt='Delete your big step' title="Delete your big step from this project" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                         <div className="in-progress-section">
