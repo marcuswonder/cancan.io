@@ -22,10 +22,10 @@ export default function UpdateBigStepPage({ user }) {
             setBoard(board)
             const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStepUpdate(bigStep)
+            console.log("bigStepUpdate", bigStepUpdate)
         }
           getBoard()
     }, [boardNameActual, bigStepNameActual])
-
 
     async function updateBigStep(bigStepUpdate) {
         const updatedBigStep = await boardsAPI.updateBigStep(bigStepUpdate);
@@ -81,7 +81,7 @@ export default function UpdateBigStepPage({ user }) {
                         <input type="text" name="description" onChange={handleChange} value={bigStepUpdate.description} required/>
                         
                         <label>Due Date</label>
-                        <input type="date" name="due" onChange={handleChange} value={bigStepUpdate.due} required/>
+                        <input type="date" name="due" onChange={handleChange} value={formatDate(bigStepUpdate.due)} required/>
                         
                         <label className="update-big-step-select-label">Confirm Responsible User</label>
                         <select name="responsible" onChange={handleResponsibleSelect} className="update-big-step-select-options" >
