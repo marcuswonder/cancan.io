@@ -248,61 +248,61 @@ boardSchema.pre('save', function(next) {
 
 
 
-  boardSchema.virtual('totalBigSteps').get(function() {    
-    return this.bigSteps.length
-  })
+  // boardSchema.virtual('totalBigSteps').get(function() {    
+  //   return this.bigSteps.length
+  // })
 
-  boardSchema.virtual('totalBigStepsWithBabySteps').get(function() {
-    let totalBigStepsWithBabySteps = 0
-    this.bigSteps.forEach(bigStep => {
-      if (bigStep.babySteps.length > 0) {
-        totalBigStepsWithBabySteps++
-      }
-    })
-    return totalBigStepsWithBabySteps
-  })
+  // boardSchema.virtual('totalBigStepsWithBabySteps').get(function() {
+  //   let totalBigStepsWithBabySteps = 0
+  //   this.bigSteps.forEach(bigStep => {
+  //     if (bigStep.babySteps.length > 0) {
+  //       totalBigStepsWithBabySteps++
+  //     }
+  //   })
+  //   return totalBigStepsWithBabySteps
+  // })
 
-  boardSchema.virtual('totalBigStepsWithoutBabySteps').get(function() {
-    let totalBigStepsWithoutBabySteps = 0
-    this.bigSteps.forEach(bigStep => {
-      if (bigStep.babySteps.length === 0) {
-        totalBigStepsWithoutBabySteps++
-      }
-    })
-    return totalBigStepsWithoutBabySteps
-  })
+  // boardSchema.virtual('totalBigStepsWithoutBabySteps').get(function() {
+  //   let totalBigStepsWithoutBabySteps = 0
+  //   this.bigSteps.forEach(bigStep => {
+  //     if (bigStep.babySteps.length === 0) {
+  //       totalBigStepsWithoutBabySteps++
+  //     }
+  //   })
+  //   return totalBigStepsWithoutBabySteps
+  // })
 
-  boardSchema.virtual('completeBigStepsWithoutBabySteps').get(function() {
-    let completeBigStepsWithoutBabySteps = 0
-    this.bigSteps.forEach(bigStep => {
-      if (bigStep.babySteps.length === 0 && bigStep.status === 'Complete') {
-        completeBigStepsWithoutBabySteps++
-      }
-    })
-    return completeBigStepsWithoutBabySteps
-  })
+  // boardSchema.virtual('completeBigStepsWithoutBabySteps').get(function() {
+  //   let completeBigStepsWithoutBabySteps = 0
+  //   this.bigSteps.forEach(bigStep => {
+  //     if (bigStep.babySteps.length === 0 && bigStep.status === 'Complete') {
+  //       completeBigStepsWithoutBabySteps++
+  //     }
+  //   })
+  //   return completeBigStepsWithoutBabySteps
+  // })
 
-  boardSchema.virtual('totalBabySteps').get(function() {
-    let totalBabySteps = 0
-    this.bigSteps.forEach(bigStep => {
-      bigStep.babySteps.forEach(babyStep => {
-        totalBabySteps++
-      }) 
-    }) 
-    return totalBabySteps
-  })
+  // boardSchema.virtual('totalBabySteps').get(function() {
+  //   let totalBabySteps = 0
+  //   this.bigSteps.forEach(bigStep => {
+  //     bigStep.babySteps.forEach(babyStep => {
+  //       totalBabySteps++
+  //     }) 
+  //   }) 
+  //   return totalBabySteps
+  // })
 
-  boardSchema.virtual('totalCompleteBabySteps').get(function() {
-    let totalCompleteBabySteps = 0
-    this.bigSteps.forEach(bigStep => {
-      bigStep.babySteps.forEach(babyStep => {
-        if(babyStep.status === 'Complete') {
-          totalCompleteBabySteps++
-        } 
-      }) 
-    }) 
-    return totalCompleteBabySteps
-  })
+  // boardSchema.virtual('totalCompleteBabySteps').get(function() {
+  //   let totalCompleteBabySteps = 0
+  //   this.bigSteps.forEach(bigStep => {
+  //     bigStep.babySteps.forEach(babyStep => {
+  //       if(babyStep.status === 'Complete') {
+  //         totalCompleteBabySteps++
+  //       } 
+  //     }) 
+  //   }) 
+  //   return totalCompleteBabySteps
+  // })
 
 
 

@@ -14,12 +14,13 @@ export default function BoardCard({ board, onDeleteClick }) {
     navigate(`/boards/${boardName}`)
   }
 
+  
   return (
     <div
       className="card-body-board-card-container"
       onMouseOver={() => {
-        setHoveredTitle(board.totalBigSteps);
-        setHoveredDescription('% complete');
+        setHoveredTitle();
+        setHoveredDescription();
       }}
       onMouseOut={() => {
         setHoveredTitle(null);
@@ -57,7 +58,7 @@ export default function BoardCard({ board, onDeleteClick }) {
             {hoveredDescription === null ? board.description : '% complete'}
           </h2>
 
-          <h2 className="card-body-board-card-title">
+          {/* <h2 className="card-body-board-card-title">
             {hoveredTitle === null ? board.title : board?.totalBigSteps}
           </h2>
           <h2 className="card-body-board-card-description">
@@ -97,7 +98,8 @@ export default function BoardCard({ board, onDeleteClick }) {
           </h2>
           <h2 className="card-body-board-card-description">
             {hoveredDescription === null ? board.description : 'Total Complete Baby Steps'}
-          </h2>
+          </h2> */}
+          
       </div>
     </div>
   );
