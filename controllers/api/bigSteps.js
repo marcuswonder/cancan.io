@@ -19,7 +19,8 @@ async function create(req, res) {
   if(verifiedAdmin) {
     try {
       board.bigSteps.push(newBigStep);
-        const updatedBoard = await board.save();
+      board.users.push(newBigStep.responsible)
+      const updatedBoard = await board.save();
       
       res.status(200).json(updatedBoard)
 
@@ -78,6 +79,7 @@ async function update(req, res) {
     bigStep.description = updatedBigStep.description
     bigStep.due = updatedBigStep.due
     bigStep.responsible = updatedBigStep.responsible
+    board.users.push(updatedBigStep.responsible)
 
     await board.save()
 

@@ -87,46 +87,44 @@ const boardSchema = new Schema({
     
 })
 
+
 boardSchema.pre('save', function(next) {
-  const board = this
-  let usersToAdd = []
-  
-    board.bigSteps.forEach((bigStep) => {
-      if (bigStep.responsible) {
-        console.log("middleware function bigSteps forEach loop hit")
-        usersToAdd.push(bigStep.responsible)
-      }
-      bigStep.babySteps.forEach((babyStep) => {
-        if (babyStep.responsible) {
-          console.log("middleware function babySteps forEach loop hit")
-          usersToAdd.push(babyStep.responsible)
-        }
-      })
-    })
+  let admins = this.admins
 
-    const admins = board.admins
-    
-    const users = usersToAdd.filter(user => {
-      if (admins.some(admin => admin.toString() === user.toString())) {
-        return false
-      } else {
-        return true
-      }
-    }).filter((user, index, array) => {
-      return !array.slice(0, index).some((otherUser) => {
-        return otherUser.toString() === user.toString();
-      });
-    });
-    
-    board.users = []
+  let uniqueAdmins = admins.filter(
+    (admin, index) => index === admins.findIndex(
+      other => admin._id.toString() === other._id.toString()
+  ))
 
-    users.forEach((userId) => {
-      board.users.push(userId)
-    })
-    console.log("board.users", board.users)
-    
-    return next();
+  this.admins = []
+
+  this.admins = uniqueAdmins
+ 
+  return next()
   })
+
+
+boardSchema.pre('save', function(next) {
+  let users = this.users
+
+  let uniqueUsers = users.filter(
+    (user, index) => index === users.findIndex(
+      other => user._id.toString() === other._id.toString()
+  ))
+
+  let uniqueUsersNoAdmins = uniqueUsers.filter(
+    (user, index) => index === uniqueUsers.findIndex(
+      other => user._id.toString() === other._id.toString() && !this.admins.includes(user._id.toString())
+  ))
+
+  this.users = []
+
+  this.users = uniqueUsersNoAdmins
+  
+  return next()
+  })
+
+
 
   boardSchema.pre('find', function(next) {
     this.populate({

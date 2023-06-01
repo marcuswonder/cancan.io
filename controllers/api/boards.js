@@ -99,7 +99,7 @@ async function update(req, res) {
   const board = await Board.findById(updatedBoard._id)
   const admins = board.admins
 
-  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id)
+  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id.toString())
 
   if(verifiedAdmin) {
     try {
