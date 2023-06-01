@@ -50,11 +50,53 @@ export default function BoardCard({ board, onDeleteClick }) {
               />
             </div>
           </div>
-          <h2 className="card-body-board-card-title">
+          {/* <h2 className="card-body-board-card-title">
             {hoveredTitle === null ? board.title : board?.totalComplete.toFixed(0)}
           </h2>
           <h2 className="card-body-board-card-description">
             {hoveredDescription === null ? board.description : '% complete'}
+          </h2> */}
+
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.totalBigSteps}
+          </h2>
+          <h2 className="card-body-board-card-description">
+            {hoveredDescription === null ? board.description : 'Total Big Steps'}
+          </h2>
+
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.totalBigStepsWithBabySteps}
+          </h2>
+          <h2 className="card-body-board-card-description">
+            {hoveredDescription === null ? board.description : 'Total Big Steps with Baby Steps'}
+          </h2>
+
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.totalBigStepsWithoutBabySteps}
+          </h2>
+          <h2 className="card-body-board-card-description">
+            {hoveredDescription === null ? board.description : 'Total Big Steps without Baby Steps'}
+          </h2>
+
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.completeBigStepsWithoutBabySteps}
+          </h2>
+          <h2 className="card-body-board-card-description">
+            {hoveredDescription === null ? board.description : 'Complete Big Steps Without Baby Steps'}
+          </h2>
+
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.totalBabySteps}
+          </h2>
+          <h2 className="card-body-board-card-description">
+            {hoveredDescription === null ? board.description : 'Total Baby Steps'}
+          </h2>
+
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.totalCompleteBabySteps}
+          </h2>
+          <h2 className="card-body-board-card-description">
+            {hoveredDescription === null ? board.description : 'Total Complete Baby Steps'}
           </h2>
       </div>
     </div>

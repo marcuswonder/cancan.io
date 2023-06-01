@@ -48,7 +48,6 @@ export default function UpdateBigStepPage({ user }) {
             setResponsibleUser(responsibleUser);
             bigStepUpdate.responsible = responsibleUser
         }
-        console.log("bigStepUpdate", bigStepUpdate);
         const newFormData = { ...bigStepUpdate, [name]: newDueDate};
         setBigStepUpdate(newFormData);
       }

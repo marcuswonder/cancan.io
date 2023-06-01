@@ -140,71 +140,98 @@ boardSchema.pre('save', function(next) {
   });
 
 
-  boardSchema.virtual('totalComplete').get(function() {
-    let bigStepCount = 0;
-    this.bigSteps.forEach(bigStep => {
-      if (bigStep.status === 'Complete') {
-        bigStepCount++
-      }
-    })
-    let totalComplete = (bigStepCount / this.bigSteps.length) * 100
+  // boardSchema.virtual('totalComplete').get(function() {
+  //   let bigStepCount = 0;
+  //   this.bigSteps.forEach(bigStep => {
+  //     if (bigStep.status === 'Complete') {
+  //       bigStepCount++
+  //     }
+  //   })
+  //   let totalComplete = (bigStepCount / this.bigSteps.length) * 100
 
-    if (totalComplete === 0 || bigStepCount === 0) {
-      return 0
+  //   if (totalComplete === 0 || bigStepCount === 0) {
+  //     return 0
 
-    } else {
-      return totalComplete
-    }
+  //   } else {
+  //     return totalComplete
+  //   }
+  // })
+
+  boardSchema.virtual('totalBigSteps').get(function() {    
+    return this.bigSteps.length
   })
 
-
-
-
-
-
-
-
-  boardSchema.virtual('totalBigSteps').get(function() {
-    return this.bigSteps.length, 0
-  })
-
-  boardSchema.virtual('plannedBigStepsCount').get(function() {
-    let count = 0;
+  boardSchema.virtual('totalBigStepsWithBabySteps').get(function() {
+    let totalBigStepsWithBabySteps = 0
     this.bigSteps.forEach(bigStep => {
-      if (bigStep.status === 'Planned') {
-        count++
+      if (bigStep.babySteps.length > 0) {
+        totalBigStepsWithBabySteps++
       }
     })
-    return count
+    return totalBigStepsWithBabySteps
   })
 
-  boardSchema.virtual('inProgressBigStepsCount').get(function() {
-    let count = 0;
+  boardSchema.virtual('totalBigStepsWithoutBabySteps').get(function() {
+    let totalBigStepsWithoutBabySteps = 0
     this.bigSteps.forEach(bigStep => {
-      if (bigStep.status === 'In Progress') {
-        count++
+      if (bigStep.babySteps.length === 0) {
+        totalBigStepsWithoutBabySteps++
       }
     })
-    return count
+    return totalBigStepsWithoutBabySteps
   })
 
-  boardSchema.virtual('completeBigStepsCount').get(function() {
-    let count = 0;
+  boardSchema.virtual('completeBigStepsWithoutBabySteps').get(function() {
+    let completeBigStepsWithoutBabySteps = 0
     this.bigSteps.forEach(bigStep => {
-      if (bigStep.status === 'Complete') {
-        count++
+      if (bigStep.babySteps.length === 0 && bigStep.status === 'Complete') {
+        completeBigStepsWithoutBabySteps++
       }
     })
-    return count
+    return completeBigStepsWithoutBabySteps
   })
 
   boardSchema.virtual('totalBabySteps').get(function() {
-    let total = 0
+    let totalBabySteps = 0
     this.bigSteps.forEach(bigStep => {
-      total += bigStep.babySteps.length
-    })
-    return total
+      bigStep.babySteps.forEach(babyStep => {
+        totalBabySteps++
+      }) 
+    }) 
+    return totalBabySteps
   })
+
+  boardSchema.virtual('totalCompleteBabySteps').get(function() {
+    let totalCompleteBabySteps = 0
+    this.bigSteps.forEach(bigStep => {
+      bigStep.babySteps.forEach(babyStep => {
+        if(babyStep.status === 'Complete') {
+          totalCompleteBabySteps++
+        } 
+      }) 
+    }) 
+    return totalCompleteBabySteps
+  })
+
+
+
+  // boardSchema.virtual('completeBigStepsCount').get(function() {
+  //   let count = 0;
+  //   this.bigSteps.forEach(bigStep => {
+  //     if (bigStep.status === 'Complete') {
+  //       count++
+  //     }
+  //   })
+  //   return count
+  // })
+
+  // boardSchema.virtual('totalBabySteps').get(function() {
+  //   let total = 0
+  //   this.bigSteps.forEach(bigStep => {
+  //     total += bigStep.babySteps.length
+  //   })
+  //   return total
+  // })
 
 
 
