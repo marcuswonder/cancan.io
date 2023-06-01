@@ -136,26 +136,8 @@ boardSchema.pre('save', function(next) {
         { path: 'babySteps', populate: { path: 'responsible', select: 'name email' } }
       ]
     })
-    next();
-  });
-
-
-  // boardSchema.virtual('totalComplete').get(function() {
-  //   let bigStepCount = 0;
-  //   this.bigSteps.forEach(bigStep => {
-  //     if (bigStep.status === 'Complete') {
-  //       bigStepCount++
-  //     }
-  //   })
-  //   let totalComplete = (bigStepCount / this.bigSteps.length) * 100
-
-  //   if (totalComplete === 0 || bigStepCount === 0) {
-  //     return 0
-
-  //   } else {
-  //     return totalComplete
-  //   }
-  // })
+    next()
+  })
 
   boardSchema.virtual('completionRate').get(function() {
     let completionRate = 0
