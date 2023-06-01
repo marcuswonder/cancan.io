@@ -157,6 +157,97 @@ boardSchema.pre('save', function(next) {
   //   }
   // })
 
+  boardSchema.virtual('completionRate').get(function() {
+    let completionRate = 0
+
+    let totalBigSteps = this.bigSteps.length
+    
+    let totalBigStepsWithBabySteps = 0
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.babySteps.length > 0) {
+        totalBigStepsWithBabySteps++
+      }
+    })
+    
+    let totalBigStepsWithoutBabySteps = 0
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.babySteps.length === 0) {
+        totalBigStepsWithoutBabySteps++
+      }
+    })
+
+    let completeBigStepsWithoutBabySteps = 0
+    this.bigSteps.forEach(bigStep => {
+      if (bigStep.babySteps.length === 0 && bigStep.status === 'Complete') {
+        completeBigStepsWithoutBabySteps++
+      }
+    })
+
+    let totalBabySteps = 0
+    this.bigSteps.forEach(bigStep => {
+      bigStep.babySteps.forEach(babyStep => {
+        totalBabySteps++
+      }) 
+    }) 
+
+    let totalCompleteBabySteps = 0
+    this.bigSteps.forEach(bigStep => {
+      bigStep.babySteps.forEach(babyStep => {
+        if(babyStep.status === 'Complete') {
+          totalCompleteBabySteps++
+        } 
+      }) 
+    })
+
+    // No Big Steps have Baby Steps
+    if(totalBigStepsWithBabySteps === 0) {
+      completionRate = completeBigStepsWithoutBabySteps / totalBigStepsWithoutBabySteps * 100
+
+    // All Big Steps Have Baby Steps
+    } else if(totalBigStepsWithBabySteps === totalBigSteps) {
+      completionRate = totalCompleteBabySteps / totalBabySteps * 100
+    
+      // Mixed Big Steps with and Without Baby Steps
+    } else {
+      let individualCompletionRates = []
+      
+      this.bigSteps.forEach(bigStep => {
+        if(bigStep.babySteps.length > 0) {
+          let completeBabySteps = 0
+          bigStep.babySteps.forEach(babyStep => {
+            if(babyStep.status === 'Complete') {
+              completeBabySteps++
+            }
+          })
+          individualCompletionRates.push(completeBabySteps / bigStep.babySteps.length * 100)
+      
+        } if(bigStep.babySteps.length === 0){
+          let completeBigSteps = 0
+          if(bigStep.status === 'Complete') {
+            completeBigSteps++
+          }
+          individualCompletionRates.push(completeBigSteps / 1 * 100)
+
+          console.log("individualCompletionRates", individualCompletionRates)
+        }
+        if(individualCompletionRates.length > 0) {
+          completionRate = individualCompletionRates.reduce((total, rate) => total + rate, 0) / individualCompletionRates.length
+        }
+      })
+      
+    }
+    if(completionRate > 0) {
+      return completionRate.toFixed(0)
+    } else {
+      return "zero"
+    }
+  })
+
+
+
+
+
+
   boardSchema.virtual('totalBigSteps').get(function() {    
     return this.bigSteps.length
   })

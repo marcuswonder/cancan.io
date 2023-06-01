@@ -50,12 +50,12 @@ export default function BoardCard({ board, onDeleteClick }) {
               />
             </div>
           </div>
-          {/* <h2 className="card-body-board-card-title">
-            {hoveredTitle === null ? board.title : board?.totalComplete.toFixed(0)}
+          <h2 className="card-body-board-card-title">
+            {hoveredTitle === null ? board.title : board?.completionRate}
           </h2>
           <h2 className="card-body-board-card-description">
             {hoveredDescription === null ? board.description : '% complete'}
-          </h2> */}
+          </h2>
 
           <h2 className="card-body-board-card-title">
             {hoveredTitle === null ? board.title : board?.totalBigSteps}
