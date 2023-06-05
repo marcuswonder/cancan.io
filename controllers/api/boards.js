@@ -125,15 +125,18 @@ async function update(req, res) {
 }
 
 async function deleteBoard(req, res) {
-
   const board = await Board.findOne({ title: req.params.boardName });
-  if( req.user._id === board.author._id.toString()) {
-        await Board.findByIdAndDelete(board._id)
+  const admins = board.admins
 
-      } else {
-        res.status(400).json({ error: 'Only the author of a Board can delete it.' })
+  const verifiedAdmin = admins.find(admin => admin._id.toString() === req.user._id.toString())
 
-    }
-    res.status(200).json({message: 'Board deleted successfully.'})  
+  if(verifiedAdmin) {
+    await Board.findByIdAndDelete(board._id)
+
+  } else {
+    res.status(400).json({ error: 'Only the author of a Board can delete it.' })
+
+  }
+  res.status(200).json({message: 'Board deleted successfully.'})  
 }
 
