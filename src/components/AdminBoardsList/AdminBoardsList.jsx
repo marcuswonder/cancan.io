@@ -1,26 +1,26 @@
-import './AuthorBoardsList.css'
+import './AdminBoardsList.css'
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'
 import BoardCard from '../BoardCard/BoardCard'
 
-export default function AuthorBoardsList({ user }) {
-    const [userBoardGallery, setUserBoardGallery] = useState([])
+export default function AdminBoardsList({ user }) {
+    const [adminBoardGallery, setAdminBoardGallery] = useState([])
     const navigate = useNavigate()
 
     useEffect(function() {
-        async function getAuthorBoards() {
-          const userBoardGallery = await boardsAPI.getAuthorBoards()
-          setUserBoardGallery(userBoardGallery)
+        async function getAdminBoards() {
+          const adminBoardGallery = await boardsAPI.getAdminBoards()
+          setAdminBoardGallery(adminBoardGallery)
         }
-        getAuthorBoards()
+        getAdminBoards()
     }, [])
 
     async function handleDeleteClick(board) {
         // if (user._id === board.author) {
             await boardsAPI.deleteUserBoard(board.title)
             navigate('/boards')
-            setUserBoardGallery(prevState => prevState.filter(b => b._id !== board._id))
+            setAdminBoardGallery(prevState => prevState.filter(b => b._id !== board._id))
         // } else {
         //     alert("Only the author of a board can delete it.")
         // }
@@ -29,12 +29,12 @@ export default function AuthorBoardsList({ user }) {
     
     return (
     <>
-        {userBoardGallery.length ?
+        {adminBoardGallery.length ?
             <div>
                 <h2 className="boards-list-h2">Your Boards</h2>
                 <p className="boards-list-custom-p">These are boards that you are an administrator on</p>
                 <div className="boards-list-board-body">
-                    {userBoardGallery.map(board => (
+                    {adminBoardGallery.map(board => (
                     <BoardCard board={board} onDeleteClick={handleDeleteClick} key={board.id} />
                     ))}
                 </div>

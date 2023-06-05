@@ -5,7 +5,7 @@ const bigStepsCtrl = require('../../controllers/api/bigSteps')
 const babyStepsCtrl = require('../../controllers/api/babySteps')
 const ensureLoggedIn = require('../../config/ensureLoggedIn')
 
-router.get('/author', ensureLoggedIn, boardsCtrl.authorIndex)
+router.get('/admin', ensureLoggedIn, boardsCtrl.adminIndex)
 router.get('/user', ensureLoggedIn, boardsCtrl.userIndex)
 router.post('/new', ensureLoggedIn, boardsCtrl.create)
 router.get('/:boardName', ensureLoggedIn, boardsCtrl.show)

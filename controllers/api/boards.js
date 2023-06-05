@@ -1,7 +1,7 @@
 const Board = require('../../models/board')
 
 module.exports = {
-    authorIndex,
+    adminIndex,
     userIndex,
     show,
     create,
@@ -9,7 +9,7 @@ module.exports = {
     delete: deleteBoard,
 }
 
-async function authorIndex(req, res) {
+async function adminIndex(req, res) {
     try {
       if (req.user) {
         const boards = await Board.find({ admins: { $in: [req.user._id] } })
@@ -134,7 +134,7 @@ async function deleteBoard(req, res) {
     await Board.findByIdAndDelete(board._id)
 
   } else {
-    res.status(400).json({ error: 'Only the author of a Board can delete it.' })
+    res.status(400).json({ error: 'Only the admin of a Board can delete it.' })
 
   }
   res.status(200).json({message: 'Board deleted successfully.'})  

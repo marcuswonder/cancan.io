@@ -259,7 +259,6 @@ boardSchema.pre('save', function(next) {
           }
           individualCompletionRates.push(completeBigSteps / 1 * 100)
 
-          console.log("individualCompletionRates", individualCompletionRates)
         }
         if(individualCompletionRates.length > 0) {
           completionRate = individualCompletionRates.reduce((total, rate) => total + rate, 0) / individualCompletionRates.length
