@@ -1,8 +1,7 @@
-import './UserBoardCard.css';
-import detailsIcon from '../../public/assets/details-white.png';
-import deleteIcon from '../../public/assets/delete-icon-white.png';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import './UserBoardCard.css'
+import editIcon from '../../public/assets/edit.png'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function UserBoardCard({ board, onDeleteClick }) {
   const [hoveredTitle, setHoveredTitle] = useState(null);
@@ -29,18 +28,6 @@ export default function UserBoardCard({ board, onDeleteClick }) {
     >
       
       <div className="card-body-board-card" onClick={() => handleBoardClick(board)} >
-          <div className="card-body-board-navigation">
-            <div className="card-body-board-navigation-details-container">
-              <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}>
-                <img
-                  className="card-body-boards-details-icon"
-                  src={detailsIcon}
-                  alt="See a detailed view of your board"
-                  title="See a detailed view of your board"
-                />
-              </Link>
-            </div>
-          </div>
           <h2 className="card-body-board-card-title">
             {hoveredTitle === null ? board.title : board?.completionRate}
           </h2>

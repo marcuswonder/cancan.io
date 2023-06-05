@@ -1,12 +1,12 @@
-import './AdminBoardCard.css';
-import detailsIcon from '../../public/assets/details-white.png';
-import deleteIcon from '../../public/assets/delete-icon-white.png';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import './AdminBoardCard.css'
+import editIcon from '../../public/assets/edit.png'
+import deleteIcon from '../../public/assets/delete-icon-white.png'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function AdminBoardCard({ board, onDeleteClick }) {
-  const [hoveredTitle, setHoveredTitle] = useState(null);
-  const [hoveredDescription, setHoveredDescription] = useState(null);
+  const [hoveredTitle, setHoveredTitle] = useState(null)
+  const [hoveredDescription, setHoveredDescription] = useState(null)
   const navigate = useNavigate()
   const boardName = board.title.replace(/\s+/g, '-')
 
@@ -31,12 +31,12 @@ export default function AdminBoardCard({ board, onDeleteClick }) {
       <div className="card-body-board-card" onClick={() => handleBoardClick(board)} >
           <div className="card-body-board-navigation">
             <div className="card-body-board-navigation-details-container">
-              <Link to={`/boards/${board.title.replace(/\s+/g, '-')}`} key={board._id}>
+              <Link to={`/boards/${board.title.replace(/\s+/g, '-')}/update`} key={board._id}>
                 <img
-                  className="card-body-boards-details-icon"
-                  src={detailsIcon}
-                  alt="See a detailed view of your board"
-                  title="See a detailed view of your board"
+                  className="card-body-boards-update-icon"
+                  src={editIcon}
+                  alt="Update your board"
+                  title="Update your board"
                 />
               </Link>
             </div>
