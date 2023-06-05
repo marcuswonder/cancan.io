@@ -11,6 +11,7 @@ export async function getUserBoards() {
 }
 
 export async function getUserBoard(boardNameActual) {
+    console.log("getUserBoard API hit")
     const boardName = boardNameActual
     return sendRequest(`${BASE_URL}/${boardName}`)
 }

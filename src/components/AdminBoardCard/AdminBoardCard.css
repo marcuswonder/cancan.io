@@ -59,7 +59,7 @@ a {
     align-items: flex-start;
 }
 
-.card-body-board-navigation-details-container {
+.card-body-board-navigation-update-container {
     display: flex;
     transition: transform 0.5s ease-in-out;
 }

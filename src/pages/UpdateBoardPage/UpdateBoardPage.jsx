@@ -33,7 +33,8 @@ export default function UpdateBoardPage({ user }) {
   // }, [boardNameActual, boardName, user, navigate])
 
   useEffect(function() {
-      async function getBoard() {
+    async function getBoard() {
+        console.log("getBoard function hit")
         const board = await boardsAPI.getUserBoard(boardNameActual)
         setBoardUpdate(board)
       }
@@ -42,10 +43,12 @@ export default function UpdateBoardPage({ user }) {
     
   
   async function updateBoard(boardUpdate) {
+    console.log("updateBoard function hit")
     return await boardsAPI.updateBoard(boardUpdate)
   }
     
   async function handleUpdateBoard(evt) {
+    console.log("handleUpdateBoard function hit")
     evt.preventDefault()
     const boardData = { ...boardUpdate, admins: selectedAdmins, _id: boardUpdate._id }
     const updatedBoard = await updateBoard(boardData)
@@ -58,6 +61,7 @@ export default function UpdateBoardPage({ user }) {
   }
     
   function handleChange(evt) {
+    console.log("handleChange function hit")
     const name = evt.target.name
     const value = evt.target.value
     const newFormData = {...boardUpdate, [name]: value }
@@ -65,6 +69,7 @@ export default function UpdateBoardPage({ user }) {
   }
 
   function handleAdminSelect(evt) {
+    console.log("handleAdminSelect function hit")
     const options = evt.target.options
     const selectedAdmins = []
     for (let i = 0; i < options.length; i++) {
@@ -81,6 +86,7 @@ export default function UpdateBoardPage({ user }) {
 
   useEffect(function() {
     async function getUsers() {
+      console.log("getUsers function hit")
       let users = []
       users = await usersAPI.getUsers()
       // const otherUsers = users.filter((u) => u._id !== user._id)

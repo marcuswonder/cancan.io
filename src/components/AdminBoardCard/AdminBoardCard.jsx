@@ -28,15 +28,16 @@ export default function AdminBoardCard({ board, onDeleteClick }) {
       }}
     >
       
-      <div className="card-body-board-card" onClick={() => handleBoardClick(board)} >
+      <div className="card-body-board-card" onClick={() => handleBoardClick(board)}>
           <div className="card-body-board-navigation">
-            <div className="card-body-board-navigation-details-container">
+            <div className="card-body-board-navigation-update-container">
               <Link to={`/boards/${board.title.replace(/\s+/g, '-')}/update`} key={board._id}>
                 <img
                   className="card-body-boards-update-icon"
                   src={editIcon}
                   alt="Update your board"
                   title="Update your board"
+                  onClick={(evt) => evt.stopPropagation()}
                 />
               </Link>
             </div>

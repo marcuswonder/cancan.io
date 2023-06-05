@@ -1,7 +1,6 @@
 import './UserBoardCard.css'
-import editIcon from '../../public/assets/edit.png'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserBoardCard({ board, onDeleteClick }) {
   const [hoveredTitle, setHoveredTitle] = useState(null);
