@@ -101,7 +101,7 @@ boardSchema.pre('save', function(next) {
   admins = uniqueAdmins
  
   return next()
-  })
+})
 
 
 boardSchema.pre('save', function(next) {
@@ -169,6 +169,22 @@ boardSchema.pre('save', function(next) {
       ]
     })
     next()
+  })
+
+  boardSchema.virtual('due').get(function() {
+    let lastBigStepDueDate = null;
+  
+    if (this.bigSteps.length > 0) {
+      const bigStepDueDates = this.bigSteps
+        .filter(bigStep => bigStep.due)
+        .map(bigStep => bigStep.due)
+  
+      if (bigStepDueDates.length > 0) {
+        lastBigStepDueDate = new Date(Math.max(...bigStepDueDates))
+      }
+    }
+  
+    return lastBigStepDueDate
   })
 
 
