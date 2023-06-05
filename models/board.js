@@ -143,6 +143,22 @@ boardSchema.pre('save', function(next) {
     next()
   })
 
+  bigStepSchema.pre('save', function(next) {
+    if (this.babySteps.length > 0) {
+      const babyStepDueDates = []
+      this.babySteps.forEach(babyStep => {
+        babyStep.due ? babyStepDueDates.push(babyStep.due) : null
+      })
+      
+      const lastBabyStepDueDate = new Date(Math.max(...babyStepDueDates))
+      
+      if(this.due < lastBabyStepDueDate) {
+        this.due = lastBabyStepDueDate
+      }
+    }
+    next()
+  })
+    
 
   boardSchema.pre('find', function(next) {
     this.populate({
@@ -154,6 +170,7 @@ boardSchema.pre('save', function(next) {
     })
     next()
   })
+
 
   boardSchema.virtual('completionRate').get(function() {
     let completionRate = 0
