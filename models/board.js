@@ -89,7 +89,6 @@ const boardSchema = new Schema({
 
 
 boardSchema.pre('save', function(next) {
-  console.log("admins pre-save hook hit")
   let admins = this.admins
 
   let uniqueAdmins = admins.filter(
@@ -100,7 +99,6 @@ boardSchema.pre('save', function(next) {
   admins = []
 
   admins = uniqueAdmins
-  console.log("this.admins", this.admins)
  
   return next()
   })
@@ -126,6 +124,24 @@ boardSchema.pre('save', function(next) {
   return next()
   })
 
+  bigStepSchema.pre('save', function(next) {
+      if (this.babySteps.length > 0) {
+        const plannedBabySteps = this.babySteps.filter(babyStep => babyStep.status === 'Planned')
+        const completedBabySteps = this.babySteps.filter(babyStep => babyStep.status === 'Complete')
+        
+        if (this.babySteps.length === completedBabySteps.length) {
+          this.status = 'Complete'
+
+        } else if (this.babySteps.length === plannedBabySteps.length) {
+          this.status = 'Planned'
+
+        } else {
+          this.status = 'In Progress'
+        }
+      }
+    
+    next()
+  })
 
 
   boardSchema.pre('find', function(next) {
