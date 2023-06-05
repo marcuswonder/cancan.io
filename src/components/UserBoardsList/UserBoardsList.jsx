@@ -1,7 +1,7 @@
 import './UserBoardsList.css'
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
-import BoardCard from '../BoardCard/BoardCard'
+import UserBoardCard from '../UserBoardCard/UserBoardCard'
 
 export default function UserBoardsList({ user }) {
     const [userBoardGallery, setUserBoardGallery] = useState([])
@@ -25,7 +25,7 @@ export default function UserBoardsList({ user }) {
                 <p className="boards-list-custom-p">These are boards that you are a user on</p>
                 <div className="boards-list-board-body">
                     {userBoardGallery.map(board => (
-                    <BoardCard key={board._id} board={board} />
+                    <UserBoardCard key={board._id} board={board} />
                     ))}
                 </div>
                 <br></br>

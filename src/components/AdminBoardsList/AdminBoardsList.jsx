@@ -2,7 +2,7 @@ import './AdminBoardsList.css'
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as boardsAPI from '../../utilities/boards-api'
-import BoardCard from '../BoardCard/BoardCard'
+import AdminBoardCard from '../AdminBoardCard/AdminBoardCard'
 
 export default function AdminBoardsList({ user }) {
     const [adminBoardGallery, setAdminBoardGallery] = useState([])
@@ -35,7 +35,7 @@ export default function AdminBoardsList({ user }) {
                 <p className="boards-list-custom-p">These are boards that you are an administrator on</p>
                 <div className="boards-list-board-body">
                     {adminBoardGallery.map(board => (
-                    <BoardCard board={board} onDeleteClick={handleDeleteClick} key={board.id} />
+                    <AdminBoardCard board={board} onDeleteClick={handleDeleteClick} key={board.id} />
                     ))}
                 </div>
                 <p className="boards-list-p">Create another board!</p>

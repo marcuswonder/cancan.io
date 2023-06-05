@@ -1,10 +1,10 @@
-import './BoardCard.css';
+import './UserBoardCard.css';
 import detailsIcon from '../../public/assets/details-white.png';
 import deleteIcon from '../../public/assets/delete-icon-white.png';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function BoardCard({ board, onDeleteClick }) {
+export default function UserBoardCard({ board, onDeleteClick }) {
   const [hoveredTitle, setHoveredTitle] = useState(null);
   const [hoveredDescription, setHoveredDescription] = useState(null);
   const navigate = useNavigate()
@@ -39,16 +39,6 @@ export default function BoardCard({ board, onDeleteClick }) {
                   title="See a detailed view of your board"
                 />
               </Link>
-            </div>
-            <div className="card-body-board-navigation-delete-container">
-              <img
-                className="card-body-boards-delete-icon"
-                key={board._id}
-                onClick={(evt) => {evt.stopPropagation(); onDeleteClick(board)}}
-                src={deleteIcon}
-                alt="Delete this board"
-                title="Delete this board"
-              />
             </div>
           </div>
           <h2 className="card-body-board-card-title">
