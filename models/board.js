@@ -89,6 +89,7 @@ const boardSchema = new Schema({
 
 
 boardSchema.pre('save', function(next) {
+  console.log("admins pre-save hook hit")
   let admins = this.admins
 
   let uniqueAdmins = admins.filter(
@@ -96,9 +97,10 @@ boardSchema.pre('save', function(next) {
       other => admin._id.toString() === other._id.toString()
   ))
 
-  this.admins = []
+  admins = []
 
-  this.admins = uniqueAdmins
+  admins = uniqueAdmins
+  console.log("this.admins", this.admins)
  
   return next()
   })

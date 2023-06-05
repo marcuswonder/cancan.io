@@ -75,7 +75,6 @@ export default function UpdateBoardPage({ user }) {
     if (selectedAdmins.length === 0) {
       setSelectedAdmins(boardUpdate.admins)
     } else {
-      selectedAdmins.unshift(user._id)
       setSelectedAdmins(selectedAdmins)
     }
   }

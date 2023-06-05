@@ -45,11 +45,11 @@ export default function NewBoardPage({ user }) {
   
   useEffect(function() {
     async function getUsers() {
+      console.log("Get users function hit")
       let users = []
       users = await usersAPI.getUsers()
-      // const otherUsers = users.filter((u) => u._id !== user._id)
-      // setUsersGallery(otherUsers)
-      setUsersGallery(users)
+      const otherUsers = users.filter((u) => u._id !== user._id)
+      setUsersGallery(otherUsers)
     }
     getUsers()
 }, [user._id])
