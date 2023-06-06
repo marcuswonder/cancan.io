@@ -1,6 +1,6 @@
 import './BoardDetail.css';
-import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 
 export default function BoardDetail({user, board, setBoard}) {
@@ -10,11 +10,12 @@ export default function BoardDetail({user, board, setBoard}) {
 
     useEffect(function() {
         async function getBoard() {
-            setBoard(board)
+            const board = await boardsAPI.getUserBoard(boardNameActual)
+          setBoard(board)
         }
         getBoard()
-    }, [board, setBoard])
 
+    }, [boardNameActual, setBoard])
     
     async function handleDeleteClick() {
         const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)

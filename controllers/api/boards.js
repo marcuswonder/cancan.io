@@ -72,11 +72,13 @@ async function userIndex(req, res) {
         res.json(board)
     
     } else {
-      res.status(403).json({ error: "Only users of a board can view it" })
+      res.status(403).json({ error: "Only users and admins of a board can view it" })
+      console.log('Only users and admins of a board can view it')
     }
   } catch (err) {
     console.error(err)
       res.status(500).send('Error retrieving Boards')
+      console.log('Error retrieving Boards')
   }
 }
 

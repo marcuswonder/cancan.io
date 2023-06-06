@@ -11,7 +11,6 @@ export async function getUserBoards() {
 }
 
 export async function getUserBoard(boardNameActual) {
-    console.log("getUserBoard API hit")
     const boardName = boardNameActual
     return sendRequest(`${BASE_URL}/${boardName}`)
 }
@@ -68,7 +67,6 @@ export async function changeBigStepStatusToComplete(boardId, bigStepId) {
 }
 
 export async function createBabyStep(board, bigStep, newBabyStep) {
-    // console.log("newBabyStep", newBabyStep)
     const boardId = board._id
     const bigStepId = bigStep._id
     return sendRequest(`${BASE_URL}/${boardId}/${bigStepId}/baby-steps/add`, 'POST', {newBabyStep})

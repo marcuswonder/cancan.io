@@ -1,0 +1,16 @@
+.error-container {
+    height: 100%;
+    display: flexbox;
+}
+  
+.error-logo {
+    width: 15%;
+    margin-top: 5%
+}
+
+.error-h1-text {
+    font-size: 2rem;
+    color: #7dBDCB;
+    margin: 1rem;
+    font-weight: 300;
+}
