@@ -29,7 +29,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/boards" element={<BoardsList user={user} />} />
-            <Route path="/boards/:boardName/*" element={<BoardPage user={user} />} />
+            <Route path="/boards/:boardName/*" element={<BoardPage user={user} setUser={setUser}/>} />
             <Route path="/boards/new" element={<NewBoardPage  user={user} />} />
             <Route path="/boards/:boardName/update" element={<UpdateBoardPage  user={user} />} />
             <Route path="/boards/:boardName/big-steps/add" element={<AddBigStepPage  user={user} />} />
@@ -40,7 +40,7 @@ export default function App() {
         </>
         :
         <Routes>
-          <Route path="/" element={<SplashPage user={user} setUser={setUser} />} />
+          <Route path="/*" element={<SplashPage user={user} setUser={setUser} />} />
           <Route path="/login" element={<LoginForm setUser={setUser} />} />
           <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
         </Routes>
