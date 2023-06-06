@@ -141,7 +141,17 @@ a {
     margin: 2%;
     border-radius: 25px 25px 25px 25px ;
     background-color: #74BDCB;
+    transition: transform 0.3s ease-in-out;
     
+}
+
+.big-step-card:hover {
+    width: 330px;
+    border: solid white 1px;
+    margin: 2%;
+    border-radius: 25px 25px 25px 25px ;
+    background-color: #74BDCB;
+    transform: scale(1.1);
 }
 
 
