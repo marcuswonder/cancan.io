@@ -19,12 +19,12 @@ export default function AdminBoardCard({ board, onDeleteClick }) {
     <div
       className="card-body-board-card-container"
       onMouseOver={() => {
-        setHoveredTitle();
-        setHoveredDescription();
+        setHoveredTitle()
+        setHoveredDescription()
       }}
       onMouseOut={() => {
-        setHoveredTitle(null);
-        setHoveredDescription(null);
+        setHoveredTitle(null)
+        setHoveredDescription(null)
       }}
     >
       

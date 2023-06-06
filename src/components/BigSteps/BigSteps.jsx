@@ -252,7 +252,6 @@ export default function BigSteps({ user, board, setBoard }) {
                                     <div>
                                     <p className="big-step-header-h1-no-big-steps">There aren't any big steps here.</p>
                                     <p className="big-step-header-h1-no-big-steps">Add some big steps to your project!</p>
-                                    <Link to={`/boards/${boardName}/big-steps/add`}><button className="add-big-step-button">Add Big Step</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -260,6 +259,7 @@ export default function BigSteps({ user, board, setBoard }) {
                 }
                 
             </div>
+            <Link to={`/boards/${boardName}/big-steps/add`}><button className="add-big-step-button">Add Big Step</button></Link>
         </>
     )
 }
