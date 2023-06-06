@@ -17,9 +17,23 @@ export default function BigSteps({ user, board, setBoard }) {
     const [bigSteps, setBigSteps] = useState([])
     const navigate = useNavigate()
 
-    const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned')
-    const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress')
-    const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Complete')
+    const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned').sort((a, b) => {
+        const dueDateA = new Date(a.due)
+        const dueDateB = new Date(b.due)
+        return dueDateA - dueDateB
+      })
+
+    const inProgressSteps = bigSteps.filter(bigStep => bigStep.status === 'In Progress').sort((a, b) => {
+        const dueDateA = new Date(a.due)
+        const dueDateB = new Date(b.due)
+        return dueDateA - dueDateB
+      })
+
+    const completedSteps = bigSteps.filter(bigStep => bigStep.status === 'Complete').sort((a, b) => {
+        const dueDateA = new Date(a.due)
+        const dueDateB = new Date(b.due)
+        return dueDateA - dueDateB
+      })
 
     useEffect(function() {
         async function getBigSteps() {
