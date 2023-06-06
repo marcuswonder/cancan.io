@@ -16,9 +16,24 @@ export default function BabySteps({ user, board, setBoard }) {
     const [bigStep, setBigStep] = useState([])
     const [babySteps, setBabySteps] = useState([])
 
-    const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned');
-    const inProgressSteps = babySteps.filter(babyStep => babyStep.status === 'In Progress');
-    const completedSteps = babySteps.filter(babyStep => babyStep.status === 'Complete');
+    const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned').sort((a, b) => {
+        const dueDateA = new Date(a.due)
+        const dueDateB = new Date(b.due)
+        return dueDateA - dueDateB
+      })
+
+    const inProgressSteps = babySteps.filter(babyStep => babyStep.status === 'In Progress').sort((a, b) => {
+        const dueDateA = new Date(a.due)
+        const dueDateB = new Date(b.due)
+        return dueDateA - dueDateB
+      })
+
+    const completedSteps = babySteps.filter(babyStep => babyStep.status === 'Complete').sort((a, b) => {
+        const dueDateA = new Date(a.due)
+        const dueDateB = new Date(b.due)
+        return dueDateA - dueDateB
+      })
+
 
     useEffect(function() {
         async function getBigStepsBabySteps() {
