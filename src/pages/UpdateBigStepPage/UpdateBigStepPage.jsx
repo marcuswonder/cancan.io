@@ -84,7 +84,7 @@ export default function UpdateBigStepPage({ user }) {
                         <label>Due Date</label>
                         <input type="date" name="due" onChange={handleChange} value={formatDate(bigStepUpdate.due)} required/>
                         
-                        <label className="update-big-step-select-label">Confirm Responsible User</label>
+                        <label className="update-big-step-select-label">Responsible User</label>
                         <select name="responsible" onChange={handleChange} value={bigStepUpdate.responsible._id} className="update-big-step-select-options" >
                             <option value="" className="update-big-step-select-options">Confirm responsible user</option>
                             {usersGallery.map((user) => (
@@ -93,7 +93,8 @@ export default function UpdateBigStepPage({ user }) {
                             </option>
                             ))}
                         </select>
-                    
+                        <div></div>
+                        <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
                         <button type="submit">Update Big Step</button>
                 </form>
             </div>

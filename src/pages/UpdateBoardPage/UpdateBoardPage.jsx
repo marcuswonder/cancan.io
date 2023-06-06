@@ -105,8 +105,8 @@ export default function UpdateBoardPage({ user }) {
                   <input type="text" name="title" onChange={handleChange} value={boardUpdate.title} />
                   <label>Description</label>
                   <input type="text" name="description" onChange={handleChange} value={boardUpdate.description}  />
-                  <label className="new-board-select-label">Confirm Admins</label>
-                  <select name="admins" multiple onChange={handleAdminSelect} className="update-board-select-options">
+                  <label className="update-board-select-label">Confirm Admins</label>
+                  <select name="admins" multiple onChange={handleAdminSelect} className="update-board-select-options" required>
                     {usersGallery.map((user) => (
                       <option key={user._id} value={user._id} className="update-board-select-options" >
                         {user.name}
@@ -115,7 +115,6 @@ export default function UpdateBoardPage({ user }) {
                   </select>
                   <div></div>
                   <p className="update-board-form-user-info">Admins will have full write permissions at all levels of this board. Users will be allocated specific responsibilities at specific steps within this board.</p>
-                  
                   <button type="submit">Update Board</button>
               </form>
           </div>

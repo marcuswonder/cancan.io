@@ -1,17 +1,24 @@
-.new-big-step-h1 {
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+.new-baby-step-h1 {
     font-family: 'Helvetica Neue';
     font-weight: 300;
     color: white;
 }
 
-.new-big-step-select-label {
+.new-baby-step-select-label {
     font-family: 'Helvetica Neue' !important; 
     text-align: left;
 }
 
-.new-big-step-form-select-input {
+.new-baby-step-form-select-input {
     font-family: 'Helvetica Neue' !important; 
     font-weight: 300;
     font-size: 3vmin
-    
 }

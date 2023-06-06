@@ -78,7 +78,7 @@ export default function AddBabyStepPage({ user }) {
         :
             <div>
                 <div className="form-container">
-                    <h1 className="new-big-step-h1">Add a Baby Step on the {bigStep.title} Big step</h1>
+                    <h1 className="new-baby-step-h1">Add a Baby Step to {bigStep.title}</h1>
                     <form autoComplete="off" onSubmit={handleCreateBabyStep}>
                             <label>Title</label>
                             <input type="text" name="title" onChange={handleChange} value={newBabyStep.title} required />
@@ -89,16 +89,17 @@ export default function AddBabyStepPage({ user }) {
                             <label>Due Date</label>
                             <input type="date" name="due" onChange={handleChange} value={newBabyStep.due} required />
                             
-                            <label className="new-big-step-select-label">Who is responsible?</label>
-                            <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input">
+                            <label className="new-baby-step-select-label">Who is responsible?</label>
+                            <select name="responsible" onChange={handleResponsibleSelect} className="new-baby-step-form-select-input" required>
                                 <option value="">Select a responsible user</option>
                                 {usersGallery.map((user) => (
-                                <option key={user._id} value={user._id} className="new-big-step-form-select-input">
+                                <option key={user._id} value={user._id} className="new-baby-step-form-select-input">
                                     {user.name}
                                 </option>
                                 ))}
                             </select>
-                        
+                            <div></div>
+                            <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
                             <button type="submit">Add Baby Step</button>
                     </form>
                 </div>

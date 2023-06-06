@@ -87,7 +87,7 @@ export default function UpdateBabyStepPage({ user }) {
     return (
         <div>
             <div className="form-container">
-                <h1 className="update-big-step-update-h1">Update {babyStepUpdate.title}</h1>
+                <h1 className="update-baby-step-update-h1">Update {babyStepUpdate.title}</h1>
                 <form autoComplete="off" onSubmit={handleUpdateBabyStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={babyStepUpdate.title} required/>
@@ -98,15 +98,17 @@ export default function UpdateBabyStepPage({ user }) {
                         <label>Due Date</label>
                         <input type="date" name="due" onChange={handleChange} value={formatDate(babyStepUpdate.due)} required/>
                         
-                        <label className="update-big-step-select-label">Confirm Responsible User</label>
+                        <label className="update-baby-step-select-label">Responsible User</label>
                         <select name="responsible" onChange={handleChange} value={babyStepUpdate.responsible._id} className="update-big-step-select-options" >
-                            <option value="" className="update-big-step-select-options">Select a responsible user</option>
+                            <option value="" className="update-baby-step-select-options">Confirm responsible user</option>
                             {usersGallery.map((user) => (
-                            <option key={user._id} value={user._id} className="update-big-step-select-options">
+                            <option key={user._id} value={user._id} className="update-baby-step-select-options">
                                 {user.name}
                             </option>
                             ))}
                         </select>
+                        <div></div>
+                        <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
                     
                         <button type="submit">Update Big Step</button>
                 </form>

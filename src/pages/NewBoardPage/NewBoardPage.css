@@ -1,3 +1,11 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
 .new-board-h1 {
     font-family: 'Helvetica Neue';
     font-weight: 300;

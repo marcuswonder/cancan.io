@@ -70,7 +70,7 @@ export default function AddBigStepPage({ user }) {
     return (
         <div>
             <div className="form-container">
-            <h1 className="new-big-step-h1">Add a Big Step to '{board.title}'</h1>
+            <h1 className="new-big-step-h1">Add a Big Step to {board.title}</h1>
                 <form autoComplete="off" onSubmit={handleCreateBigStep}>
                         <label>Title</label>
                         <input type="text" name="title" onChange={handleChange} value={newBigStep.title} required />
@@ -82,7 +82,7 @@ export default function AddBigStepPage({ user }) {
                         <input type="date" name="due" onChange={handleChange} value={newBigStep.due} required />
                         
                         <label className="new-big-step-select-label">Who is responsible?</label>
-                        <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input">
+                        <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input" required>
                             <option value="">Select a responsible user</option>
                             {usersGallery.map((user) => (
                             <option key={user._id} value={user._id} className="new-big-step-form-select-input">
@@ -90,7 +90,8 @@ export default function AddBigStepPage({ user }) {
                             </option>
                             ))}
                         </select>
-                    
+                        <div></div>
+                        <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
                         <button type="submit">Add Big Step</button>
                 </form>
             </div>
