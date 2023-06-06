@@ -4,17 +4,42 @@ import forwardIcon from '../../public/assets/fwd-white.png'
 import backwardIcon from '../../public/assets/bwd-white.png'
 import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
+import logo from '../../public/assets/idea.png'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
 
-export default function BabySteps({ user, board, setBoard }) {
+export default function BabySteps({ user }) {
     const { boardName, bigStepName } = useParams()
+    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
     const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
+    const [board, setBoard] = useState({})
+    const [isLoading, setIsLoading] = useState(true)  
+    const [error, setError] = useState(null)  
     const navigate = useNavigate()
-
     const [bigStep, setBigStep] = useState([])
     const [babySteps, setBabySteps] = useState([])
+
+    useEffect(function() {
+        async function getBoard(user) {
+          try {
+            const board = await boardsAPI.getUserBoard(boardNameActual);
+        
+            if(checkVerifiedBoardUser(board, user) || checkVerifiedBoardAdmin(board, user)) { 
+              setBoard(board);
+              
+            } else {          
+              const error = await board.json();
+              throw new Error(error);
+            }
+    
+          } catch (error) {
+            setError(error)
+          }
+        setIsLoading(false)
+        }
+      getBoard()
+      }, [boardNameActual, setBoard, setIsLoading])
 
     const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned').sort((a, b) => {
         const dueDateA = new Date(a.due)
@@ -130,7 +155,50 @@ export default function BabySteps({ user, board, setBoard }) {
    
     
 
-    return (
+    async function checkVerifiedBoardUser(board, user) {
+        try {
+            const verifiedBoardUser = board.users.find(boardUser => boardUser._id === user._id)
+        
+            if(verifiedBoardUser) {
+                return true
+            }
+    
+        } catch (error) {
+        }
+      }
+        
+      async function checkVerifiedBoardAdmin(board, user) {
+        try {
+          const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+          
+          if(verifiedBoardAdmin) {
+            return true
+          }
+        } catch (error) {
+        }
+      }
+    
+        if (error) {
+          return (
+            <div className="error-container">
+              <img className="error-logo" src={logo} alt='cancan logo'/>
+              <h1 className="error-h1-text">Sorry, you are not authorised to use this board</h1>    
+              <div>
+                <>
+                  <Link to={`/boards`} ><button>my boards</button></Link>
+                </>
+                          
+              </div>
+            </div>
+          )
+        } else if (isLoading) {
+          return <div>Loading...</div>
+        }
+        
+        else {
+          
+
+      return (
         <>
 
             <div className="board-body">
@@ -294,4 +362,5 @@ export default function BabySteps({ user, board, setBoard }) {
             <Link to={`/boards/${boardName}/${bigStepName}/baby-steps/add`}><button className="add-baby-step-button">Add Baby Step</button></Link>
         </>
     )
+}
 }

@@ -1,8 +1,9 @@
 import './AddBigStepPage.css';
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
+import logo from '../../public/assets/idea.png'
 
 export default function AddBigStepPage({ user }) {
     const navigate = useNavigate()
@@ -11,6 +12,8 @@ export default function AddBigStepPage({ user }) {
     const [usersGallery, setUsersGallery] = useState([])
     const [responsibleUser, setResponsibleUser] = useState('')
     const [board, setBoard] = useState({})
+    const [isLoading, setIsLoading] = useState(true)  
+    const [error, setError] = useState(null)  
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
     
@@ -21,8 +24,8 @@ export default function AddBigStepPage({ user }) {
             setBoard(board)
         }
         getBoard()
+        setIsLoading(false)
     }, [boardNameActual])
-
 
     async function handleCreateBigStep(evt) {
         evt.preventDefault();
@@ -42,7 +45,7 @@ export default function AddBigStepPage({ user }) {
       
         const newFormData = { ...newBigStep, [name]: newValue };
         setNewBigStep(newFormData);
-      }
+    }
 
     function handleResponsibleSelect(evt) {
         const responsibleUser = evt.target.value
@@ -65,9 +68,13 @@ export default function AddBigStepPage({ user }) {
         const month = ("0" + (d.getMonth() + 1)).slice(-2);
         const day = ("0" + d.getDate()).slice(-2);
         return `${year}-${month}-${day}`;
-      }
+    }
 
-    return (
+    if (isLoading) {
+      return <div>Loading...</div>
+
+    } else {
+      return (
         <div>
             <div className="form-container">
             <h1 className="new-big-step-h1">Add a Big Step to {board.title}</h1>
@@ -98,4 +105,5 @@ export default function AddBigStepPage({ user }) {
         </div>
 
     )
+}
 }

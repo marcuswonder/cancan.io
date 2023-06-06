@@ -13,10 +13,13 @@ async function create(req, res) {
   const newBigStep = req.body.bigStep
   const board = await Board.findById(newBigStep.board)
   const boardAdmins = board.admins
+  const boardUsers = board.users
 
-  const verifiedAdmin = boardAdmins.find(admin => admin._id.toString() === req.user._id)
+  const verifiedEditors = [...boardAdmins, ...boardUsers] 
 
-  if(verifiedAdmin) {
+  const verifiedEditor = verifiedEditors.find(admin => admin._id.toString() === req.user._id)
+
+  if(verifiedEditor) {
     try {
       board.bigSteps.push(newBigStep);
       board.users.push(newBigStep.responsible)

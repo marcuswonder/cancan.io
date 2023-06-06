@@ -57,14 +57,12 @@ export default function UpdateBabyStepPage({ user }) {
         const newDueDate = name === "due" ? formatDate(value) : value;
         if( name === "responsible") {
             const responsibleUserId = evt.target.value;
-            console.log("responsibleUserId", responsibleUserId)
             const responsibleUser = usersGallery.find(user => user._id === responsibleUserId);
             setResponsibleUser(responsibleUser);
             babyStepUpdate.responsible = responsibleUser
         }
         const newFormData = { ...babyStepUpdate, [name]: newDueDate };
         setBabyStepUpdate(newFormData);
-        console.log("newFormData", newFormData)
     }
 
     // Needs to be updated to only retrieve users of the specific board

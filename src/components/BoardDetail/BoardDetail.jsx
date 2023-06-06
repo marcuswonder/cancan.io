@@ -1,12 +1,13 @@
 import './BoardDetail.css';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 
-export default function BoardDetail({user, board, setBoard}) {
+export default function BoardDetail({ user }) {
     const navigate = useNavigate()
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    const [board, setBoard] = useState({})
 
     useEffect(function() {
         async function getBoard() {
