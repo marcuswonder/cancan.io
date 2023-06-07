@@ -17,41 +17,40 @@ export default function UpdateBoardPage({ user }) {
   const [error, setError] = useState(null)
   
   
-    useEffect(function() {
-      async function getBoard(user) {
-        let board = await boardsAPI.getBoard(boardNameActual)
-        
-        while (!board.admins) {
-          await new Promise((resolve) => setTimeout(resolve, 1000))
-          console.log("waiting")
-        }
-
-          try {
-            function checkAuthorisation(user, board) {
-                const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-                
-                if (verifiedBoardAdmin) {
-                    return true
-                
-                } else {
-                    return false
-                }
-            }
-
-            if (checkAuthorisation(user, board)) {
-              setBoardUpdate(board)
-              setIsLoading(false)
-
-            } else {
-              const error = await board.json();
-              throw new Error(error);
-            }
-            
-          } catch (error) {
-            setError(error)
-          }
+  useEffect(function() {
+    async function getBoard(user) {
+      let board = await boardsAPI.getBoard(boardNameActual)
+      
+      while (!board.admins) {
+        await new Promise((resolve) => setTimeout(resolve, 1000))
       }
-      getBoard(user)
+
+        try {
+          function checkAuthorisation(user, board) {
+              const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+              
+              if (verifiedBoardAdmin) {
+                  return true
+              
+              } else {
+                  return false
+              }
+          }
+
+          if (checkAuthorisation(user, board)) {
+            setBoardUpdate(board)
+            setIsLoading(false)
+
+          } else {
+            const error = await board.json();
+            throw new Error(error);
+          }
+          
+        } catch (error) {
+          setError(error)
+        }
+    }
+    getBoard(user)
   }, [boardNameActual, user, setIsLoading, setError])
 
   

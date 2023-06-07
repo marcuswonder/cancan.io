@@ -16,17 +16,43 @@ export default function AddBigStepPage({ user }) {
     const [error, setError] = useState(null)  
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
-    
 
     useEffect(function() {
-        async function getBoard() {
-            const board = await boardsAPI.getBoard(boardNameActual)
-            setBoard(board)
+        async function getBoard(user) {
+          let board = await boardsAPI.getBoard(boardNameActual)
+          
+          while (!board.admins) {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+          }
+    
+            try {
+              function checkAuthorisation(user, board) {
+                  const verifiedBoardUser = board.users.find(boardUser => boardUser._id === user._id)
+                  const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+                  
+                  if (verifiedBoardAdmin || verifiedBoardUser) {
+                      return true
+                  
+                  } else {
+                      return false
+                  }
+              }
+    
+              if (checkAuthorisation(user, board)) {
+                setBoard(board)
+                setIsLoading(false)
+    
+              } else {
+                const error = await board.json();
+                throw new Error(error);
+              }
+              
+            } catch (error) {
+              setError(error)
+            }
         }
-        getBoard()
-        setIsLoading(false)
-    }, [boardNameActual])
-
+        getBoard(user)
+      }, [boardNameActual, user, setIsLoading, setError])
 
     async function handleCreateBigStep(evt) {
         evt.preventDefault();
