@@ -1,10 +1,9 @@
 import './BoardPage.css';
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import * as boardsAPI from '../../utilities/boards-api'
 import BoardDetail from '../../components/BoardDetail/BoardDetail'
 import StepsPage from '../StepsPage/StepsPage'
-import { get } from 'mongoose';
 
 
 

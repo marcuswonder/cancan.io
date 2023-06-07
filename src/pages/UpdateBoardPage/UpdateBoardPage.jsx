@@ -95,7 +95,8 @@ export default function UpdateBoardPage({ user }) {
       setSelectedAdmins(selectedAdmins)
     }
   }
-
+  
+  // Needs to be updated to only retrieve users of the specific board
   useEffect(function() {
     async function getUsers() {
       console.log("getUsers function hit")

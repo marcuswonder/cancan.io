@@ -56,7 +56,7 @@ export default function AddBabyStepPage({ user }) {
             }
         }
         getBoard(user)
-      }, [boardNameActual, user, setIsLoading, setError])
+      }, [boardNameActual, bigStepNameActual, user, setIsLoading, setError])
 
     async function handleCreateBabyStep(evt) {
         evt.preventDefault();

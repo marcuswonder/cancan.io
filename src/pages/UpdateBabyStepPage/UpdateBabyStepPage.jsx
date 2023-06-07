@@ -18,28 +18,10 @@ export default function UpdateBabyStepPage({ user }) {
     const [ babySteps, setBabySteps ] = useState([])
     const [ babyStepUpdate, setBabyStepUpdate ] = useState({ title: '', description: '', due: '', responsible: '' })
     const [ usersGallery, setUsersGallery ] = useState([])
+    // eslint-disable-next-line
     const [ responsibleUser, setResponsibleUser ] = useState('')
     const [ isLoading, setIsLoading ] = useState(true)  
     const [ error, setError ] = useState(null)  
-
-    // useEffect(function() {
-    //     async function getBoard() {
-    //         const board = await boardsAPI.getBoard(boardNameActual)
-    //         setBoard(board)
-    //     }
-    //       getBoard()
-    // }, [boardNameActual])
-
-    // useEffect(function() {
-    //     async function getBabyStep() {
-    //         const board = await boardsAPI.getBoard(boardNameActual)
-    //         const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-    //         setBigStep(bigStep)
-    //         const babyStep = bigStep.babySteps.find((bStep) => bStep.title === babyStepNameActual)
-    //         setBabyStepUpdate(babyStep)
-    //     }
-    //     getBabyStep()
-    // }, [board, boardNameActual, bigStepNameActual, babyStepNameActual])
 
     useEffect(function() {
         async function getBoard(user) {
@@ -81,7 +63,7 @@ export default function UpdateBabyStepPage({ user }) {
             }
         }
         getBoard(user)
-      }, [boardNameActual, user, setIsLoading, setError])
+      }, [boardNameActual, user, bigStepNameActual, babyStepNameActual, setIsLoading, setError])
 
 
     async function updateBabyStep(babyStepUpdate) {

@@ -14,6 +14,7 @@ export default function UpdateBigStepPage({ user }) {
     const [ bigSteps, setBigSteps ] = useState([])
     const [ bigStepUpdate, setBigStepUpdate ] = useState({ title: '', description: '', due: '', responsible: '' })
     const [ usersGallery, setUsersGallery ] = useState([])
+    // eslint-disable-next-line
     const [ responsibleUser, setResponsibleUser ] = useState('')
     const [ board, setBoard ] = useState({})
     const [isLoading, setIsLoading] = useState(true)  
@@ -56,7 +57,7 @@ export default function UpdateBigStepPage({ user }) {
           }
       }
       getBoard(user)
-    }, [boardNameActual, user, setIsLoading, setError])
+    }, [boardNameActual, user, bigStepNameActual, setIsLoading, setError])
 
     
     async function updateBigStep(bigStepUpdate) {

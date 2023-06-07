@@ -166,31 +166,6 @@ export default function BabySteps({ user, board, setBoard }) {
         }
     }
    
-    
-
-    // async function checkVerifiedBoardUser(board, user) {
-    //     try {
-    //         const verifiedBoardUser = board.users.find(boardUser => boardUser._id === user._id)
-        
-    //         if(verifiedBoardUser) {
-    //             return true
-    //         }
-    
-    //     } catch (error) {
-    //     }
-    //   }
-        
-    //   async function checkVerifiedBoardAdmin(board, user) {
-    //     try {
-    //       const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-          
-    //       if(verifiedBoardAdmin) {
-    //         return true
-    //       }
-    //     } catch (error) {
-    //     }
-    //   }
-    
     if (error) {
         return (
         <div className="error-container">
@@ -205,7 +180,7 @@ export default function BabySteps({ user, board, setBoard }) {
         </div>
         )
     } else if (isLoading) {
-        return <div>Loading...</div>
+        return <div></div>
     } else {
         return (
             <>
