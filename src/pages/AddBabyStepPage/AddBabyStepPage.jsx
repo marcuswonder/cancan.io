@@ -103,19 +103,20 @@ export default function AddBabyStepPage({ user }) {
       }
 
     if (error) {
-    return (
-        <div className="error-container">
-        <img className="error-logo" src={logo} alt='cancan logo'/>
-        <h1 className="error-h1-text">Sorry, you are not authorised to add a Baby Step to this Big Step</h1>    
-        <h3 className="error-h3-text">Only the user responsible and Board admins can do this</h3>    
-        <div>
-            <>
-            <Link to={`/boards/${boardName}/${bigStepName}`} ><button>go back</button></Link>
-            </>
-                    
-        </div>
-        </div>
-    )
+        return (
+            <div className="error-container">
+            <img className="error-logo" src={logo} alt='cancan logo'/>
+            <h1 className="error-h1-text">Sorry, you are not authorised to add a Baby Step to this Big Step</h1>    
+            <h3 className="error-h3-text">Only the user responsible and Board admins can do this</h3>    
+            <div>
+                <>
+                <Link to={`/boards/${boardName}/${bigStepName}`} ><button>go back</button></Link>
+                </>
+                        
+            </div>
+            </div>
+        )
+        
     } else if (isLoading) {
     return <div>Loading...</div>
     }
