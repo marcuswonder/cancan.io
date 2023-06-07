@@ -10,7 +10,7 @@ export async function getUserBoards() {
     return sendRequest(`${BASE_URL}/user`)
 }
 
-export async function getUserBoard(boardNameActual) {
+export async function getBoard(boardNameActual) {
     const boardName = boardNameActual
     return sendRequest(`${BASE_URL}/${boardName}`)
 }

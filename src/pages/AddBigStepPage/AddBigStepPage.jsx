@@ -20,12 +20,13 @@ export default function AddBigStepPage({ user }) {
 
     useEffect(function() {
         async function getBoard() {
-            const board = await boardsAPI.getUserBoard(boardNameActual)
+            const board = await boardsAPI.getBoard(boardNameActual)
             setBoard(board)
         }
         getBoard()
         setIsLoading(false)
     }, [boardNameActual])
+
 
     async function handleCreateBigStep(evt) {
         evt.preventDefault();
@@ -69,41 +70,55 @@ export default function AddBigStepPage({ user }) {
         const day = ("0" + d.getDate()).slice(-2);
         return `${year}-${month}-${day}`;
     }
-
-    if (isLoading) {
-      return <div>Loading...</div>
-
-    } else {
-      return (
-        <div>
-            <div className="form-container">
-            <h1 className="new-big-step-h1">Add a Big Step to {board.title}</h1>
-                <form autoComplete="off" onSubmit={handleCreateBigStep}>
-                        <label>Title</label>
-                        <input type="text" name="title" onChange={handleChange} value={newBigStep.title} required />
+    
+    if (error) {
+        return (
+        <div className="error-container">
+            <img className="error-logo" src={logo} alt='cancan logo'/>
+            <h1 className="error-h1-text">Sorry, you are not authorised to use this board</h1>    
+            <div>
+            <>
+                <Link to={`/boards`} ><button>my boards</button></Link>
+            </>
                         
-                        <label>Description</label>
-                        <input type="text" name="description" onChange={handleChange} value={newBigStep.description} required />
-                        
-                        <label>Due Date</label>
-                        <input type="date" name="due" onChange={handleChange} value={newBigStep.due} required />
-                        
-                        <label className="new-big-step-select-label">Who is responsible?</label>
-                        <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input" required>
-                            <option value="">Select a responsible user</option>
-                            {usersGallery.map((user) => (
-                            <option key={user._id} value={user._id} className="new-big-step-form-select-input">
-                                {user.name}
-                            </option>
-                            ))}
-                        </select>
-                        <div></div>
-                        <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
-                        <button type="submit">Add Big Step</button>
-                </form>
             </div>
         </div>
-
-    )
-}
+        )
+        
+    } else if (isLoading) {
+        return <div>Loading...</div>
+    }
+    
+    else {
+        return (
+            <div>
+                <div className="form-container">
+                <h1 className="new-big-step-h1">Add a Big Step to {board.title}</h1>
+                    <form autoComplete="off" onSubmit={handleCreateBigStep}>
+                            <label>Title</label>
+                            <input type="text" name="title" onChange={handleChange} value={newBigStep.title} required />
+                            
+                            <label>Description</label>
+                            <input type="text" name="description" onChange={handleChange} value={newBigStep.description} required />
+                            
+                            <label>Due Date</label>
+                            <input type="date" name="due" onChange={handleChange} value={newBigStep.due} required />
+                            
+                            <label className="new-big-step-select-label">Who is responsible?</label>
+                            <select name="responsible" onChange={handleResponsibleSelect} className="new-big-step-form-select-input" required>
+                                <option value="">Select a responsible user</option>
+                                {usersGallery.map((user) => (
+                                <option key={user._id} value={user._id} className="new-big-step-form-select-input">
+                                    {user.name}
+                                </option>
+                                ))}
+                            </select>
+                            <div></div>
+                            <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
+                            <button type="submit">Add Big Step</button>
+                    </form>
+                </div>
+            </div>
+        )
+    }
 }

@@ -25,14 +25,14 @@ export default function BigSteps({ user }) {
     useEffect(function() {
         async function getBoard(user) {
           try {
-            const board = await boardsAPI.getUserBoard(boardNameActual);
+            const board = await boardsAPI.getBoard(boardNameActual)
         
             if(checkVerifiedBoardUser(board, user) || checkVerifiedBoardAdmin(board, user)) { 
-              setBoard(board);
+              setBoard(board)
               
             } else {          
-              const error = await board.json();
-              throw new Error(error);
+              const error = await board.json()
+              throw new Error(error)
             }
     
           } catch (error) {
@@ -40,7 +40,7 @@ export default function BigSteps({ user }) {
           }
         setIsLoading(false)
         }
-      getBoard()
+      getBoard(user)
       }, [boardNameActual, setBoard, setIsLoading])
 
 

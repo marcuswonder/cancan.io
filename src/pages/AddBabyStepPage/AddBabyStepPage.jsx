@@ -18,7 +18,7 @@ export default function AddBabyStepPage({ user }) {
 
     useEffect(function() {
         async function getBoard() {
-            const board = await boardsAPI.getUserBoard(boardNameActual)
+            const board = await boardsAPI.getBoard(boardNameActual)
             setBoard(board)
             
             const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)

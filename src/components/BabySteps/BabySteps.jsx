@@ -23,7 +23,7 @@ export default function BabySteps({ user }) {
     useEffect(function() {
         async function getBoard(user) {
           try {
-            const board = await boardsAPI.getUserBoard(boardNameActual);
+            const board = await boardsAPI.getBoard(boardNameActual);
         
             if(checkVerifiedBoardUser(board, user) || checkVerifiedBoardAdmin(board, user)) { 
               setBoard(board);

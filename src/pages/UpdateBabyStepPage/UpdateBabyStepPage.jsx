@@ -21,7 +21,7 @@ export default function UpdateBabyStepPage({ user }) {
 
     useEffect(function() {
         async function getBoard() {
-            const board = await boardsAPI.getUserBoard(boardNameActual)
+            const board = await boardsAPI.getBoard(boardNameActual)
             setBoard(board)
         }
           getBoard()
@@ -29,7 +29,7 @@ export default function UpdateBabyStepPage({ user }) {
 
     useEffect(function() {
         async function getBabyStep() {
-            const board = await boardsAPI.getUserBoard(boardNameActual)
+            const board = await boardsAPI.getBoard(boardNameActual)
             const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             setBigStep(bigStep)
             const babyStep = bigStep.babySteps.find((bStep) => bStep.title === babyStepNameActual)
