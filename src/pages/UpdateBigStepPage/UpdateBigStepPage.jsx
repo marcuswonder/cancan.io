@@ -29,28 +29,68 @@ export default function UpdateBigStepPage({ user }) {
     //     getBoard()
     // }, [boardNameActual, bigStepNameActual])
 
-    useEffect(function() {
-        async function getBoard(user) {
-          try {
-            const board = await boardsAPI.getBoard(boardNameActual)
-            const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+    // useEffect(function() {
+    //     async function getBoard(user) {
+    //       try {
+    //         const board = await boardsAPI.getBoard(boardNameActual)
+    //         const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
             
-            if((checkVerifiedBigStepResponsible(bigStep, user) === true) || (checkVerifiedBoardAdmin(board, user) === true)) { 
-                setBoard(board)
-                setBigStepUpdate(bigStep)
+    //         if((checkVerifiedBigStepResponsible(bigStep, user) === true) || (checkVerifiedBoardAdmin(board, user) === true)) { 
+    //             setBoard(board)
+    //             setBigStepUpdate(bigStep)
               
-            } else {          
-                const error = await board.json()
-                throw new Error(error)
-            }
+    //         } else {          
+    //             const error = await board.json()
+    //             throw new Error(error)
+    //         }
     
+    //       } catch (error) {
+    //         setError(error)
+    //       }
+    //     setIsLoading(false)
+    //     }
+    //   getBoard(user)
+    //   }, [boardNameActual, bigStepNameActual, setBoard, setIsLoading])
+
+    useEffect(function() {
+      async function getBoard(user) {
+        let board = await boardsAPI.getBoard(boardNameActual)
+        const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+        
+        while (!bigStep) {
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+        }
+  
+          try {
+            function checkAuthorisation(user, board) {
+                const verifiedBigStepResponsible = bigStep.responsible._id === user._id
+                const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+                
+                if (verifiedBoardAdmin || verifiedBigStepResponsible) {
+                    return true
+                
+                } else {
+                    return false
+                }
+            }
+  
+            if (checkAuthorisation(user, board)) {
+              setBoard(board)
+              setBigStepUpdate(bigStep)
+              setIsLoading(false)
+  
+            } else {
+              const error = await board.json();
+              throw new Error(error);
+            }
+            
           } catch (error) {
             setError(error)
           }
-        setIsLoading(false)
-        }
+      }
       getBoard(user)
-      }, [boardNameActual, bigStepNameActual, setBoard, setIsLoading])
+    }, [boardNameActual, user, setIsLoading, setError])
+
     
     async function updateBigStep(bigStepUpdate) {
         const updatedBigStep = await boardsAPI.updateBigStep(bigStepUpdate);
@@ -96,31 +136,31 @@ export default function UpdateBigStepPage({ user }) {
       }
       
 
-      async function checkVerifiedBigStepResponsible(bigStep, user) {
-        try {
-            const verifiedBigStepResponsible = bigStep.responsible._id === user._id
-            console.log("verifiedBigStepResponsible", verifiedBigStepResponsible)
+      // async function checkVerifiedBigStepResponsible(bigStep, user) {
+      //   try {
+      //       const verifiedBigStepResponsible = bigStep.responsible._id === user._id
+      //       console.log("verifiedBigStepResponsible", verifiedBigStepResponsible)
         
-            if(verifiedBigStepResponsible) {
-                return true
-            }
+      //       if(verifiedBigStepResponsible) {
+      //           return true
+      //       }
     
-        } catch (error) {
-        }
-      }
+      //   } catch (error) {
+      //   }
+      // }
         
-      async function checkVerifiedBoardAdmin(board, user) {
-        try {
-          const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-          console.log("verifiedBoardAdmin", verifiedBoardAdmin)
+      // async function checkVerifiedBoardAdmin(board, user) {
+      //   try {
+      //     const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+      //     console.log("verifiedBoardAdmin", verifiedBoardAdmin)
           
-          if(verifiedBoardAdmin) {
-            console.log("verifiedBoardAdmin", verifiedBoardAdmin)
-            return true
-          }
-        } catch (error) {
-        }
-      }
+      //     if(verifiedBoardAdmin) {
+      //       console.log("verifiedBoardAdmin", verifiedBoardAdmin)
+      //       return true
+      //     }
+      //   } catch (error) {
+      //   }
+      // }
     
         if (error) {
           return (
