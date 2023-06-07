@@ -13,7 +13,7 @@ import AddBigStepPage from '../../pages/AddBigStepPage/AddBigStepPage'
 import UpdateBigStepPage from '../../pages/UpdateBigStepPage/UpdateBigStepPage'
 import AddBabyStepPage from '../../pages/AddBabyStepPage/AddBabyStepPage'
 import UpdateBabyStepPage from '../../pages/UpdateBabyStepPage/UpdateBabyStepPage'
-import NewBoardPage from '../NewBoardPage/NewBoardPage';
+import AddBoardPage from '../AddBoardPage/AddBoardPage';
 import UpdateBoardPage from '../UpdateBoardPage/UpdateBoardPage';
 
 export default function App() {
@@ -30,7 +30,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/boards" element={<BoardsList user={user} />} />
             <Route path="/boards/:boardName/*" element={<BoardPage user={user} setUser={setUser}/>} />
-            <Route path="/boards/new" element={<NewBoardPage  user={user} />} />
+            <Route path="/boards/new" element={<AddBoardPage  user={user} />} />
             <Route path="/boards/:boardName/update" element={<UpdateBoardPage  user={user} />} />
             <Route path="/boards/:boardName/big-steps/add" element={<AddBigStepPage  user={user} />} />
             <Route path="/boards/:boardName/:bigStepName/update" element={<UpdateBigStepPage  user={user} />} />

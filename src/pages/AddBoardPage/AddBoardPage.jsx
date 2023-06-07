@@ -1,11 +1,11 @@
-import './NewBoardPage.css'
+import './AddBoardPage.css'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
 // import Select from 'react-select' consider for user search bar later
 
-export default function NewBoardPage({ user }) {
+export default function AddBoardPage({ user }) {
   const navigate = useNavigate()
   const [ boards, setBoards ] = useState([])
   const [ newBoard, setNewBoard ] = useState({ title: '', description: '', admins: [], users: [] })

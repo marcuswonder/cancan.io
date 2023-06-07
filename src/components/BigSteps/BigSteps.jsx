@@ -13,35 +13,48 @@ import addIcon from '../../public/assets/add-white.png'
 import logo from '../../public/assets/idea.png'
 
 
-export default function BigSteps({ user }) {
+export default function BigSteps({ user, board, setBoard }) {
     const { boardName } = useParams()
     const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
-    const [board, setBoard] = useState({})
     const [isLoading, setIsLoading] = useState(true)  
     const [error, setError] = useState(null)  
     const [bigSteps, setBigSteps] = useState([])
     const navigate = useNavigate()
 
     useEffect(function() {
-        async function getBoard(user) {
-          try {
-            const board = await boardsAPI.getBoard(boardNameActual)
-        
-            if(checkVerifiedBoardUser(board, user) || checkVerifiedBoardAdmin(board, user)) { 
-              setBoard(board)
-              
-            } else {          
-              const error = await board.json()
-              throw new Error(error)
+        async function getBoard(user, board, setBoard) {
+            while (!board.admins) {
+                await new Promise((resolve) => setTimeout(resolve, 1000))
             }
-    
-          } catch (error) {
-            setError(error)
-          }
-        setIsLoading(false)
+
+            try {
+                function checkAuthorisation(user, board) {
+                    const verifiedBoardUser = board.users.find(boardUser => boardUser._id === user._id)
+                    const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+                    
+                    if (verifiedBoardUser || verifiedBoardAdmin) {
+                        return true
+                    
+                    } else {
+                        return false
+                    }
+                }
+
+                if (checkAuthorisation(user, board)) {
+                    setBoard(board)
+                    setIsLoading(false)
+
+                } else {
+                    const error = await board.json();
+                    throw new Error(error);
+                }
+              
+            } catch (error) {
+              setError(error)
+            }
         }
-      getBoard(user)
-      }, [boardNameActual, setBoard, setIsLoading])
+        getBoard(user, board, setBoard)
+    }, [boardNameActual, user, board, setBoard, setIsLoading, setError])
 
 
     const plannedSteps = bigSteps.filter(bigStep => bigStep.status === 'Planned').sort((a, b) => {
@@ -153,45 +166,22 @@ export default function BigSteps({ user }) {
         }
     }
     
-    async function checkVerifiedBoardUser(board, user) {
-        try {
-            const verifiedBoardUser = board.users.find(boardUser => boardUser._id === user._id)
-        
-            if(verifiedBoardUser) {
-                return true
-            }
-    
-        } catch (error) {
-        }
-      }
-        
-      async function checkVerifiedBoardAdmin(board, user) {
-        try {
-          const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-          
-          if(verifiedBoardAdmin) {
-            return true
-          }
-        } catch (error) {
-        }
-      }
-    
     if (error) {
         return (
-        <div className="error-container">
-            <img className="error-logo" src={logo} alt='cancan logo'/>
-            <h1 className="error-h1-text">Sorry, you are not authorised to use this board</h1>    
-            <div>
-            <>
-                <Link to={`/boards`} ><button>my boards</button></Link>
-            </>
-                        
+            <div className="error-container">
+                <img className="error-logo" src={logo} alt='cancan logo'/>
+                <h1 className="error-h1-text">Sorry, you are not authorised to use this board</h1>    
+                <div>
+                <>
+                    <Link to={`/boards`} ><button>my boards</button></Link>
+                </>
+                            
+                </div>
             </div>
-        </div>
         )
 
     } else if (isLoading) {
-        return <div>Loading...</div>
+        return <div></div>
     
     } else {
         return (
