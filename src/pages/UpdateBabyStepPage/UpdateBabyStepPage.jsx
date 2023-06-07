@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import * as usersAPI from '../../utilities/users-api'
+import logo from '../../public/assets/idea.png'
 
 export default function UpdateBabyStepPage({ user }) {
     const navigate = useNavigate()
@@ -18,6 +19,8 @@ export default function UpdateBabyStepPage({ user }) {
     const [ babyStepUpdate, setBabyStepUpdate ] = useState({ title: '', description: '', due: '', responsible: '' })
     const [ usersGallery, setUsersGallery ] = useState([])
     const [ responsibleUser, setResponsibleUser ] = useState('')
+    const [ isLoading, setIsLoading ] = useState(true)  
+    const [ error, setError ] = useState(null)  
 
     useEffect(function() {
         async function getBoard() {

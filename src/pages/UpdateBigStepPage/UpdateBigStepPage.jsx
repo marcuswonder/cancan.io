@@ -19,39 +19,6 @@ export default function UpdateBigStepPage({ user }) {
     const [isLoading, setIsLoading] = useState(true)  
     const [error, setError] = useState(null)  
 
-    // useEffect(function() {
-    //     async function getBoard() {
-    //         const board = await boardsAPI.getBoard(boardNameActual)
-    //         setBoard(board)
-    //         const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-    //         setBigStepUpdate(bigStep)
-    //     }
-    //     getBoard()
-    // }, [boardNameActual, bigStepNameActual])
-
-    // useEffect(function() {
-    //     async function getBoard(user) {
-    //       try {
-    //         const board = await boardsAPI.getBoard(boardNameActual)
-    //         const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-            
-    //         if((checkVerifiedBigStepResponsible(bigStep, user) === true) || (checkVerifiedBoardAdmin(board, user) === true)) { 
-    //             setBoard(board)
-    //             setBigStepUpdate(bigStep)
-              
-    //         } else {          
-    //             const error = await board.json()
-    //             throw new Error(error)
-    //         }
-    
-    //       } catch (error) {
-    //         setError(error)
-    //       }
-    //     setIsLoading(false)
-    //     }
-    //   getBoard(user)
-    //   }, [boardNameActual, bigStepNameActual, setBoard, setIsLoading])
-
     useEffect(function() {
       async function getBoard(user) {
         let board = await boardsAPI.getBoard(boardNameActual)
@@ -134,82 +101,55 @@ export default function UpdateBigStepPage({ user }) {
         const day = ("0" + d.getDate()).slice(-2);
         return `${year}-${month}-${day}`;
       }
-      
-
-      // async function checkVerifiedBigStepResponsible(bigStep, user) {
-      //   try {
-      //       const verifiedBigStepResponsible = bigStep.responsible._id === user._id
-      //       console.log("verifiedBigStepResponsible", verifiedBigStepResponsible)
-        
-      //       if(verifiedBigStepResponsible) {
-      //           return true
-      //       }
     
-      //   } catch (error) {
-      //   }
-      // }
-        
-      // async function checkVerifiedBoardAdmin(board, user) {
-      //   try {
-      //     const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-      //     console.log("verifiedBoardAdmin", verifiedBoardAdmin)
-          
-      //     if(verifiedBoardAdmin) {
-      //       console.log("verifiedBoardAdmin", verifiedBoardAdmin)
-      //       return true
-      //     }
-      //   } catch (error) {
-      //   }
-      // }
+    if (error) {
+      return (
+        <div className="error-container">
+          <img className="error-logo" src={logo} alt='cancan logo'/>
+          <h1 className="error-h1-text">Sorry, you are not authorised to update this Big Step</h1>    
+          <h3 className="error-h3-text">Only the user responsible and Board admins can update this</h3>    
+          <div>
+            <>
+              <Link to={`/boards/${boardName}`} ><button>go back</button></Link>
+            </>
+                      
+          </div>
+        </div>
+      )
+    } else if (isLoading) {
+      return <div>Loading...</div>
+    }
     
-        if (error) {
-          return (
-            <div className="error-container">
-              <img className="error-logo" src={logo} alt='cancan logo'/>
-              <h1 className="error-h1-text">Sorry, you are not authorised to update this Big Step</h1>    
-              <h3 className="error-h3-text">Only the user responsible and Board admins can update this</h3>    
-              <div>
-                <>
-                  <Link to={`/boards`} ><button>my boards</button></Link>
-                </>
-                          
-              </div>
-            </div>
-          )
-        } else if (isLoading) {
-          return <div>Loading...</div>
-        }
-        
-        else {
-            return (
-                <div>
-                    <div className="form-container">
-                        <h1 className="update-big-step-update-h1">Update {bigStepUpdate.title}</h1>
-                        <form autoComplete="off" onSubmit={handleUpdateBigStep}>
-                                <label>Title</label>
-                                <input type="text" name="title" onChange={handleChange} value={bigStepUpdate.title} required/>
-                                
-                                <label>Description</label>
-                                <input type="text" name="description" onChange={handleChange} value={bigStepUpdate.description} required/>
-                                
-                                <label>Due Date</label>
-                                <input type="date" name="due" onChange={handleChange} value={formatDate(bigStepUpdate.due)} required/>
-                                
-                                <label className="update-big-step-select-label">Responsible User</label>
-                                <select name="responsible" onChange={handleChange} value={bigStepUpdate.responsible._id} className="update-big-step-select-options" >
-                                    <option value="" className="update-big-step-select-options">Confirm responsible user</option>
-                                    {usersGallery.map((user) => (
-                                    <option key={user._id} value={user._id} className="update-big-step-select-options">
-                                        {user.name}
-                                    </option>
-                                    ))}
-                                </select>
-                                <div></div>
-                                <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
-                                <button type="submit">Update Big Step</button>
-                        </form>
-                    </div>
+    else {
+        return (
+            <div>
+                <div className="form-container">
+                    <h1 className="update-big-step-update-h1">Update {bigStepUpdate.title}</h1>
+                    <form autoComplete="off" onSubmit={handleUpdateBigStep}>
+                            <label>Title</label>
+                            <input type="text" name="title" onChange={handleChange} value={bigStepUpdate.title} required/>
+                            
+                            <label>Description</label>
+                            <input type="text" name="description" onChange={handleChange} value={bigStepUpdate.description} required/>
+                            
+                            <label>Due Date</label>
+                            <input type="date" name="due" onChange={handleChange} value={formatDate(bigStepUpdate.due)} required/>
+                            
+                            <label className="update-big-step-select-label">Responsible User</label>
+                            <select name="responsible" onChange={handleChange} value={bigStepUpdate.responsible._id} className="update-big-step-select-options" >
+                                <option value="" className="update-big-step-select-options">Confirm responsible user</option>
+                                {usersGallery.map((user) => (
+                                <option key={user._id} value={user._id} className="update-big-step-select-options">
+                                    {user.name}
+                                </option>
+                                ))}
+                            </select>
+                            <div></div>
+                            <p className="new-board-form-user-info">Responsible users will have view permissions at all levels of this board and will have write permissions on any big step or baby step that they are responsible for.</p>
+                            <button type="submit">Update Big Step</button>
+                    </form>
                 </div>
-            )
-        }
+            </div>
+        )
+    }
 }
