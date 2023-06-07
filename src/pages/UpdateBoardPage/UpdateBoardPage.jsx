@@ -96,14 +96,11 @@ export default function UpdateBoardPage({ user }) {
     }
   }
   
-  // Needs to be updated to only retrieve users of the specific board
   useEffect(function() {
     async function getUsers() {
       console.log("getUsers function hit")
       let users = []
       users = await usersAPI.getUsers()
-      // const otherUsers = users.filter((u) => u._id !== user._id)
-      // setUsersGallery(otherUsers)
       setUsersGallery(users)
     }
     getUsers()

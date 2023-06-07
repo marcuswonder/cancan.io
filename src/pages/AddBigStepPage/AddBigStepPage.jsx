@@ -79,7 +79,6 @@ export default function AddBigStepPage({ user }) {
         setResponsibleUser(responsibleUser);
     }
 
-    // Needs to be updated to only retrieve users of the specific board
     useEffect(function() {
         async function getUsers() {
             let users = []

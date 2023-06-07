@@ -86,7 +86,6 @@ export default function UpdateBigStepPage({ user }) {
         setBigStepUpdate(newFormData);
       }
 
-    // Needs to be updated to only retrieve users of the specific board
     useEffect(function() {
         async function getUsers() {
             const users = await usersAPI.getUsers()
