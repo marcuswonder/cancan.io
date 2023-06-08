@@ -4,55 +4,38 @@ import forwardIcon from '../../public/assets/fwd-white.png'
 import backwardIcon from '../../public/assets/bwd-white.png'
 import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
-import logo from '../../public/assets/idea.png'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
+import logo from '../../public/assets/idea.png'
 
-export default function BabySteps({ user, board, setBoard }) {
-    const { boardName, bigStepName } = useParams()
-    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
-    const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
-    const [isLoading, setIsLoading] = useState(true)  
-    const [error, setError] = useState(null)  
+export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }) {
     const navigate = useNavigate()
-    const [bigStep, setBigStep] = useState([])
-    const [babySteps, setBabySteps] = useState([])
+    const { boardName, bigStepName } = useParams()
+    const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
+    const boardNameActual = boardName ? boardName.replace(/-/g, ' ') : ''
+    // const [ bigStep, setBigStep ] = useState([])
+    const [ babySteps, setBabySteps ] = useState([])
+    const [ babyStepError, setBabyStepError ] = useState(null)  
 
     useEffect(function() {
-        async function getBoard(user, board, setBoard) {
-            while (!board.admins) {
+        async function getBigStepBabySteps() {
+            while (!board) {
                 await new Promise((resolve) => setTimeout(resolve, 1000))
             }
 
             try {
-                function checkAuthorisation(user, board) {
-                    const verifiedBoardUser = board.users.find(boardUser => boardUser._id === user._id)
-                    const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-                    
-                    if (verifiedBoardUser || verifiedBoardAdmin) {
-                        return true
-                    
-                    } else {
-                        return false
-                    }
-                }
-
-                if (checkAuthorisation(user, board)) {
-                    setBoard(board)
-                    setIsLoading(false)
-
-                } else {
-                    const error = await board.json();
-                    throw new Error(error);
-                }
-              
+                const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+                setBigStep(bigStep)
+            
+                const babySteps = await bigStep.babySteps || []
+                setBabySteps(babySteps)
             } catch (error) {
-              setError(error)
+                setBabyStepError(error)
             }
         }
-        getBoard(user, board, setBoard)
-    }, [boardNameActual, user, board, setBoard, setIsLoading, setError])
+        getBigStepBabySteps()
+    }, [board, bigStepNameActual])
 
     const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned').sort((a, b) => {
         const dueDateA = new Date(a.due)
@@ -72,31 +55,15 @@ export default function BabySteps({ user, board, setBoard }) {
         return dueDateA - dueDateB
       })
 
-
-    useEffect(function() {
-        async function getBigStepsBabySteps() {
-            await setBoard(board)
-    
-            if (board && board.bigSteps) {
-                const bigStep = board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-                setBigStep(bigStep)
-    
-                const babySteps = bigStep.babySteps || []
-                setBabySteps(babySteps)
-            }
-        }
-        getBigStepsBabySteps()
-    }, [board, setBoard, setBabySteps, bigStepNameActual])
-
-
     async function handleDeleteClick(babyStep) {
         const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
         const authorisedBigStepUser = bigStep.responsible._id === user._id
         const authorisedBabyStepUser = babyStep.responsible._id === user._id
 
         if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
-            const updatedBoard = await boardsAPI.deleteBabyStep(board._id, bigStep._id, babyStep._id)
-            setBoard(updatedBoard)
+            const updatedBabySteps = await boardsAPI.deleteBabyStep(board._id, bigStep._id, babyStep._id)
+            setBabySteps(updatedBabySteps)
+            setBoard(board)
             navigate(`/boards/${boardName}/${bigStepName}`)
         } else {
             alert("Only the admin of a board or the user responsible for a big step can delete it.")
@@ -113,11 +80,15 @@ export default function BabySteps({ user, board, setBoard }) {
                 if (step._id === babyStep._id) {
                     return { ...step, status: "Planned" };
                 }
-                return step;
-            });
+                return step
+            })
             
             await boardsAPI.changeBabyStepStatusToPlanned(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
+
+            // const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            // setBigStep(bigStep)
+            // handleBabyStepUpdate(updatedBabySteps)
             
         } else {
             alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
@@ -132,13 +103,18 @@ export default function BabySteps({ user, board, setBoard }) {
         if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
-                    return { ...step, status: "In Progress" };
+                    return { ...step, status: "In Progress" }
                 }
-                return step;
-            });
+                return step
+            })
             
             await boardsAPI.changeBabyStepStatusToInProgress(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
+
+            // const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            // setBigStep(bigStep)
+            // handleBabyStepUpdate(updatedBabySteps)
+
             
         } else {
             alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
@@ -153,38 +129,41 @@ export default function BabySteps({ user, board, setBoard }) {
         if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBabySteps = babySteps.map(step => {
                 if (step._id === babyStep._id) {
-                    return { ...step, status: "Complete" };
+                    return { ...step, status: "Complete" }
                 }
-                return step;
-            });
+                return step
+            })
 
             await boardsAPI.changeBabyStepStatusToComplete(board._id, babyStep.bigStep, babyStep._id)
             setBabySteps(updatedBabySteps)
+
+            // const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            // setBigStep(bigStep)
+            // handleBabyStepUpdate(updatedBabySteps)
 
         } else {
             alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
         }
     }
    
-    if (error) {
+    
+    if (babyStepError) {
         return (
-        <div className="error-container">
-            <img className="error-logo" src={logo} alt='cancan logo'/>
-            <h1 className="error-h1-text">Sorry, you are not authorised to use this board</h1>    
-            <div>
-            <>
-                <Link to={`/boards`} ><button>my boards</button></Link>
-            </>
-                        
+            <div className="error-container">
+                <img className="error-logo" src={logo} alt='cancan logo'/>
+                <h1 className="error-h1-text">This Big Step doesn't exist!</h1>    
+                <div>
+                <>
+                    <Link to={`/boards/${boardName}`} ><button>{boardNameActual}</button></Link>
+                </>
+                            
+                </div>
             </div>
-        </div>
         )
-    } else if (isLoading) {
-        return <div></div>
+    
     } else {
         return (
             <>
-
                 <div className="board-body">
                     {babySteps.length ?
 

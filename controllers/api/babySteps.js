@@ -72,7 +72,7 @@ async function deleteBabyStep(req, res) {
     bigStep.babySteps = updatedBabySteps
 
     await board.save()
-    res.status(200).json(board)
+    res.status(200).json(updatedBabySteps)
     
   } else {
     res.status(403).json({ error: "Only the administrator of a Board can delete a Big Step" })

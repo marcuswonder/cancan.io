@@ -25,40 +25,34 @@ export default function UpdateBabyStepPage({ user }) {
 
     useEffect(function() {
         async function getBoard(user) {
-          let board = await boardsAPI.getBoard(boardNameActual)
-          const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
-          const babyStep = await bigStep.babySteps.find(bStep => bStep.title === babyStepNameActual)
-          
-          while (!babyStep) {
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-          }
+            const board = await boardsAPI.getBoard(boardNameActual)
+            const bigStep = await board.bigSteps.find(bStep => bStep.title === bigStepNameActual)
+            const babyStep = await bigStep.babySteps.find(bStep => bStep.title === babyStepNameActual)
+                      
+            while (!babyStep) {
+                await new Promise((resolve) => setTimeout(resolve, 1000))
+            }
     
             try {
-              function checkAuthorisation(user, board) {
-                  const verifiedBigStepResponsible = bigStep.responsible._id === user._id
-                  const verifiedBabyStepResponsible = babyStep.responsible._id === user._id
-                  const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
-                  
-                  if (verifiedBoardAdmin || verifiedBigStepResponsible || verifiedBabyStepResponsible) {
-                      return true
-                  
-                  } else {
-                      return false
-                  }
-              }
-    
-              if (checkAuthorisation(user, board)) {
-                setBoard(board)
-                setBigStep(bigStep)
-                setBabyStepUpdate(babyStep)
-                setIsLoading(false)
-    
-              } else {
-                const error = await board.json();
-                throw new Error(error);
-              }
-              
+                const verifiedBigStepResponsible = bigStep.responsible._id === user._id
+                const verifiedBabyStepResponsible = babyStep.responsible._id === user._id
+                const verifiedBoardAdmin = board.admins.find(boardAdmin => boardAdmin._id === user._id)
+                
+                if (verifiedBoardAdmin || verifiedBigStepResponsible || verifiedBabyStepResponsible) {
+                    console.log("verification succeeded")
+                    setBoard(board)
+                    setBigStep(bigStep)
+                    setBabyStepUpdate(babyStep)
+                    setIsLoading(false)
+                
+                } else {
+                    console.log("verification failed")
+                    const error = board.json();
+                    throw new Error(error);
+                }
+
             } catch (error) {
+                console.log("try block error")
               setError(error)
             }
         }
@@ -125,9 +119,7 @@ export default function UpdateBabyStepPage({ user }) {
         
     } else if (isLoading) {
         return <div>Loading...</div>
-    }
-    
-    else {
+    } else {
         return (
             <div>
                 <div className="form-container">
