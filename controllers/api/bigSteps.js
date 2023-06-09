@@ -23,8 +23,7 @@ async function create(req, res) {
     try {
       board.bigSteps.push(newBigStep);
       board.users.push(newBigStep.responsible)
-      const updatedBoard = await board.save();
-      
+      const updatedBoard = await board.save()
       res.status(200).json(updatedBoard)
 
     } catch (error) {
@@ -41,6 +40,7 @@ async function deleteBigStep(req, res) {
   const bigStepId = req.params.bigStepId
   
   const board = await Board.findOne({_id: boardId})
+
   const boardAdmins = board.admins
   const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
   const bigStepResponsible = bigStep.responsible
@@ -98,6 +98,27 @@ async function updateStatusToPlanned(req, res) {
   const bigStepId = req.params.bigStepId
 
   const board = await Board.findById(boardId)
+  .populate({ path: 'author', model: 'User' })
+  .populate({ path: 'admins', model: 'User' })
+  .populate({ path: 'users', model: 'User' })
+  .populate({
+    path: 'bigSteps',
+    populate: {
+      path: 'responsible',
+      model: 'User'
+    }
+  })
+  .populate({
+    path: 'bigSteps',
+    populate: {
+      path: 'babySteps',
+      populate: {
+        path: 'responsible',
+        model: 'User'
+      }
+    }
+  })
+
   const boardAdmins = board.admins
   const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
   const bigStepResponsible = bigStep.responsible
@@ -128,6 +149,27 @@ async function updateStatusToPlanned(req, res) {
     const bigStepId = req.params.bigStepId
 
     const board = await Board.findById(boardId)
+    .populate({ path: 'author', model: 'User' })
+    .populate({ path: 'admins', model: 'User' })
+    .populate({ path: 'users', model: 'User' })
+    .populate({
+      path: 'bigSteps',
+      populate: {
+        path: 'responsible',
+        model: 'User'
+      }
+    })
+    .populate({
+      path: 'bigSteps',
+      populate: {
+        path: 'babySteps',
+        populate: {
+          path: 'responsible',
+          model: 'User'
+        }
+      }
+    })
+
     const boardAdmins = board.admins
     const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
     const bigStepResponsible = bigStep.responsible
@@ -158,6 +200,27 @@ async function updateStatusToPlanned(req, res) {
     const bigStepId = req.params.bigStepId
 
     const board = await Board.findById(boardId)
+    .populate({ path: 'author', model: 'User' })
+    .populate({ path: 'admins', model: 'User' })
+    .populate({ path: 'users', model: 'User' })
+    .populate({
+      path: 'bigSteps',
+      populate: {
+        path: 'responsible',
+        model: 'User'
+      }
+    })
+    .populate({
+      path: 'bigSteps',
+      populate: {
+        path: 'babySteps',
+        populate: {
+          path: 'responsible',
+          model: 'User'
+        }
+      }
+    })
+
     const boardAdmins = board.admins
     const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
     const bigStepResponsible = bigStep.responsible

@@ -9,6 +9,7 @@ import addIcon from '../../public/assets/add-white.png'
 
 
 export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
+    console.log("BigSteps: board", board)
     const { boardName } = useParams()
     const navigate = useNavigate()
 

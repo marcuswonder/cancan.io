@@ -63,7 +63,6 @@ async function userIndex(req, res) {
         }
       })
       .exec();
-      console.log("board", board)    
       
       const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
 

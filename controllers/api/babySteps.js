@@ -142,7 +142,7 @@ async function updateStatusToPlanned(req, res) {
       }
     }
   })
-  
+
   const boardAdmins = board.admins
   const bigStep = board.bigSteps.find((bigStep) => bigStep.id === bigStepId)
   const bigStepResponsible = bigStep.responsible
@@ -277,3 +277,5 @@ async function updateStatusToComplete(req, res) {
     res.status(403).json({ error: "Only the administrator of a Board can update a Big Step" })
   }
 }
+
+
