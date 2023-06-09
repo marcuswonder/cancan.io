@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import BigSteps from '../../components/BigSteps/BigSteps'
 import BabySteps from '../../components/BabySteps/BabySteps'
 

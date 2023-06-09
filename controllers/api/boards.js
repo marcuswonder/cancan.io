@@ -1,5 +1,6 @@
 const Board = require('../../models/board')
 
+
 module.exports = {
     adminIndex,
     userIndex,
@@ -13,17 +14,6 @@ async function adminIndex(req, res) {
     try {
       if (req.user) {
         const boards = await Board.find({ admins: { $in: [req.user._id] } })
-        .populate({ path: 'author', model: 'User' })
-        .populate({ path: 'admins', model: 'User' })
-        .populate({ path: 'users', model: 'User' })
-        .populate({
-          path: 'bigSteps',
-          populate: [
-            { path: 'responsible', select: 'name email' },
-            { path: 'babySteps', populate: { path: 'responsible', select: 'name email' } }
-          ]
-        })
-        .exec()
         res.json(boards)
       }
 
@@ -50,35 +40,46 @@ async function userIndex(req, res) {
   }
 
   async function show(req, res) {
-  try {
-    const board = await Board.findOne({title: req.params.boardName})
-    .populate({ path: 'author', model: 'User' })
-    .populate({ path: 'admins', model: 'User' })
-    .populate({ path: 'users', model: 'User' })
-    .populate({
-      path: 'bigSteps',
-      populate: [
-        { path: 'responsible', select: 'name email' },
-        { path: 'babySteps', populate: { path: 'responsible', select: 'name email' } }
-      ]
-    })
-    .exec()
-    
-    const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
+    try {
+      const board = await Board.findOne({title: req.params.boardName})
+      .populate({ path: 'author', model: 'User' })
+      .populate({ path: 'admins', model: 'User' })
+      .populate({ path: 'users', model: 'User' })
+      .populate({
+        path: 'bigSteps',
+        populate: {
+          path: 'responsible',
+          model: 'User'
+        }
+      })
+      .populate({
+        path: 'bigSteps',
+        populate: {
+          path: 'babySteps',
+          populate: {
+            path: 'responsible',
+            model: 'User'
+          }
+        }
+      })
+      .exec();
+      console.log("board", board)    
+      
+      const approvedBoardViewers = [...new Set([...board.admins, ...board.users])]
 
-    const verifiedUser = approvedBoardViewers.find(user => user._id.toString() === req.user._id)
+      const verifiedUser = approvedBoardViewers.find(user => user._id.toString() === req.user._id)
 
-    if(verifiedUser) {
-        res.json(board)
-    
-    } else {
-      res.status(403).json({ error: "Only users and admins of a board can view it" })
-      console.log('Only users and admins of a board can view it')
-    }
-  } catch (err) {
-    console.error(err)
-      res.status(500).send('Error retrieving Boards')
-      console.log('Error retrieving Boards')
+      if(verifiedUser) {
+          res.json(board)
+      
+      } else {
+        res.status(403).json({ error: "Only users and admins of a board can view it" })
+        console.log('Only users and admins of a board can view it')
+      }
+    } catch (err) {
+      console.error(err)
+        res.status(500).send('Error retrieving Boards')
+        console.log('Error retrieving Boards')
   }
 }
 
@@ -113,6 +114,7 @@ async function update(req, res) {
           if (err) {
             console.log('Error updating Board:', err);
           } else {
+            console.log("updatedBoard", updatedBoard)
             res.status(200).json(updatedBoard)
           }
         }
@@ -141,4 +143,3 @@ async function deleteBoard(req, res) {
   }
   res.status(200).json({message: 'Board deleted successfully.'})  
 }
-

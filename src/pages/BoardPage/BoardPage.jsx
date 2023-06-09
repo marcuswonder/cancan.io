@@ -31,10 +31,9 @@ export default function BoardPage({user}) {
         if (verifiedBoardUser || verifiedBoardAdmin) {
           setBoard(board)
 
+          // Question: Do I need to setBigStep here or will the setBoard in BigSteps do the job?
           const bigSteps = board.bigSteps
           setBigSteps(bigSteps)
-          console.log("bigSteps", bigSteps)
-          
           setIsLoading(false)
         }
         

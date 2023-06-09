@@ -34,26 +34,26 @@ export default function BoardDetail({ user, board }) {
                     <div className="board-card-people">
                         <div>
                             {board.admins && board.admins.length > 0 && (
-                                <div className="board-card-admins" key={board._id}>
+                                <div className="board-card-admins">
                                     <p className="custom-p">Board Admins</p>
                                 </div>
                             )}
                         </div>
                         <div className="board-card-admins-details">
                             {board.admins && board.admins.length > 0 ? (
-                                    board.admins.map((user) => (
-                                        <div className="board-card-user-container" key={user._id}>
-                                            <p className="board-card-users-info">{user.name}</p>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <></>
-                                )}
+                                board.admins.map((user) => (
+                                    <div className="board-card-user-container" key={user._id}>
+                                        <p className="board-card-users-info">{user.name}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <></>
+                            )}
                         </div>  
                     
                         <div>
                             {board.users && board.users.length > 0 && (
-                                <div className="board-card-user" key={board._id}>
+                                <div className="board-card-user">
                                     <p className="custom-p">Board Users</p>
                                 </div>
                             )}
