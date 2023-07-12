@@ -65,7 +65,7 @@ export default function BoardPage({user}) {
       return (
       <>
           <BoardDetail user={user} board={board} />
-          <StepsPage user={user} board={board} setBoard={setBoard} bigStep={bigStep} setBigStep={setBigStep} bigSteps={bigSteps} setBigSteps={setBigSteps} />
+          <StepsPage user={user} board={board} boardId={board._id} boardAdmins={board.admins} setBoard={setBoard} bigStep={bigStep} setBigStep={setBigStep} bigSteps={bigSteps} setBigSteps={setBigSteps} />
       </>
     )
   }

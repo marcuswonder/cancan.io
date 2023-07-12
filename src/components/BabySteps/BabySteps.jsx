@@ -9,7 +9,7 @@ import * as boardsAPI from '../../utilities/boards-api'
 import { useState, useEffect } from 'react'
 import logo from '../../public/assets/idea.png'
 
-export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }) {
+export default function BabySteps({ user, board, setBoard, bigSteps, setBigSteps, bigStep, setBigStep }) {
     const navigate = useNavigate()
     const { boardName, bigStepName } = useParams()
     const bigStepNameActual = bigStepName ? bigStepName.replace(/-/g, ' ') : ''
@@ -36,7 +36,7 @@ export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }
             }
         }
         getBigStepBabySteps()
-    }, [board, bigStepNameActual, setBigStep, setBabyStepError])
+    }, [board, bigStepNameActual, setBigSteps, setBigStep, setBabyStepError])
 
     const plannedSteps = babySteps.filter(babyStep => babyStep.status === 'Planned').sort((a, b) => {
         const dueDateA = new Date(a.due)
@@ -79,6 +79,7 @@ export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }
         if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {            
             const updatedBoard = await boardsAPI.changeBabyStepStatusToPlanned(board._id, bigStep._id, babyStep._id)
             setBoard(updatedBoard)
+            setBigSteps(updatedBoard.bigSteps)
             
         } else {
             alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
@@ -93,6 +94,7 @@ export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }
         if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {         
             const updatedBoard = await boardsAPI.changeBabyStepStatusToInProgress(board._id, bigStep._id, babyStep._id)
             setBoard(updatedBoard)
+            setBigSteps(updatedBoard.bigSteps)
             
         } else {
             alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
@@ -107,6 +109,7 @@ export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }
         if (authorisedBoardAdmin || authorisedBigStepUser || authorisedBabyStepUser) {
             const updatedBoard = await boardsAPI.changeBabyStepStatusToComplete(board._id, bigStep._id, babyStep._id)
             setBoard(updatedBoard)
+            setBigSteps(updatedBoard.bigSteps)
 
         } else {
             alert("Only the admin of a board or the user responsible for the big step or the baby step can update its status.")
@@ -143,7 +146,7 @@ export default function BabySteps({ user, board, setBoard, bigStep, setBigStep }
                                 <div className="baby-step-header">
                                     <div className="baby-step-header-back">
                                         <Link to={`/boards/${boardName}`}>
-                                            <img className="back-icon" src={backwardIcon} alt='back to your board' title="Back to the board" />
+                                            <img className="back-icon" src={backwardIcon} alt='back to the big step' title="Back to the big step" />
                                         </Link>
                                     </div>
                                     <h1 className="baby-step-header-h1">Baby Steps</h1>
