@@ -283,7 +283,7 @@ export default function BabySteps({ user, board, setBoard, bigSteps, setBigSteps
                                         </div>
                                         <div>
                                             <p className="baby-step-header-h1-no-baby-steps">There aren't any baby steps yet.</p>
-                                            <p className="baby-step-header-h1-no-baby-steps">Add some to your project!</p>
+                                            <p className="baby-step-header-h1-no-baby-steps">Add some to your big step!</p>
                                         </div>
                                     </div>
                                 </div>
