@@ -8,7 +8,7 @@ import editIcon from '../../public/assets/edit.png'
 import addIcon from '../../public/assets/add-white.png'
 
 
-export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, setBigSteps }) {
+export default function BigSteps({ user, board, bigSteps, setBigSteps }) {
     console.log("BigSteps: board", board)
     const { boardName } = useParams()
     const navigate = useNavigate()
@@ -23,11 +23,11 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
     }
 
     async function handleBigStepDeleteClick(bigStep) {
-        const authorisedBoardAdmin = boardAdmins.find(admin => admin._id === user._id)
+        const authorisedBoardAdmin = board.admins.find(admin => admin._id === user._id)
         const authorisedBigStepUser = bigStep.responsible._id === user._id
 
         if (authorisedBoardAdmin || authorisedBigStepUser) {
-            const updatedBigSteps = await boardsAPI.deleteBigStep(boardId, bigStep._id)
+            const updatedBigSteps = await boardsAPI.deleteBigStep(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
             
         } else {
@@ -36,8 +36,8 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
     }
 
     async function handlePlannedStatusChangeClick(bigStep) {
-        const authorisedBoardAdmin = boardAdmins.find(admin => admin._id === user._id)
-        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        const authorisedBoardAdmin = await board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = await bigStep.responsible._id === user._id
 
         if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBigSteps = bigSteps.map(step => {
@@ -47,7 +47,7 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
                 return step
             })
 
-            await boardsAPI.changeBigStepStatusToPlanned(boardId, bigStep._id)
+            await boardsAPI.changeBigStepStatusToPlanned(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
         } else {
@@ -56,8 +56,8 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
     }
 
     async function handleInProgressStatusChangeClick(bigStep) {
-        const authorisedBoardAdmin = boardAdmins.find(admin => admin._id === user._id)
-        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        const authorisedBoardAdmin = await board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = await bigStep.responsible._id === user._id
 
         if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBigSteps = bigSteps.map(step => {
@@ -67,7 +67,7 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
                 return step
             })
 
-            await boardsAPI.changeBigStepStatusToInProgress(boardId, bigStep._id)
+            await boardsAPI.changeBigStepStatusToInProgress(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
         } else {
@@ -76,8 +76,9 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
     }
     
     async function handleCompleteStatusChangeClick(bigStep) {
-        const authorisedBoardAdmin = boardAdmins.find(admin => admin._id === user._id)
-        const authorisedBigStepUser = bigStep.responsible._id === user._id
+        console.log("handleCompleteStatusChangeClick: board", board)
+        const authorisedBoardAdmin = await board.admins.find(admin => admin._id === user._id)
+        const authorisedBigStepUser = await bigStep.responsible._id === user._id
 
         if (authorisedBoardAdmin || authorisedBigStepUser) {
             const updatedBigSteps = bigSteps.map(step => {
@@ -87,7 +88,7 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
                 return step;
             })
 
-            await boardsAPI.changeBigStepStatusToComplete(boardId, bigStep._id)
+            await boardsAPI.changeBigStepStatusToComplete(board._id, bigStep._id)
             setBigSteps(updatedBigSteps)
 
         } else {
@@ -273,7 +274,7 @@ export default function BigSteps({ user, board, boardId, boardAdmins, bigSteps, 
                                 </div>
                             ))}
                         </div>
-                        
+
                         <div className="completed-section">
                             <h1 className="completed-section-header">complete</h1>
                             {completedSteps.map(bigStep => (
